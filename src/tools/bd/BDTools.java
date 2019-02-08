@@ -9,17 +9,17 @@ public class BDTools {
 	}
 	
 	public static String insertConnexion(int id, boolean root) throws SQLException{
-		return null;
+		return "key";
 	}
 	
 	public static int getUserId(String login) throws SQLException {
-		return 0;
+		return 3;
 	}
 	public static boolean checkUserMdp(String login,String mdp) throws SQLException{
-		return false;
+		return true;
 	}
 	
 	public static boolean insertUser(String login, String mdp, String mail, String nom, String prenom) throws SQLException {
-		return false;
+		return true;
 	}
 }
