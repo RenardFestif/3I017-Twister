@@ -22,4 +22,12 @@ public class BDTools {
 	public static boolean insertUser(String login, String mdp, String mail, String nom, String prenom) throws SQLException {
 		return true;
 	}
+
+	public static boolean checkKey(String key) {
+		return false;
+	}
+	
+	public static boolean checkConnexion() {
+		return true;
+	}
 }

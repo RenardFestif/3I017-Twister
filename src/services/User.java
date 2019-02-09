@@ -69,4 +69,22 @@ public class User {
 		return retour;
 	}
 	
+	public static JSONObject logout(String key) throws JSONException{
+		JSONObject retour = new JSONObject();
+		
+		if(key == null) {
+			return ErrorJSON.serviceRefused("Champs manquants", -1);
+		}
+		try {
+			if(!BDTools.checkKey(key)) {
+				return ErrorJSON.serviceRefused("Erreur de déconnexion", 1000); 
+			}
+			ErrorJSON.serviceAccepted();
+		}
+		catch(JSONException e) {
+			return ErrorJSON.serviceRefused("JSON probleme"+e.getMessage(), 100);
+		}
+		return retour;
+	}
+	
 }

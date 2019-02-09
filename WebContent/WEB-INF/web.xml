@@ -15,6 +15,31 @@
 		<servlet-name>LogIn</servlet-name>
 		<servlet-class>LogUser</servlet-class>
 	</servlet>
+	
+	<servlet>
+		<servlet-name>AddMessage</servlet-name>
+		<servlet-class>AddMessage</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>RemoveMessage</servlet-name>
+		<servlet-class>RemoveMessage</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>SearchMessage</servlet-name>
+		<servlet-class>SearchMessage</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>AddRelation</servlet-name>
+		<servlet-class>AddRelation</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>RemoveRelation</servlet-name>
+		<servlet-class>RemoveRelation</servlet-class>
+	</servlet>
 
 
 	<!-- Mapping -->
@@ -27,5 +52,31 @@
 		<servlet-name>LogIn</servlet-name>
 		<url-pattern>/Twister/Acceuil/login </url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>AddMessage</servlet-name>
+		<url-pattern>/Twister/Profil/Ajoutmessage </url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>RemoveMessage</servlet-name>
+		<url-pattern>/Twister/Profil/Removemessage </url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>SearchMessage</servlet-name>
+		<url-pattern>/Twister/Profil/Cherchermessage </url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>AddRelation</servlet-name>
+		<url-pattern>/Twister/Profil/Ajoutrelation </url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>RemoveRelation</servlet-name>
+		<url-pattern>/Twister/Profil/Removerelation </url-pattern>
+	</servlet-mapping>
+	
 	
 </web-app>
