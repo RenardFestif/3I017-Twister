@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import services.ErrorJSON;
-import tools.bd.BDTools;
+import tools.user.UserBDTools;
 
 public class LogOutUser {
 
@@ -16,7 +16,7 @@ public class LogOutUser {
 			return ErrorJSON.serviceRefused("Champs manquants", -1);
 		}
 		try {
-			if(!BDTools.checkKey(key)) {
+			if(!UserBDTools.checkKey(key)) {
 				return ErrorJSON.serviceRefused("Erreur de deconnexion", 1000); 
 			}
 			ErrorJSON.serviceAccepted();

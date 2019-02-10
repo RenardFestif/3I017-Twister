@@ -1,8 +1,8 @@
-package tools.bd;
+package tools.user;
 
 import java.sql.SQLException;
-//A faire semaine 3
-public class BDTools {
+
+public class UserBDTools {
 
 	public static boolean checkUserExist(String login) throws SQLException {
 		return true;

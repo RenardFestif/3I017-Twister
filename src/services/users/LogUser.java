@@ -6,7 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import services.ErrorJSON;
-import tools.bd.BDTools;
+import tools.user.UserBDTools;
 
 public class LogUser {
 
@@ -17,12 +17,12 @@ public class LogUser {
 			return ErrorJSON.serviceRefused("Champs manquants", -1);
 		}
 		try {
-			if(!BDTools.checkUserExist(login))
+			if(!UserBDTools.checkUserExist(login))
 				return ErrorJSON.serviceRefused("Utilisateur inconnu", 1000);
-			if(!BDTools.checkUserMdp(login,mdp))
+			if(!UserBDTools.checkUserMdp(login,mdp))
 				return ErrorJSON.serviceRefused("Mot de passe oublie ?", 1000);
-			int id_user = BDTools.getUserId(login);
-			String key = BDTools.insertConnexion(id_user, false);
+			int id_user = UserBDTools.getUserId(login);
+			String key = UserBDTools.insertConnexion(id_user, false);
 			retour = ErrorJSON.serviceAccepted();
 			retour.put("key", key);
 		}
