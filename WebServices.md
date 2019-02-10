@@ -38,7 +38,7 @@
         </tr>
         <tr>
             <td>Avancement</td>
-            <td align="center"></td>
+            <td align="center">Tests Concluant côté Java. Reste à implementer le côté BD relationnel </td>
         </tr>
         <tr>
             <td>Classes Java</td>
@@ -87,7 +87,7 @@
         </tr>
         <tr>
             <td>Avancement</td>
-            <td align="center"></td>
+            <td align="center">Tests Concluant côté Java. Reste à implementer le côté BD relationnel</td>
         </tr>
         <tr>
             <td>Classes Java</td>
@@ -136,7 +136,7 @@
         </tr>
         <tr>
             <td>Avancement</td>
-            <td align="center"></td>
+            <td align="center">Tests Concluant côté Java. Reste à implementer le côté BD relationnel</td>
         </tr>
         <tr>
             <td>Classes Java</td>
