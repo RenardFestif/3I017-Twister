@@ -5,7 +5,7 @@ import java.sql.SQLException;
 public class BDTools {
 
 	public static boolean checkUserExist(String login) throws SQLException {
-		return false;
+		return true;
 	}
 	
 	public static String insertConnexion(int id, boolean root) throws SQLException{

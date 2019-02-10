@@ -20,10 +20,10 @@ public class LogUser {
 			if(!BDTools.checkUserExist(login))
 				return ErrorJSON.serviceRefused("Utilisateur inconnu", 1000);
 			if(!BDTools.checkUserMdp(login,mdp))
-				return ErrorJSON.serviceRefused("Mot de passe oublié ?", 1000);
+				return ErrorJSON.serviceRefused("Mot de passe oublie ?", 1000);
 			int id_user = BDTools.getUserId(login);
 			String key = BDTools.insertConnexion(id_user, false);
-			ErrorJSON.serviceAccepted();
+			retour = ErrorJSON.serviceAccepted();
 			retour.put("key", key);
 		}
 		catch (JSONException e){
