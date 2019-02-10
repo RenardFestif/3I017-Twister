@@ -1,8 +1,9 @@
-package services;
+package services.message;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import services.ErrorJSON;
 import tools.bd.BDTools;
 
 public class Message {

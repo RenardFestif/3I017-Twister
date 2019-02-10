@@ -1,9 +1,9 @@
-package test;
+package test.users;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import services.User;
+import services.users.CreateUser;
 
 public class CreatUserTest {
 
@@ -13,11 +13,8 @@ public class CreatUserTest {
 		JSONObject newuserser = new JSONObject();
 		JSONObject loin = new JSONObject();
 		try {
-			newuserser= User.createUser("Moustt", "admin", "oust45Cheaojkfejiad54","Eustache", "chocolat");
+			newuserser= CreateUser.createUser("Moustt", "admin", "oust45Cheaojkfejiad54","Eustache", "chocolat");
 			System.out.println(newuserser.toString());
-			
-			loin = User.login("Moustt", "admin");
-			System.out.println(loin.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

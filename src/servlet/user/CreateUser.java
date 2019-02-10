@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,27 +11,28 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import services.User;
 
-public class LogUser extends HttpServlet {
-
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
-
+public class CreateUser extends HttpServlet {
+	
+	protected void doGet(HttpServletRequest req, HttpServletResponse rep) throws IOException, ServletException {
+		
 		String login = req.getParameter("login");
 		String mdp = req.getParameter("password");
-
+		String mail = req.getParameter("mail");
+		String nom = req.getParameter("nom");
+		String prenom = req.getParameter("prenom");
+		
 		try {
-			JSONObject retour = User.login(login, mdp);
+			//appel du service
+			JSONObject retour = services.users.CreateUser.createUser(login, mdp, mail, nom, prenom);
+			
 			rep.setContentType("text/plain");
 			PrintWriter out = rep.getWriter();
 			out.println(retour.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-
+		
 	}
 
 }
-
-

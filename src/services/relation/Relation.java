@@ -1,10 +1,11 @@
-package services;
+package services.relation;
 
 import java.sql.SQLException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import services.ErrorJSON;
 import tools.bd.BDTools;
 
 public class Relation {
