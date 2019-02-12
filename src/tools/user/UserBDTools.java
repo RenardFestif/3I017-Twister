@@ -15,6 +15,7 @@ public class UserBDTools {
 	public static int getUserId(String login) throws SQLException {
 		return 3;
 	}
+	
 	public static boolean checkUserMdp(String login,String mdp) throws SQLException{
 		return true;
 	}
@@ -23,11 +24,11 @@ public class UserBDTools {
 		return true;
 	}
 
-	public static boolean checkKey(String key) {
+	public static boolean checkKey(String key) throws SQLException {
 		return false;
 	}
 	
-	public static boolean checkConnexion() {
+	public static boolean checkConnexion() throws SQLException {
 		return true;
 	}
 }
