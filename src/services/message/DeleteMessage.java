@@ -12,16 +12,17 @@ import tools.user.UserTools;
 
 public class DeleteMessage {
 	
-	public static JSONObject removeMessage(int iDMessage, String userKey) throws JSONException{
+	public static JSONObject removeMessage(int iDMessage, int userID) throws JSONException{
 		JSONObject retour = new JSONObject();
 		
 		//Faut bien faire commencer l'entrée id de la table message a 1 sous peine de generer des erreurs
-		if(iDMessage == 0 || userKey == null) 
+		if(iDMessage == 0 || userID == 0) 
 			return ErrorJSON.serviceRefused("Champs manquants", -1);
-		if(!UserBDTools.checkKey(userKey))
-			return ErrorJSON.serviceRefused("Erreur correspondance cle utilisateur", 1000);
-		
+	
 		try {
+			if(!UserBDTools.checkConnexion(userID))
+				return ErrorJSON.serviceRefused("Utilisateur non connecte", 1000);
+			
 			if(!MessageBDTools.removeMessage(iDMessage))
 				return ErrorJSON.serviceRefused("Insertion Impossible", 1000);
 			

@@ -28,7 +28,7 @@ public class UserBDTools {
 		return false;
 	}
 	
-	public static boolean checkConnexion() throws SQLException {
+	public static boolean checkConnexion(int userID) throws SQLException {
 		return true;
 	}
 }

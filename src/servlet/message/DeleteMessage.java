@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SearchMessage extends HttpServlet{
+
+public class DeleteMessage extends HttpServlet {
+
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
@@ -23,7 +25,7 @@ public class SearchMessage extends HttpServlet{
 
 		try {
 			//appel service login
-			JSONObject retour = services.message.SearchMessage.searchMessage(iDMess, id);
+			JSONObject retour = services.message.DeleteMessage.removeMessage(iDMess, id);
 
 			rep.setContentType("text/plain");
 			PrintWriter out = rep.getWriter();
@@ -34,7 +36,5 @@ public class SearchMessage extends HttpServlet{
 
 
 	}
-
 }
-
 

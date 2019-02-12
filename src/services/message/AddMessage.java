@@ -12,16 +12,17 @@ import tools.user.UserBDTools;
 
 public class AddMessage {
 	
-	public static JSONObject addMessage(String message, String userKey) throws JSONException {
+	public static JSONObject addMessage(String message, String login) throws JSONException {
 		JSONObject retour = new JSONObject();
-		if(message == null || userKey == null) 
+		if(message == null || login == null) 
 			return ErrorJSON.serviceRefused("Champs manquants", -1);
-		if(!UserBDTools.checkKey(userKey))
-			return ErrorJSON.serviceRefused("Erreur correspondance cle utilisateur", 100);
+
 		if(!MessageTools.checkMesslength(message))
 			return ErrorJSON.serviceRefused("Message trop long (<140 caracteres)", -1);
 		
 		try {
+			if(!UserBDTools.checkConnexion(UserBDTools.getUserId(login)))
+				return ErrorJSON.serviceRefused("Erreur correspondance cle utilisateur", 100);
 			//Insertion
 			if(!MessageBDTools.insertMessage(message))
 				return ErrorJSON.serviceRefused("Insertion Impossible", 1000);

@@ -17,11 +17,11 @@ public class MessageBDTools {
 		return true;
 	}
 	
-	public static JSONObject getMessages(String userKey) throws SQLException {
+	public static JSONObject getMessages(int userID) throws SQLException {
 		return new JSONObject();
 	}
 	
-	public static JSONObject getMessage(String idMessage) throws SQLException{
+	public static JSONObject getMessage(int idMessage) throws SQLException{
 		return new JSONObject();
 	}
 

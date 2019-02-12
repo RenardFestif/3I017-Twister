@@ -11,16 +11,14 @@ import tools.user.UserBDTools;
 
 public class AddFriend {
 
-	public static JSONObject addFriend(String pseudo, String userKey, String login) throws JSONException, SQLException {
+	public static JSONObject addFriend(String pseudo, String login) throws JSONException, SQLException {
 		JSONObject retour = new JSONObject();
 		
-		if(pseudo==null||userKey == null) {
+		if(pseudo==null) {
 			return ErrorJSON.serviceRefused("Champs manquants", -1);
 		}
 		
 		try {
-			if(!UserBDTools.checkKey(userKey))
-				return ErrorJSON.serviceRefused("Echec authentification clé utilisateur", 1000);
 			if(!UserBDTools.checkUserExist(pseudo))
 				return ErrorJSON.serviceRefused("Utilisateur inconnu", 1000);
 			//Check Connection ?

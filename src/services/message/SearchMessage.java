@@ -10,17 +10,14 @@ import tools.message.MessageBDTools;
 import tools.user.UserBDTools;
 
 public class SearchMessage {
-	public static JSONObject searchMessage(String idMessage, String userKey) throws JSONException {
+	public static JSONObject searchMessage(int idMessage, int userKey) throws JSONException {
 		JSONObject retour = new JSONObject();
-		if(idMessage == null || userKey == null ) {
+		if(idMessage == 0|| userKey == 0 ) {
 			return ErrorJSON.serviceRefused("Champs manquants", -1);
 		}
 		try {
-			if(!UserBDTools.checkConnexion()) 
+			if(!UserBDTools.checkConnexion(userKey)) 
 				return ErrorJSON.serviceRefused("Erreur de connexion", 1000);
-
-			if(!UserBDTools.checkKey(userKey)) 
-				return ErrorJSON.serviceRefused("Erreur d'Authentification", 1000);
 			
 			retour = MessageBDTools.getMessage(idMessage);
 			if(retour == null) 

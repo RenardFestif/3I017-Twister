@@ -6,26 +6,30 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import services.ErrorJSON;
+import tools.relation.RelationBDTools;
 import tools.user.UserBDTools;
 
 public class DeleteFriend {
 	
-	public static JSONObject removeFriend(String pseudo, String userKey) throws JSONException, SQLException {
+	public static JSONObject removeFriend(String pseudo, String login) throws JSONException, SQLException {
 		JSONObject retour = new JSONObject();
 		
-		if(pseudo==null) {
+		if(pseudo==null || login == null) {
 			return ErrorJSON.serviceRefused("Champs manquants", -1);
 		}
 		
 		try {
-			if(!UserBDTools.checkKey(userKey))
-				return ErrorJSON.serviceRefused("Echec authentification clé utilisateur", 1000);
 			if(!UserBDTools.checkUserExist(pseudo))
 				return ErrorJSON.serviceRefused("Utilisateur inconnu", 1000);
+			if(!UserBDTools.checkConnexion(UserBDTools.getUserId(login)))
+				return ErrorJSON.serviceRefused("Utilisateur non-connecté", 1000);
 			
 			//Manque BD
+			int relationID = UserBDTools.getUserId(pseudo);
+			if(!RelationBDTools.remooveRelation(relationID))
+				return ErrorJSON.serviceRefused("Suppression de la relation impossible", 1000);
 			
-			ErrorJSON.serviceAccepted();
+			retour = ErrorJSON.serviceAccepted();
 		}
 		catch(JSONException e) {
 			return ErrorJSON.serviceRefused("JSON probleme"+e.getMessage(), 100);

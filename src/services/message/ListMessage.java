@@ -11,18 +11,19 @@ import tools.user.UserBDTools;
 
 public class ListMessage {
 	
-	public static JSONObject getMessages(String userKey) throws JSONException{
+	public static JSONObject getMessages(int userID) throws JSONException{
 		JSONObject retour = new JSONObject();
 		
 		//Faut bien faire commencer l'entrée id de la table message a 1 sous peine de generer des erreurs
-		if(userKey == null) 
+		if(userID == 0) 
 			return ErrorJSON.serviceRefused("Champs manquants", -1);
-		if(!UserBDTools.checkKey(userKey))
-			return ErrorJSON.serviceRefused("Erreur correspondance cle utilisateur", 1000);
+
 		
 		try {
+			if(!UserBDTools.checkConnexion(userID))
+				return ErrorJSON.serviceRefused("Erreur correspondance cle utilisateur", 1000);
 			//Tool
-			retour = MessageBDTools.getMessages(userKey);
+			retour = MessageBDTools.getMessages(userID);
 			if(retour == null)
 				return ErrorJSON.serviceRefused("Reccuppertation Impossible", 1000);
 			
