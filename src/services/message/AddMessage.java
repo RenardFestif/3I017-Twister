@@ -1,11 +1,13 @@
 package services.message;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import services.ErrorJSON;
+import tools.bd.Database;
 import tools.message.MessageBDTools;
 import tools.message.MessageTools;
 import tools.user.UserBDTools;
@@ -21,10 +23,13 @@ public class AddMessage {
 			return ErrorJSON.serviceRefused("Message trop long (<140 caracteres)", -1);
 		
 		try {
-			if(!UserBDTools.checkConnexion(UserBDTools.getUserId(login)))
+			
+			Connection conn = Database.getMySQLConnection();
+			
+			if(!UserBDTools.checkConnexion(UserBDTools.getUserId(login), conn))
 				return ErrorJSON.serviceRefused("Erreur correspondance cle utilisateur", 100);
 			//Insertion
-			if(!MessageBDTools.insertMessage(message))
+			if(!MessageBDTools.insertMessage(message, login, conn))
 				return ErrorJSON.serviceRefused("Insertion Impossible", 1000);
 			
 			retour = ErrorJSON.serviceAccepted();

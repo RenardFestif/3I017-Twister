@@ -1,11 +1,13 @@
 package services.users;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import services.ErrorJSON;
+import tools.bd.Database;
 import tools.user.UserBDTools;
 import tools.user.UserTools;
 
@@ -18,7 +20,10 @@ public class CreateUser {
 			return ErrorJSON.serviceRefused("Champs manquants", -1);
 		}
 		try {
-			if(UserBDTools.checkUserExist(login))
+			//
+			Connection conn = Database.getMySQLConnection();
+			
+			if(UserBDTools.checkUserExist(login, conn))
 				return ErrorJSON.serviceRefused("Utilisateur "+login+" existe deja", 1000);
 			
 			if(!UserTools.checkFormatMdp(mdp))
@@ -27,7 +32,7 @@ public class CreateUser {
 			if(!UserTools.checkFormatMail(mail))
 				return ErrorJSON.serviceRefused("Mauvais format de mail", -1);
 			
-			if(!UserBDTools.insertUser(login, mdp, mail, nom, prenom))
+			if(!UserBDTools.insertUser(login, mdp, mail, nom, prenom, conn	))
 				return ErrorJSON.serviceRefused("Impossible d'inserer dans la BD", 1000);
 			
 			retour = ErrorJSON.serviceAccepted();
