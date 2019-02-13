@@ -1,5 +1,7 @@
 package services.users;
 
+import java.sql.SQLException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,7 +11,7 @@ import tools.user.UserBDTools;
 public class LogOutUser {
 
 	
-	public static JSONObject logout(String key) throws JSONException{
+	public static JSONObject logout(String key) throws JSONException, SQLException{
 		JSONObject retour = new JSONObject();
 		
 		if(key == null) {
