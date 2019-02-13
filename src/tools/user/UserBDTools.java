@@ -1,11 +1,24 @@
 package tools.user;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
+
 
 public class UserBDTools {
 
 	public static boolean checkUserExist(String login) throws SQLException {
-		return true;
+		Connection conn = Database.getMySQLConnxexion();
+		String query = "SELECT * FROM users WHERE user_login="+login+"";
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(query);
+		boolean userExist = false;
+		while(rs.next()) {
+			userExist = true;
+		}
+		return userExist;
 	}
 	
 	public static String insertConnexion(int id, boolean root) throws SQLException{
