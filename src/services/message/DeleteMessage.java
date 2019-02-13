@@ -28,7 +28,7 @@ public class DeleteMessage {
 			if(!UserBDTools.checkConnexion(userID, conn))
 				return ErrorJSON.serviceRefused("Utilisateur non connecte", 1000);
 			
-			if(!MessageBDTools.removeMessage(iDMessage))
+			if(!MessageBDTools.removeMessage(iDMessage, conn))
 				return ErrorJSON.serviceRefused("Insertion Impossible", 1000);
 			
 			retour = ErrorJSON.serviceAccepted();

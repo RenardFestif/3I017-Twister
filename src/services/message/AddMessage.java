@@ -26,7 +26,7 @@ public class AddMessage {
 			
 			Connection conn = Database.getMySQLConnection();
 			
-			if(!UserBDTools.checkConnexion(UserBDTools.getUserId(login), conn))
+			if(!UserBDTools.checkConnexion(UserBDTools.getUserId(login, conn), conn))
 				return ErrorJSON.serviceRefused("Erreur correspondance cle utilisateur", 100);
 			//Insertion
 			if(!MessageBDTools.insertMessage(message, login, conn))

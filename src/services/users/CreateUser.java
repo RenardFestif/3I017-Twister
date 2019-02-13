@@ -20,7 +20,7 @@ public class CreateUser {
 			return ErrorJSON.serviceRefused("Champs manquants", -1);
 		}
 		try {
-			//
+			
 			Connection conn = Database.getMySQLConnection();
 			
 			if(UserBDTools.checkUserExist(login, conn))

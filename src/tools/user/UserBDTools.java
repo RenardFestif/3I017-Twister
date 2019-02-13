@@ -25,17 +25,50 @@ public class UserBDTools {
 		return keyExist;
 	}
 	
-	public static String insertConnexion(int id, boolean root) throws SQLException{
-		return "key";
+	public static String insertConnexion(int id, boolean root, Connection conn) throws SQLException{
+		String key = null;
+		//Initialisé key en string avec des caractères aléatoires 
+		String query = "INSERT INTO sessions VALUES("+key+","+id+", "+root+",NOW())";
+		Statement st = conn.createStatement();
+		int rs = st.executeUpdate(query);
+		if (rs != 0) {
+			st.close();
+			return key;
+		}
+			
+		return null;
+		
 	}
 	
-	public static int getUserId(String login) throws SQLException {
-		return 3;
+	public static int getUserId(String login, Connection conn) throws SQLException {
+		
+		int id = 0 ;
+		String query = "SELECT user_id FROM users WHERE login="+login+"";
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(query);
+		
+		while(rs.next()) {
+			id = rs.getInt("id");
+		}
+		rs.close();
+		st.close();
+		return id;
 	}
 	
-	public static boolean checkUserMdp(String login,String mdp) throws SQLException{
-		return true;
+	public static boolean checkUserMdp(String login,String mdp, Connection conn) throws SQLException{
+		
+		String query = "SELECT * FROM users WHERE login="+login+", mdp="+mdp+"";
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(query);
+		boolean mdpCorrecte = false;
+		while(rs.next()) {
+			mdpCorrecte = true;
+		}
+		rs.close();
+		st.close();
+		return mdpCorrecte;
 	}
+	
 	
 	public static boolean insertUser(String login, String mdp, String mail, String nom, String prenom, Connection conn) throws SQLException {
 		

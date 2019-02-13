@@ -1,11 +1,13 @@
 package services.users;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import services.ErrorJSON;
+import tools.bd.Database;
 import tools.user.UserBDTools;
 
 public class LogOutUser {
@@ -18,7 +20,9 @@ public class LogOutUser {
 			return ErrorJSON.serviceRefused("Champs manquants", -1);
 		}
 		try {
-			if(!UserBDTools.checkKey(key)) {
+			Connection conn = Database.getMySQLConnection();
+			
+			if(!UserBDTools.checkKey(key, conn)) {
 				return ErrorJSON.serviceRefused("Erreur de deconnexion", 1000); 
 			}
 			ErrorJSON.serviceAccepted();
