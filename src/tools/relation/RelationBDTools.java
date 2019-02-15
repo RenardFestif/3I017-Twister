@@ -47,7 +47,7 @@ public class RelationBDTools {
 		
 		JSONObject retour = new JSONObject();
 		
-		String query = "SELECT user_id2 FROM messages WHERE user_id="+userID+"";
+		String query = "SELECT user_id2 FROM follow WHERE user_id="+userID+"";
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(query);
 		
@@ -58,6 +58,22 @@ public class RelationBDTools {
 		rs.close();
 		st.close();
 		return retour;
+	}
+
+	public static boolean checkFriend(int loginID, int relationID, Connection conn) throws SQLException{
+		
+		
+		String query = "SELECT * FROM sessions WHERE user_id1="+loginID+" AND user_id2="+relationID+"";
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(query);
+		boolean friended = false;
+		while(rs.next()) {
+			friended = true;
+		}
+		rs.close();
+		st.close();
+		return friended;
+		
 	}
 	
 	

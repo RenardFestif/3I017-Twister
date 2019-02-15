@@ -114,4 +114,20 @@ public class UserBDTools {
 		st.close();
 		return userConnected;
 	}
+
+	public static int getUserIdfromKey(String userKey, Connection conn) throws SQLException{
+		
+		
+		String query = "SELECT user_id FROM sessions WHERE user_key="+userKey+"";
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(query);
+		int id= -1;
+		while(rs.next()) {
+			id = rs.getInt("user_id");
+		}
+		rs.close();
+		st.close();
+		return id;
+	
+	}
 }
