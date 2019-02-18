@@ -1,6 +1,7 @@
 EX2
 
 Q4 
+	mysql -h localhost -u root -p
 	
 	CREATE DATABASE thoirey_saadi;
 
