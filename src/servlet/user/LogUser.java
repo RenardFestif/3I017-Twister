@@ -24,7 +24,7 @@ public class LogUser extends HttpServlet {
 
 		try {
 			//appel service login
-			JSONObject retour = services.users.LogUser.login(login, mdp);
+			JSONObject retour = services.User.login(login, mdp);
 			
 			rep.setContentType("text/plain");
 			PrintWriter out = rep.getWriter();

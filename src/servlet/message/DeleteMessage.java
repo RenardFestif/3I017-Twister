@@ -2,6 +2,7 @@ package servlet.message;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,12 +26,14 @@ public class DeleteMessage extends HttpServlet {
 
 		try {
 			//appel service login
-			JSONObject retour = services.message.DeleteMessage.removeMessage(iDMess, id);
+			JSONObject retour = services.Message.removeMessage(iDMess, userID); //on a pas userKey or c'est le deuxieme paramètre de removeMessage
 
 			rep.setContentType("text/plain");
 			PrintWriter out = rep.getWriter();
 			out.println(retour.toString());
 		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 

@@ -24,7 +24,7 @@ public class CreateUser extends HttpServlet {
 		
 		try {
 			//appel du service
-			JSONObject retour = services.users.CreateUser.createUser(login, mdp, mail, nom, prenom);
+			JSONObject retour = services.User.createUser(login, mdp, mail, nom, prenom);
 			
 			rep.setContentType("text/plain");
 			PrintWriter out = rep.getWriter();

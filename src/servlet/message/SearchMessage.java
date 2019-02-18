@@ -23,7 +23,7 @@ public class SearchMessage extends HttpServlet{
 
 		try {
 			//appel service login
-			JSONObject retour = services.message.SearchMessage.searchMessage(iDMess, id);
+			JSONObject retour = services.Message.searchMessage(iDMess, userID); //pareil que pour remove message
 
 			rep.setContentType("text/plain");
 			PrintWriter out = rep.getWriter();

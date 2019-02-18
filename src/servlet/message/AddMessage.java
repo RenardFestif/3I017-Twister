@@ -2,6 +2,7 @@ package servlet.message;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,12 +23,14 @@ public class AddMessage extends HttpServlet{
 
 		try {
 			//appel service login
-			JSONObject retour = services.message.AddMessage.addMessage(message, login);
+			JSONObject retour = services.Message.addMessage(message, login);
 			
 			rep.setContentType("text/plain");
 			PrintWriter out = rep.getWriter();
 			out.println(retour.toString());
 		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 

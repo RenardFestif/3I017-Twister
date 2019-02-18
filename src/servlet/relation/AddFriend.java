@@ -23,7 +23,7 @@ public class AddFriend extends HttpServlet {
 
 		try {
 			//appel service login
-			JSONObject retour = services.relation.AddFriend.addFriend(pseudo, login);
+			JSONObject retour = services.Friend.addFriend(pseudo, login);
 
 			rep.setContentType("text/plain");
 			PrintWriter out = rep.getWriter();

@@ -23,7 +23,7 @@ public class DeleteFriend extends HttpServlet {
 
 		try {
 			//appel service login
-			JSONObject retour = services.relation.DeleteFriend.removeFriend(pseudo, login);
+			JSONObject retour = services.Friend.removeFriend(pseudo, login);
 
 			rep.setContentType("text/plain");
 			PrintWriter out = rep.getWriter();

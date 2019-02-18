@@ -1,14 +1,19 @@
 EX2
 
 Q4 
+	
+	CREATE DATABASE thoirey_saadi;
+
+	USE thoirey_saadi;
+
 	CREATE TABLE user(user_id INTEGER PRIMARY KEY AUTO_INCREMENT, user_login VARCHAR(32) UNIQUE NOT NULL,
 		user_password BLOB NOT NULL, ...)
 	
 	CREATE TABLE session(session_key VARCHAR(64) PRIMARY KEY, user_id INTEGER, session_root BOOLEAN NOT NULL, 
 		session_start TIMESTAMP NOT NULL, CONSTRAINT user_exist FOREIGN KEY(user_id) REFERENCES user(user_id));
 	
-	CREATE TABLE follow(id_user1 INTEGER, id_user2 INTEGER, follow_date TIMESTAMP NOT NULL, PRIMARY KEY(id_user1, id_user2)
-	, CONSTRAINT user1_exist FOREIGN KEY(id_user1) REFERENCES user(id_user1)...pareil pour user2);
+	CREATE TABLE follow(user_id1 INTEGER, user_id2 INTEGER, follow_date TIMESTAMP NOT NULL, PRIMARY KEY(user_id1, user_id2)
+	, FOREIGN KEY(user_id1) REFERENCES user(user_id1),  FOREIGN KEY(user_id2) REFERENCES user(user_id2));
 
 Q5
 	INSERT INTO user VALUES(null, "toto", PASSWORD("mon_mot_de_passe")
