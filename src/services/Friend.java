@@ -1,6 +1,5 @@
 package services;
 
-import java.io.Closeable;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -16,7 +15,7 @@ public class Friend{
 	
 	
 
-	public static JSONObject addFriend(String pseudo, String userKey) throws JSONException, SQLException {
+	public static JSONObject addFriend(String pseudo, String userKey) throws JSONException {
 		JSONObject retour = new JSONObject();
 		
 		//Test des champs
@@ -29,12 +28,22 @@ public class Friend{
 			//Verif existance du futur ami
 			if(!UserBDTools.checkUserExist(pseudo, conn)) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Utilisateur inconnu", 1000);
+				return ErrorJSON.serviceRefused("Utilisateur "+pseudo+" inconnu", 1000);
 			}
 			//Verif de la clée
 			if (!UserBDTools.checkConnexion(userKey, conn)) {
 				conn.close();
 				return ErrorJSON.serviceRefused("Erreur clé", 1000);
+			}
+			//Verif que l'ami n'est pas le demandeur
+			if (RelationBDTools.keyPseudoEquals(userKey, pseudo, conn)) {
+				conn.close();
+				return ErrorJSON.serviceRefused("On ne peut pas etre son propre ami ;) ", 1000);
+			}
+			//Deja ami ?
+			if (RelationBDTools.checkFriend(UserBDTools.getUserIdfromKey(userKey, conn), UserBDTools.getUserId(pseudo, conn), conn)) {
+				conn.close();
+				return ErrorJSON.serviceRefused(pseudo+" deja suivis", 1000);
 			}
 			
 			//Recup id de l'ami et Recup id du demandeur
@@ -51,12 +60,8 @@ public class Friend{
 			retour = ErrorJSON.serviceAccepted();
 			conn.close();
 		}
-		
-		catch(JSONException e) {
-			return ErrorJSON.serviceRefused("JSON probleme"+e.getMessage(), 100);
-		}
 		catch (SQLException e) {
-			return ErrorJSON.serviceRefused("SQL probleme"+e.getMessage(), 1000);
+			return ErrorJSON.serviceRefused("SQL probleme // "+e.getMessage(), 1000);
 		}
 		
 		return retour;
@@ -64,7 +69,7 @@ public class Friend{
 	
 	
 	
-	public static JSONObject removeFriend(String pseudo, String userKey) throws JSONException, SQLException {
+	public static JSONObject removeFriend(String pseudo, String userKey) throws JSONException {
 		JSONObject retour = new JSONObject();
 
 		//Test des champs
@@ -81,9 +86,9 @@ public class Friend{
 				conn.close();
 				return ErrorJSON.serviceRefused("Utilisateur inconnu", 1000);
 			}
-			if(!UserBDTools.checkConnexion(UserBDTools.getUserId(userKey, conn), conn)) {
+			if(!UserBDTools.checkConnexion(userKey, conn)) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Utilisateur non-connectï¿½", 1000);
+				return ErrorJSON.serviceRefused("Utilisateur non-connecte", 1000);
 			}
 
 			//Recup id de l'ami et de l'utilisateur
@@ -93,7 +98,7 @@ public class Friend{
 			//Test si ami
 			if(!RelationBDTools.checkFriend(loginID, relationID, conn)) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Suppression de la relation impossible", 1000);
+				return ErrorJSON.serviceRefused("Vous ne suivez deja pas "+pseudo, 1000);
 			}
 			
 			//Suppression de la relation
@@ -106,18 +111,16 @@ public class Friend{
 			retour = ErrorJSON.serviceAccepted();
 			conn.close();
 		}
-		catch(JSONException e) {
-			return ErrorJSON.serviceRefused("JSON probleme"+e.getMessage(), 100);
-		}
+
 		catch (SQLException e) {
-			return ErrorJSON.serviceRefused("SQL probleme"+e.getMessage(), 1000);
+			return ErrorJSON.serviceRefused("SQL probleme // "+e.getMessage(), 1000);
 		}
 
 		return retour;
 	}
 	
 	
-	public static JSONObject getListFriends(String userKey) throws JSONException, SQLException {
+	public static JSONObject getListFriends(String userKey) throws JSONException {
 		JSONObject retour = new JSONObject();
 		
 		//Verif des parametres
@@ -143,16 +146,16 @@ public class Friend{
 				conn.close();
 				return ErrorJSON.serviceRefused("Echec de creation de la liste d'ami", 1000);
 			}
+			if (retour.length() == 0 )
+				retour.put("Resultat", "Vous n'avez pas d'amis pour l'instant");
 				
 			//Great Succes
 			retour.put("status", "OK");
 			conn.close();
 		}
-		catch(JSONException e) {
-			return ErrorJSON.serviceRefused("JSON probleme"+e.getMessage(), 100);
-		}
+
 		catch (SQLException e) {
-			return ErrorJSON.serviceRefused("SQL probleme"+e.getMessage(), 1000);
+			return ErrorJSON.serviceRefused("SQL probleme // "+e.getMessage(), 1000);
 		}
 
 		

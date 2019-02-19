@@ -25,6 +25,17 @@ public class UserTools {
 		return true;
 	}
 	
+	public static String generateKey(int length)
+	{
+		    String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"; 
+		    StringBuilder pass = new StringBuilder(length);
+		    for(int x=0;x<length;x++)
+		    {
+		       int i = (int)Math.floor(Math.random() * 62); // Si tu supprimes des lettres tu diminues ce nb
+		       pass.append(chars.charAt(i));
+		    }
+		    return pass.toString();
+	}
 
 
 }

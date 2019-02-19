@@ -35,8 +35,6 @@ public class AddFriend extends HttpServlet {
 			/*Service refused ?*/
 			
 			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 
 

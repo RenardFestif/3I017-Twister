@@ -35,8 +35,6 @@ public class ListFriend extends HttpServlet {
 			/*Service refused ?*/
 			
 			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 
 

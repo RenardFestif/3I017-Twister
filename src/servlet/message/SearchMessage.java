@@ -16,14 +16,13 @@ public class SearchMessage extends HttpServlet{
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
 
-		String iDMessage = req.getParameter("idMessage");
-		String userID = req.getParameter("userKey");
-		int iDMess = Integer.parseInt(iDMessage);
-		int id = Integer.parseInt(userID);
+		String pattern = req.getParameter("pattern");
+		String userKey = req.getParameter("userKey");
+	
 
 		try {
 			//appel service login
-			JSONObject retour = services.Message.searchMessage(iDMess, userID); //pareil que pour remove message
+			JSONObject retour = services.Message.searchMessage(pattern, userKey); //pareil que pour remove message
 
 			rep.setContentType("text/plain");
 			PrintWriter out = rep.getWriter();

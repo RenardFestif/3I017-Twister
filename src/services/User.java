@@ -15,6 +15,7 @@ public class User {
 	
 	public static JSONObject createUser(String login, String mdp, String mail, String nom, String prenom) throws JSONException {
 		JSONObject retour = new JSONObject();
+
 		//Verif des parametres
 		if(login==null || mdp==null || mail==null || prenom==null || nom == null) {
 			return ErrorJSON.serviceRefused("Champs manquants", -1);
@@ -24,6 +25,7 @@ public class User {
 			//Verif si l'utilisateur est deja dans la base
 			if(UserBDTools.checkUserExist(login, conn)) {
 				conn.close();
+				
 				return ErrorJSON.serviceRefused("Utilisateur "+login+" existe deja", 1000);
 			}
 				
@@ -38,7 +40,8 @@ public class User {
 				return ErrorJSON.serviceRefused("Mauvais format de mail", -1);
 			}
 			//Insertion dans la BD
-			if(!UserBDTools.insertUser(login, mdp, mail, nom, prenom, conn	)) {
+			
+			if(!UserBDTools.insertUser(login, mdp, mail, nom, prenom, conn)) {
 				conn.close();
 				return ErrorJSON.serviceRefused("Impossible d'inserer dans la BD", 1000);
 			}
@@ -47,18 +50,17 @@ public class User {
 			retour = ErrorJSON.serviceAccepted();
 			conn.close();
 			}
-		catch (JSONException e){
-			return ErrorJSON.serviceRefused("JSON probleme"+e.getMessage(), 100);
-		}
 		catch (SQLException e) {
-			return ErrorJSON.serviceRefused("SQL probleme", 1000);
+			return ErrorJSON.serviceRefused("Erreur Connection BD // "+e.getMessage(), 1000);
 		}
 		
 		return retour;
 	}
 	
 	
-	public static JSONObject logout(String key) throws JSONException, SQLException{
+	
+	
+	public static JSONObject logout(String key) throws JSONException{
 		JSONObject retour = new JSONObject();
 		
 		//Verif des parametres
@@ -71,17 +73,21 @@ public class User {
 			//Verif de la cle
 			if(!UserBDTools.checkConnexion(key, conn)) {
 				conn.close();
+				return ErrorJSON.serviceRefused("key not matching", 1000); 
+			}
+			
+			//Suprresion de l'entree dans la BD
+			if(!UserBDTools.deleteConnexion(key, conn)) {
+				conn.close();
 				return ErrorJSON.serviceRefused("Erreur de deconnexion", 1000); 
 			}
+			
 			//Great Succes !
 			retour = ErrorJSON.serviceAccepted();
 			conn.close();
 		}
-		catch(JSONException e) {
-			return ErrorJSON.serviceRefused("JSON probleme"+e.getMessage(), 100);
-		}
 		catch (SQLException e) {
-			return ErrorJSON.serviceRefused("SQL probleme", 1000);
+			return ErrorJSON.serviceRefused("Erreur Connection BD // "+e.getMessage(), 1000);
 		}
 		return retour;
 	}
@@ -110,18 +116,24 @@ public class User {
 			
 			//retour de l'id
 			int id_user = UserBDTools.getUserId(login, conn);
+			
+			//Verif si l'utilisateur est deja connecte
+			if(UserBDTools.checkConnexion(id_user, conn)) {
+				conn.close();
+				return ErrorJSON.serviceRefused("Utilisateur deja connecte", 1000);
+			}
+			
+			
+			
 			//retour de la clef de connexion
-			String key = UserBDTools.insertConnexion(id_user, false, conn);
+			String key = UserBDTools.insertConnexion(id_user, 0, conn);
 			retour = ErrorJSON.serviceAccepted();
 			retour.put("userID", id_user);
 			retour.put("key", key);
 			conn.close();
 		}
-		catch (JSONException e){
-			return ErrorJSON.serviceRefused("JSON probleme"+e.getMessage(), 100);
-		}
 		catch (SQLException e) {
-			return ErrorJSON.serviceRefused("SQL probleme", 1000);
+			return ErrorJSON.serviceRefused("Erreur Connection BD // "+e.getMessage(), 1000);
 		}
 		
 		return retour;

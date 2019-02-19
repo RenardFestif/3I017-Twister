@@ -30,8 +30,6 @@ public class AddMessage extends HttpServlet{
 			out.println(retour.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 
 	}

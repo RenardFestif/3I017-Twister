@@ -8,6 +8,8 @@ import java.sql.Statement;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import tools.user.UserBDTools;
+
 public class RelationBDTools {
 
 	public static boolean insertFriend (int friendID, int userID, Connection conn)throws SQLException {
@@ -32,7 +34,7 @@ public class RelationBDTools {
 	
 	public static boolean remooveRelation (int loginID, int relationID, Connection conn) throws SQLException {
 		
-		String query = "DELETE FROM follow WHERE user_id2="+relationID+" AND user_id1="+loginID+"";
+		String query = "DELETE FROM follow WHERE user_id2='"+relationID+"' AND user_id1='"+loginID+"'";
 		Statement st = conn.createStatement();
 		int rs = st.executeUpdate(query);
 		if (rs != 0) {
@@ -47,13 +49,14 @@ public class RelationBDTools {
 		
 		JSONObject retour = new JSONObject();
 		
-		String query = "SELECT user_id2 FROM follow WHERE user_id="+userID+"";
+		String query = "SELECT user_id2 FROM follow WHERE user_id1='"+userID+"'";
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(query);
 		
 		while(rs.next()) {
 			// Pas du tout sure de celle la, j'ai mis un peu au pif
-			retour.put("Amis", rs.getString(query));
+			String name =  UserBDTools.getLogin(rs.getInt("user_id2"), conn);
+			retour.put(rs.getString("user_id2"), name);
 		}
 		rs.close();
 		st.close();
@@ -63,7 +66,7 @@ public class RelationBDTools {
 	public static boolean checkFriend(int loginID, int relationID, Connection conn) throws SQLException{
 		
 		
-		String query = "SELECT * FROM sessions WHERE user_id1="+loginID+" AND user_id2="+relationID+"";
+		String query = "SELECT * FROM follow WHERE user_id1='"+loginID+"' AND user_id2='"+relationID+"'";
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(query);
 		boolean friended = false;
@@ -75,6 +78,15 @@ public class RelationBDTools {
 		return friended;
 		
 	}
+
+	public static boolean keyPseudoEquals(String userKey, String pseudo, Connection conn) throws SQLException {
+		
+		if(UserBDTools.getUserId(pseudo, conn) == UserBDTools.getUserIdfromKey(userKey, conn))
+				return true;
+		return false;
+	}
+
+	
 	
 	
 }

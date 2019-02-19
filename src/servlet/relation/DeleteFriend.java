@@ -30,9 +30,6 @@ public class DeleteFriend extends HttpServlet {
 			out.println(retour.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
-		} catch (SQLException e) {
-			// Service refused ?
-			e.printStackTrace();
 		}
 
 

@@ -13,7 +13,7 @@ import tools.user.UserBDTools;
 
 public class Message {
 
-	public static JSONObject addMessage(String message, String userKey) throws JSONException, SQLException {
+	public static JSONObject addMessage(String message, String userKey) throws JSONException {
 		JSONObject retour = new JSONObject();
 		//verif des parametres 
 		if(message == null || userKey == null) 
@@ -33,7 +33,7 @@ public class Message {
 			}
 
 			//Insertion
-			if(!MessageBDTools.insertMessage(message, userKey, conn)) {
+			if(MessageBDTools.insertMessage(message, userKey, conn)) {
 				conn.close();
 				return ErrorJSON.serviceRefused("Insertion Impossible", 1000);
 			}
@@ -44,17 +44,15 @@ public class Message {
 
 		} catch (SQLException e) {
 
-			return ErrorJSON.serviceRefused("Erreur SQL", 1000);
-		}
-		catch (JSONException e) {
-			return ErrorJSON.serviceRefused("JSON probleme"+e.getMessage(), 1000);
+			return ErrorJSON.serviceRefused("Erreur SQL // "+e.getMessage(), 1000);
 		}
 
 		return retour;
 	}
+	
 
 
-	public static JSONObject removeMessage(int iDMessage, String userKey) throws JSONException, SQLException{
+	public static JSONObject removeMessage(int iDMessage, String userKey) throws JSONException{
 		JSONObject retour = new JSONObject();
 
 		//Faut bien faire commencer l'entr�e id de la table message a 1 sous peine de generer des erreurs
@@ -68,6 +66,13 @@ public class Message {
 			if(!UserBDTools.checkConnexion(userKey, conn)) {
 				conn.close();
 				return ErrorJSON.serviceRefused("Utilisateur non connecte", 1000);
+			}
+		
+			
+			//Verif de l'auteur du message + Verif que le message existe
+			if(!MessageBDTools.checkAuteur(userKey, iDMessage, conn)) {
+				conn.close();
+				return ErrorJSON.serviceRefused("Utilisateur non auteur du message ou id message non existant", 1000);
 			}
 
 
@@ -84,9 +89,7 @@ public class Message {
 		} catch (SQLException e) {
 			return ErrorJSON.serviceRefused(e.getMessage(), 1000);
 		}
-		catch (JSONException e) {
-			return ErrorJSON.serviceRefused("JSON probleme"+e.getMessage(), 1000);
-		}
+
 
 		return retour;
 	}
@@ -126,9 +129,7 @@ public class Message {
 		} catch (SQLException e) {
 			return ErrorJSON.serviceRefused(e.getMessage(), 1000);
 		}
-		catch (JSONException e) {
-			return ErrorJSON.serviceRefused("JSON probleme"+e.getMessage(), 1000);
-		}
+
 
 		return retour;
 	}
@@ -138,11 +139,11 @@ public class Message {
 
 
 
-	public static JSONObject searchMessage(int idMessage, String userKey) throws JSONException {
+	public static JSONObject searchMessage(String pattern, String userKey) throws JSONException {
 		JSONObject retour = new JSONObject();
 		
 		//Verif parametres
-		if(idMessage < 0|| userKey == null ) {
+		if(pattern == null|| userKey == null ) {
 			return ErrorJSON.serviceRefused("Erreur parametres", -1);
 		}
 		
@@ -155,13 +156,16 @@ public class Message {
 			}
 			
 			//retour <- liste de message
-			retour = MessageBDTools.getMessage(idMessage, conn);
+			retour = MessageBDTools.getMessage(pattern, conn);
 			
 			//null = erreur ???
 			if(retour == null) {
 				conn.close();
 				return ErrorJSON.serviceRefused("Impossible de reccuperer le message", 1000);
 			}
+			
+			if(retour.length() == 0)
+				retour.put("Resultat", "Pas de resultat pour "+pattern);
 				
 			//Great Succes
 			retour.put("status","OK");
@@ -170,9 +174,7 @@ public class Message {
 		} catch (SQLException e) {
 			return ErrorJSON.serviceRefused(e.getMessage(), 1000);
 		}
-		catch (JSONException e) {
-			return ErrorJSON.serviceRefused("JSON probleme"+e.getMessage(), 1000);
-		}
+
 
 		return retour;
 	}
