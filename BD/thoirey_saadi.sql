@@ -21,7 +21,9 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `thoirey_saadi`
 --
+CREATE DATABASE thoirey_saadi;
 
+USE thoirey_saadi;
 -- --------------------------------------------------------
 
 --

@@ -1,0 +1,66 @@
+TD3
+
+public static String insertSession (int user_id, boolean root) {
+	Connection c = Database.getMySQLConnection();
+	String query = "INSERT INTO session (user_id, session_key, session_root) VALUES
+		("+user_id+",?,"+root+");";
+	PreparedStatement pst = c.preparedStatement(query);
+	boolean succes = false;
+	String key = generateRandomKey();
+	
+	while(!succes){
+		try {
+			pst.setString(1,key);
+			pst.executeUpdate();
+			succes = true;
+		}
+		catch(SQLException e){
+			if(c.getErrorCode()==1062){
+				key = generateRandomKey();
+			}
+			else {
+				if(...){
+				}
+				else{
+				e.printStack(e)
+				}
+			}	
+		}	
+
+TD4
+
+	EX2
+	
+	Document query = new Document();
+	query.append("user_id":3);
+	FindIterable<Document> fi = message_collection.find(query);
+	MongoCursor<Document> cursor = fi.iterator();
+	while(cursor.hasNext()){
+		Document obj = cursor.next();
+		syso(obj);
+	}
+	
+	EX3
+	
+	Document query = new Document();
+	query.append("user_id",3);
+	GregorianCalendar cal = new GregorianCalendar();
+	query("date",aujour);
+	message_collection.insertOne(query);
+	
+	{"date":{$gt,date_avant}}
+	Document query = new Document();
+	GregorianCalendar cal = new GregorianCalendar();
+	cal.add(Calendar.HOUR);
+	Date date_avant = cal.getTime();
+	query.append("date", new Docuement("$gt", date_avant);
+	
+	MongoCurson<Document> cursor = message_collection.find(query).iterator();
+	while(cursor.hasNext()){
+	Document obj = cursor.next();
+		syso(obj);
+	}
+	
+	EX4
+	
+	
