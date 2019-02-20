@@ -20,13 +20,12 @@ public class DeleteMessage extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
 
 		String iDMessage = req.getParameter("idMessage");
-		String userID = req.getParameter("userKey");
+		String user_key = req.getParameter("userKey");
 		int iDMess = Integer.parseInt(iDMessage);
-		int id = Integer.parseInt(userID);
 
 		try {
 			//appel service login
-			JSONObject retour = services.Message.removeMessage(iDMess, userID); //on a pas userKey or c'est le deuxieme paramètre de removeMessage
+			JSONObject retour = services.Message.removeMessage(iDMess, user_key);
 
 			rep.setContentType("text/plain");
 			PrintWriter out = rep.getWriter();

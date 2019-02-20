@@ -18,12 +18,12 @@ public class AddFriend extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
 
 		String pseudo = req.getParameter("pseudo");
-		String login = req.getParameter("login");
+		String user_key = req.getParameter("user_key");
 
 
 		try {
 			//appel service login
-			JSONObject retour = services.Friend.addFriend(pseudo, login);
+			JSONObject retour = services.Friend.addFriend(pseudo, user_key);
 
 			rep.setContentType("text/plain");
 			PrintWriter out = rep.getWriter();

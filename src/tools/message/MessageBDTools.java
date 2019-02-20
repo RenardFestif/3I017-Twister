@@ -4,44 +4,64 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 
+import org.bson.Document;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 
 import tools.user.UserBDTools;
 
 public class MessageBDTools {
 
-	public static boolean insertMessage(String message, String userKey, Connection conn) throws SQLException{
+	public static boolean insertMessage(String message, String userKey, Connection conn, Document query, MongoCollection<Document> message_collection) throws SQLException{
 
 		int id = UserBDTools.getUserIdfromKey(userKey, conn);
-		String query = "INSERT INTO messages VALUES(null, '"+id+"', NOW(),'"+message+"')";
-		Statement st = conn.createStatement();
-		int rs = st.executeUpdate(query);
-		if (rs != 0) {
-			st.close();
-			return true;
-		}
+		query.append("user_id",id);
+		query.append("date", new Date());
+		query.append("content", message);
+		query.append("user_name", UserBDTools.getLogin(id, conn));
 
-		return false;
+		message_collection.insertOne(query);
+
+		FindIterable<Document> fi = message_collection.find(query);
+		MongoCursor<Document> cur = fi.iterator();
+
+		boolean res = false;
+		while(cur.hasNext()) {
+			cur.next();
+			res = true;
+		}
+		return res;
 	}
 
-	public int getIDMessage() throws SQLException {
-		return 0;
-	}
 	
-	
-	public static boolean removeMessage(int idMessage, Connection conn) throws SQLException {
+	public static boolean removeMessage(int idMessage, Connection conn,Document query, MongoCollection<Document> message_collection) throws SQLException {
+		//ICI §§§§§
+		query.append("_id",idMessage);
+		
+		message_collection.findOneAndDelete(query);
+		
+		FindIterable<Document> fi = ;
+		MongoCursor<Document> cur = fi.iterator();
 
-		String query = "DELETE FROM messages WHERE message_id='"+idMessage+"'";
-		Statement st = conn.createStatement();
-		int rs = st.executeUpdate(query);
-		if (rs != 0) {
-			st.close();
-			return true;
+		boolean res = false;
+		while(cur.hasNext()) {
+			cur.next();
+			res = true;
 		}
+		
+		if(!res)
+			return res;
+		
+		quer
 
-		return false;
+		
+		
 	}
 
 	public static JSONObject getMessages(int userID,Connection conn) throws SQLException, JSONException {

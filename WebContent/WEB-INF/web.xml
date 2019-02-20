@@ -1,82 +1,90 @@
-<?xml  version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE web-app  PUBLIC
-" -//Sun  Microsystems , Inc.//DTD  Web  Application  2.3//EN" 
-"http :// java.sun.com/dtd/web -app_2_3.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC 
+"-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" 
+"http://java.sun.com/dtd/web-app_2_3.dtd"> 
 
-<web - app>
-
+<web-app>
 	<!-- Servlets -->
 	<servlet>
 		<servlet-name>SignIn</servlet-name>
-		<servlet-class>CreateUser</servlet-class>
+		<servlet-class>servlet.user.CreateUser</servlet-class>
 	</servlet>
 	
 	<servlet>
 		<servlet-name>LogIn</servlet-name>
-		<servlet-class>LogUser</servlet-class>
+		<servlet-class>servlet.user.LogUser</servlet-class>
 	</servlet>
 	
 	<servlet>
 		<servlet-name>AddMessage</servlet-name>
-		<servlet-class>AddMessage</servlet-class>
+		<servlet-class>servlet.message.AddMessage</servlet-class>
 	</servlet>
 	
 	<servlet>
-		<servlet-name>RemoveMessage</servlet-name>
-		<servlet-class>RemoveMessage</servlet-class>
+		<servlet-name>DeleteMessage</servlet-name>
+		<servlet-class>servlet.message.DeleteMessage</servlet-class>
 	</servlet>
 	
 	<servlet>
 		<servlet-name>SearchMessage</servlet-name>
-		<servlet-class>SearchMessage</servlet-class>
+		<servlet-class>servlet.message.SearchMessage</servlet-class>
 	</servlet>
 	
 	<servlet>
-		<servlet-name>AddRelation</servlet-name>
-		<servlet-class>AddRelation</servlet-class>
+		<servlet-name>AddFriend</servlet-name>
+		<servlet-class>servlet.relation.AddFriend</servlet-class>
 	</servlet>
 	
 	<servlet>
-		<servlet-name>RemoveRelation</servlet-name>
-		<servlet-class>RemoveRelation</servlet-class>
+		<servlet-name>DeleteFriend</servlet-name>
+		<servlet-class>servlet.relation.DeleteFriend</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ListFriend</servlet-name>
+		<servlet-class>servlet.relation.ListFriend</servlet-class>
 	</servlet>
 
 
 	<!-- Mapping -->
 	<servlet-mapping>
 		<servlet-name>SignIn</servlet-name>
-		<url-pattern>/Twister/Acceuil/signin </url-pattern>
+		<url-pattern>/Twister/Acceuil/signin</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>LogIn</servlet-name>
-		<url-pattern>/Twister/Acceuil/login </url-pattern>
+		<url-pattern>/Twister/Acceuil/login</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>AddMessage</servlet-name>
-		<url-pattern>/Twister/Profil/Ajoutmessage </url-pattern>
+		<url-pattern>/Twister/Profil/ajoutmessage</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
-		<servlet-name>RemoveMessage</servlet-name>
-		<url-pattern>/Twister/Profil/Removemessage </url-pattern>
+		<servlet-name>DeleteMessage</servlet-name>
+		<url-pattern>/Twister/Profil/deletemessage</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>SearchMessage</servlet-name>
-		<url-pattern>/Twister/Profil/Cherchermessage </url-pattern>
+		<url-pattern>/Twister/Profil/cherchermessage</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
-		<servlet-name>AddRelation</servlet-name>
-		<url-pattern>/Twister/Profil/Ajoutrelation </url-pattern>
+		<servlet-name>AddFriend</servlet-name>
+		<url-pattern>/Twister/Profil/ajoutrelation</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
-		<servlet-name>RemoveRelation</servlet-name>
-		<url-pattern>/Twister/Profil/Removerelation </url-pattern>
+		<servlet-name>DeleteFriend</servlet-name>
+		<url-pattern>/Twister/Profil/deleterelation</url-pattern>
 	</servlet-mapping>
 	
+	<servlet-mapping>
+		<servlet-name>ListFriend</servlet-name>
+		<url-pattern>/Twister/Profil/listFriend</url-pattern>
+	</servlet-mapping>
 	
 </web-app>

@@ -16,7 +16,7 @@ public class RelationBDTools {
 		//Insertion de la relation dans la BD
 		//notifiy(friendID, userID);
 		
-		String query = "INSERT INTO FOLLOW VALUES("+userID+","+friendID+",NOW())";
+		String query = "INSERT INTO follow VALUES("+userID+","+friendID+",NOW())";
 		Statement st = conn.createStatement();
 		int rs = st.executeUpdate(query);
 		if (rs != 0) {

@@ -96,7 +96,7 @@ public class UserBDTools {
 
 	public static boolean insertUser(String login, String mdp, String mail, String nom, String prenom, Connection conn) throws SQLException  {
 
-		String query = "INSERT INTO USERS (user_id, user_login, user_password, user_mail, user_prenom, user_nom) VALUES(null, '"+login+"','"+mdp+"','"+mail+"','"+prenom+"','"+nom+"')";
+		String query = "INSERT INTO users (user_id, user_login, user_password, user_mail, user_prenom, user_nom) VALUES(null, '"+login+"','"+mdp+"','"+mail+"','"+prenom+"','"+nom+"')";
 
 		Statement st;
 

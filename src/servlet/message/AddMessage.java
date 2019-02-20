@@ -18,12 +18,12 @@ public class AddMessage extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
 		
 		String message = req.getParameter("message");
-		String login = req.getParameter("login");
+		String user_key = req.getParameter("user_key");
 		
 
 		try {
-			//appel service login
-			JSONObject retour = services.Message.addMessage(message, login);
+			//appel service user_key
+			JSONObject retour = services.Message.addMessage(message, user_key);
 			
 			rep.setContentType("text/plain");
 			PrintWriter out = rep.getWriter();

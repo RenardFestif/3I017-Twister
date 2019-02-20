@@ -3,13 +3,22 @@ package services;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.bson.Document;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.mongodb.MongoClientURI;
+import com.mongodb.MongoURI;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 
 import tools.bd.Database;
 import tools.message.MessageBDTools;
 import tools.message.MessageTools;
 import tools.user.UserBDTools;
+
 
 public class Message {
 
@@ -24,7 +33,15 @@ public class Message {
 			return ErrorJSON.serviceRefused("Message trop long (<140 caracteres)", -1);
 
 		try {
+
+			MongoClient mongo = MongoClients.create();
+			MongoDatabase db = mongo.getDatabase("thoirey_saadi");
+			
+			MongoCollection<Document> message_collection = db.getCollection("message");
+			Document query = new Document();
+			
 			Connection conn = Database.getMySQLConnection();
+			
 
 			//verif de la key
 			if(!UserBDTools.checkConnexion(userKey, conn)) {
@@ -33,7 +50,7 @@ public class Message {
 			}
 
 			//Insertion
-			if(MessageBDTools.insertMessage(message, userKey, conn)) {
+			if(MessageBDTools.insertMessage(message, userKey, conn, query,message_collection)) {
 				conn.close();
 				return ErrorJSON.serviceRefused("Insertion Impossible", 1000);
 			}

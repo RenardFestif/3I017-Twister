@@ -18,12 +18,12 @@ public class ListFriend extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
 
 
-		String login = req.getParameter("login");
+		String user_key = req.getParameter("user_key");
 
 
 		try {
-			//appel service login
-			JSONObject retour = services.Friend.getListFriends(login);
+			//appel service user_key
+			JSONObject retour = services.Friend.getListFriends(user_key);
 
 			rep.setContentType("text/plain");
 			PrintWriter out = rep.getWriter();
