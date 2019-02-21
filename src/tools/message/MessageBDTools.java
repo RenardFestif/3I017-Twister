@@ -6,7 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 
+import org.bson.BSON;
+import org.bson.BsonObjectId;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,9 +21,12 @@ import tools.user.UserBDTools;
 
 public class MessageBDTools {
 
-	public static boolean insertMessage(String message, String userKey, Connection conn, Document query, MongoCollection<Document> message_collection) throws SQLException{
+	public static String insertMessage(String message, String userKey, Connection conn, Document query, MongoCollection<Document> message_collection) throws SQLException{
 
 		int id = UserBDTools.getUserIdfromKey(userKey, conn);
+		boolean res = false;
+
+
 		query.append("user_id",id);
 		query.append("date", new Date());
 		query.append("content", message);
@@ -28,40 +34,39 @@ public class MessageBDTools {
 
 		message_collection.insertOne(query);
 
+
+
 		FindIterable<Document> fi = message_collection.find(query);
 		MongoCursor<Document> cur = fi.iterator();
 
-		boolean res = false;
 		while(cur.hasNext()) {
 			cur.next();
 			res = true;
 		}
-		return res;
+		ObjectId retour = query.getObjectId("_id");	
+		if (!res)
+			return null;
+		return retour.toString();
 	}
 
-	
-	public static boolean removeMessage(int idMessage, Connection conn,Document query, MongoCollection<Document> message_collection) throws SQLException {
-		//ICI §§§§§
-		query.append("_id",idMessage);
-		
-		message_collection.findOneAndDelete(query);
-		
-		FindIterable<Document> fi = ;
+
+	public static boolean removeMessage(String idMessage, Connection conn,Document query, MongoCollection<Document> message_collection) throws SQLException {
+		//ICI 
+
+		query.append("_id",new ObjectId(idMessage));
+
+		message_collection.deleteOne(query);
+
+		FindIterable<Document> fi = message_collection.find(query);
 		MongoCursor<Document> cur = fi.iterator();
 
-		boolean res = false;
+		boolean res = true;
 		while(cur.hasNext()) {
-			cur.next();
-			res = true;
+			System.out.println(cur.next());
+			res = false;
 		}
-		
-		if(!res)
-			return res;
-		
-		quer
+		return res;
 
-		
-		
 	}
 
 	public static JSONObject getMessages(int userID,Connection conn) throws SQLException, JSONException {
@@ -95,21 +100,30 @@ public class MessageBDTools {
 		return retour;
 	}
 
-	public static boolean checkAuteur(String userKey, int iDMessage, Connection conn) throws SQLException {
-		
+	public static boolean checkAuteur(String userKey, String iDMessage, Connection conn, Document query, MongoCollection<Document> message_collection) throws SQLException {
+
 		int userID = UserBDTools.getUserIdfromKey(userKey, conn);
-		
-		String query = "Select * FROM messages WHERE message_id='"+iDMessage+"' AND user_id='"+userID+"'";
-		Statement st = conn.createStatement();
-		ResultSet rs = st.executeQuery(query);
-		while (rs.next()) {
-			rs.close();
-			st.close();
-			return true;
+
+		query.append("user_id", userID);
+		query.append("_id", new ObjectId(iDMessage));
+
+		message_collection.find(query);
+
+		FindIterable<Document> fi = message_collection.find(query);
+		MongoCursor<Document> cur = fi.iterator();
+
+		boolean res = false;
+		while(cur.hasNext()) {
+
+			Document obj = cur.next();
+
+			res = true;
 		}
-		rs.close();
-		st.close();
-		return false;
+
+
+
+		return res;
+
 	}
 
 

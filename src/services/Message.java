@@ -37,8 +37,10 @@ public class Message {
 			MongoClient mongo = MongoClients.create();
 			MongoDatabase db = mongo.getDatabase("thoirey_saadi");
 			
-			MongoCollection<Document> message_collection = db.getCollection("message");
+			MongoCollection<Document> message_collection = db.getCollection("messages");
 			Document query = new Document();
+			
+			
 			
 			Connection conn = Database.getMySQLConnection();
 			
@@ -50,13 +52,17 @@ public class Message {
 			}
 
 			//Insertion
-			if(MessageBDTools.insertMessage(message, userKey, conn, query,message_collection)) {
+			String id_mess = MessageBDTools.insertMessage(message, userKey, conn, query, message_collection);
+			if( id_mess == null) {
 				conn.close();
 				return ErrorJSON.serviceRefused("Insertion Impossible", 1000);
 			}
 
 			//Great Succes !
 			retour = ErrorJSON.serviceAccepted();
+			retour.put("user_id", UserBDTools.getUserIdfromKey(userKey, conn));
+			retour.put("message", message);
+			retour.put("message_id", id_mess);
 			conn.close();
 
 		} catch (SQLException e) {
@@ -69,14 +75,21 @@ public class Message {
 	
 
 
-	public static JSONObject removeMessage(int iDMessage, String userKey) throws JSONException{
+	public static JSONObject removeMessage(String iDMessage, String userKey) throws JSONException{
 		JSONObject retour = new JSONObject();
 
 		//Faut bien faire commencer l'entr�e id de la table message a 1 sous peine de generer des erreurs
-		if( iDMessage < 0 ||userKey == null) 
+		if( iDMessage == null ||userKey == null) 
 			return ErrorJSON.serviceRefused("erreur de parametres", -1);
 
 		try {
+			
+			MongoClient mongo = MongoClients.create();
+			MongoDatabase db = mongo.getDatabase("thoirey_saadi");
+			
+			MongoCollection<Document> message_collection = db.getCollection("messages");
+			Document query = new Document();
+			
 			Connection conn = Database.getMySQLConnection();
 
 			//Verif de la key
@@ -87,16 +100,16 @@ public class Message {
 		
 			
 			//Verif de l'auteur du message + Verif que le message existe
-			if(!MessageBDTools.checkAuteur(userKey, iDMessage, conn)) {
+			if(!MessageBDTools.checkAuteur(userKey, iDMessage, conn,query,message_collection)) {
 				conn.close();
 				return ErrorJSON.serviceRefused("Utilisateur non auteur du message ou id message non existant", 1000);
 			}
 
 
 			//Suppression du message de la BD
-			if(!MessageBDTools.removeMessage(iDMessage, conn)) {
+			if(!MessageBDTools.removeMessage(iDMessage, conn, query,message_collection)) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Insertion Impossible", 1000);
+				return ErrorJSON.serviceRefused("Suppression Impossible", 1000);
 			}
 
 			//Great Succes !
