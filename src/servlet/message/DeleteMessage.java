@@ -21,11 +21,10 @@ public class DeleteMessage extends HttpServlet {
 
 		String iDMessage = req.getParameter("idMessage");
 		String user_key = req.getParameter("userKey");
-		int iDMess = Integer.parseInt(iDMessage);
 
 		try {
 			//appel service login
-			JSONObject retour = services.Message.removeMessage(iDMess, user_key);
+			JSONObject retour = services.Message.removeMessage(iDMessage, user_key);
 
 			rep.setContentType("text/plain");
 			PrintWriter out = rep.getWriter();
