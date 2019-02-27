@@ -12,12 +12,23 @@ public static void main (String[] args) {
 		JSONObject newuserser = new JSONObject();
 		
 		try {
-			newuserser= Message.getMessages("g1LsPVd9aKO4lhOdyPPX4b0283J4Z6pJjbHKXSLwaigvVh6CfORA7ZGQLBNmwBDe");
+			System.out.println(" Tout à null");
+			newuserser= Message.searchMessage(null, null, 0);
+			System.out.println(newuserser.toString());
+			
+			System.out.println("///////////////////////////////");
+			System.out.println(" Key n'est pas null ");
+			newuserser= Message.searchMessage(null, "aTgdti1kQOr9JdZcdo92b8X2kwX4OK75GHC84pKNEB6EFYCnOFOutS57ELadk5AM" , 0);
+			System.out.println(newuserser.toString());
+			
+			System.out.println("///////////////////////////////");
+			System.out.println("user id n'est pas null");
+			newuserser= Message.searchMessage("He", "aTgdti1kQOr9JdZcdo92b8X2kwX4OK75GHC84pKNEB6EFYCnOFOutS57ELadk5AM", 1);
 			System.out.println(newuserser.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 
-
+//aTgdti1kQOr9JdZcdo92b8X2kwX4OK75GHC84pKNEB6EFYCnOFOutS57ELadk5AM
 	}
 }

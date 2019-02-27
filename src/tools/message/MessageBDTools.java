@@ -5,10 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.bson.BSON;
 import org.bson.BsonObjectId;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +19,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 
+import tools.relation.RelationBDTools;
 import tools.user.UserBDTools;
 
 public class MessageBDTools {
@@ -84,21 +87,7 @@ public class MessageBDTools {
 		return retour;
 	}
 
-	public static JSONObject getMessage(String pattern, Connection conn) throws SQLException, JSONException{
-		JSONObject retour = new JSONObject();
 
-		String query = "SELECT * FROM messages WHERE message_content LIKE '%"+pattern+"%'";
-		Statement st = conn.createStatement();
-		ResultSet rs = st.executeQuery(query);
-
-		while(rs.next()) {
-			// Pas du tout sure de celle la, j'ai mis un peu au pif
-			retour.put(rs.getString("message_id"), rs.getString("message_content"));
-		}
-		rs.close();
-		st.close();
-		return retour;
-	}
 
 	public static boolean checkAuteur(String userKey, String iDMessage, Connection conn, Document query, MongoCollection<Document> message_collection) throws SQLException {
 
@@ -124,6 +113,69 @@ public class MessageBDTools {
 
 		return res;
 
+	}
+
+
+	public static JSONObject getMessages(Document query, MongoCollection<Document> message_collection) throws JSONException {
+		JSONObject retour = new JSONObject();
+
+		FindIterable<Document> fi = message_collection.find().sort(new Document("date", -1));
+		MongoCursor<Document> cur = fi.iterator();
+
+		while(cur.hasNext()) {
+
+			Document obj = cur.next();
+
+			retour.put(obj.getObjectId("_id").toString(), obj.getString("content"));
+		}
+
+		return retour;
+	}
+
+
+	public static JSONObject getMessages(String userKey,Connection conn, Document query, MongoCollection<Document> message_collection) throws SQLException, JSONException {
+		JSONObject retour = new JSONObject();
+		JSONObject tmp = new JSONObject();
+		
+		int userID = UserBDTools.getUserIdfromKey(userKey, conn);
+		JSONObject listFriend = RelationBDTools.getFriends(userID, conn);
+		
+		Iterator<Integer> friendId = listFriend.keys();
+		
+		while (friendId.hasNext()) {
+			
+			int id = friendId.next();
+			tmp = getMessages(userKey, "", id, query, message_collection);
+			retour.put(Integer.toString(id), tmp);
+		}
+
+
+		
+		return retour;
+	}
+
+
+	public static JSONObject getMessages(String userKey, String pattern, int userId, Document query,
+			MongoCollection<Document> message_collection) throws JSONException {
+
+		JSONObject retour = new JSONObject();
+
+		query.append("user_id",userId);
+		if(pattern != null)
+			query.append("content", "/.*"+pattern+"*./");
+
+
+		FindIterable<Document> fi = message_collection.find(query);
+		MongoCursor<Document> cur = fi.iterator();
+
+		while(cur.hasNext()) {
+
+			Document obj = cur.next();
+
+			retour.put(obj.getObjectId("_id").toString(), obj.getString("content"));
+		}
+
+		return retour;
 	}
 
 

@@ -29,6 +29,18 @@ public class Database {
 		Database database = null; 
 		//Si ca bug c'est ici !
 		if(DBStatic.pooling == false) {
+			try {
+				Class.forName("com.mysql.jdbc.Driver").newInstance();
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return(DriverManager.getConnection("jdbc:mysql://" + DBStatic.host + "/" + DBStatic.bd, DBStatic.user, DBStatic.password));
 		}else {
 			if (database == null) {
