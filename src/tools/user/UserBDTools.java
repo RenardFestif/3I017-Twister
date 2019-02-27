@@ -112,14 +112,18 @@ public class UserBDTools {
 	}
 
 	public static boolean checkKey(String key, Connection conn) throws SQLException {
-
+		
 		String query = "SELECT * FROM sessions WHERE session_key='"+key+"'";
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(query);
 		boolean keyExist = false;
 		while(rs.next()) {
 			keyExist = true;
+			
 		}
+		//Mettre a jour la clef et la date
+		//deco reco
+		
 		rs.close();
 		st.close();
 		return keyExist;
