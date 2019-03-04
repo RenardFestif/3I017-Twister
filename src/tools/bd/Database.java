@@ -28,7 +28,7 @@ public class Database {
 	public static Connection getMySQLConnection() throws SQLException{
 		Database database = null; 
 		//Si ca bug c'est ici !
-		if(DBStatic.pooling == true) {
+		if(DBStatic.pooling == false) {
 			return(DriverManager.getConnection("jdbc:mysql://" + DBStatic.host + "/" + DBStatic.bd, DBStatic.user, DBStatic.password));
 		}else {
 			if (database == null) {
