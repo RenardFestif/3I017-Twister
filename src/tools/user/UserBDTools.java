@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 
 import javax.annotation.Generated;
 
@@ -120,11 +121,22 @@ public class UserBDTools {
 		while(rs.next()) {
 			keyExist = true;
 			
-		}
-		//Mettre a jour la clef et la date
-		//deco reco
-		
-		
+			Date date = rs.getDate("session_start");
+			Date now = new Date();
+			
+			Long diff = now.getTime() - date.getTime();
+			
+			// si connexion inferieur à 10 minutes 
+			if(diff < 600000) {
+				query = "UPDATE sessions SET sessions_start = NOW() WHERE session_key='"+key+"'";
+				st.executeUpdate(query);
+			}
+			else {
+				query = "DELETE FROM sessions WHERE session_key='"+key+"'";
+				st.executeQuery(query);
+			}
+			
+		}		
 		rs.close();
 		st.close();
 		return keyExist;
@@ -132,13 +144,7 @@ public class UserBDTools {
 
 	public static boolean checkConnexion( String key, Connection conn) throws SQLException {
 		
-		if(checkKey(key,conn)) {
-			String query = "SELECT session_start FROM sessions WHERE session_key ='"+key+"'";
-			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery(query);
-			
-			
-		}
+		
 		return checkKey(key, conn);
 	}
 
