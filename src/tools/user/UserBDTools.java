@@ -120,37 +120,77 @@ public class UserBDTools {
 		ResultSet rs = st.executeQuery(query);
 		boolean keyExist = false;
 		if(rs.next()) {
-			keyExist = true;
-			
-			Date date = rs.getDate("session_start");
-			Date now = new Date();
-			
-			Long diff = Math.abs(now.getTime() - date.getTime());
-			
-			System.out.println(diff);
-			
-			
-			// si connexion inferieur à 10 minutes 
-			if(diff < 10000000) {
-				query = "UPDATE sessions SET session_start = NOW() WHERE session_key='"+key+"'";
-				st.executeUpdate(query);
-			}
-			else {
-				query = "DELETE FROM sessions WHERE session_key='"+key+"'";
-				st.executeUpdate(query);
-			}
-			
+			keyExist = true;	
 		}		
 		rs.close();
 		st.close();
 		return keyExist;
 	}
+	
+	public static String checkKeyUpdate(String key, Connection conn) throws SQLException {
+		String query = "SELECT * FROM sessions WHERE session_key='"+key+"'";
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(query);
+		boolean keyExist = false;
+		String newKey = null ;
+		if(rs.next()) {
+			keyExist = true;
+			
+			Date date = rs.getTime("session_start");
+			Date now = new Date();
+			
+			Long diff = (long) Math.abs(now.getMinutes() - date.getMinutes());
+			
+			
+			// si connexion inferieur à 10 minutes 
+			System.out.println(diff);
+			if(diff < 10) {
+				boolean present = true;
+				
+				
+				
+				while(present) {
+					//Generation nouvelle key 
+					newKey = UserTools.generateKey(UserTools.length);
+					
+
+					//verif si elle est pas dans la base 
+					query = "SELECT * FROM sessions WHERE session_key='"+newKey+"'";
+					ResultSet rs2 = st.executeQuery(query);
+					present = false;
+					while(rs2.next()) {
+						
+						present = true;
+					}
+				}
+				
+				query = "UPDATE sessions SET session_key = '"+newKey+"' WHERE session_key='"+key+"'";
+				st.executeUpdate(query);
+				query = "UPDATE sessions SET session_start = NOW() WHERE session_key='"+newKey+"'";
+				st.executeUpdate(query);
+				
+			}
+			else {
+				
+				deleteConnexion(key, conn);
+				rs.close();
+				st.close();
+				return null;
+				
+			}
+			
+		}		
+		rs.close();
+		st.close();
+		return newKey;
+	}
 
 	public static boolean checkConnexion( String key, Connection conn) throws SQLException {
-		
-		
 		return checkKey(key, conn);
 	}
+	
+
+	
 
 	public static boolean checkConnexion( int userID, Connection conn) throws SQLException {
 

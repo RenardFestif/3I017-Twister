@@ -31,9 +31,10 @@ public class Friend{
 				return ErrorJSON.serviceRefused("Utilisateur "+pseudo+" inconnu", 1000);
 			}
 			//Verif de la clée
-			if (!UserBDTools.checkConnexion(userKey, conn)) {
+			String key = UserBDTools.checkKeyUpdate(userKey, conn);
+			if (key == null) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Erreur clé", 1000);
+				return ErrorJSON.serviceRefused("Erreur clé correspondance ou timestamp depasse", 1000);
 			}
 			//Verif que l'ami n'est pas le demandeur
 			if (RelationBDTools.keyPseudoEquals(userKey, pseudo, conn)) {
@@ -41,14 +42,14 @@ public class Friend{
 				return ErrorJSON.serviceRefused("On ne peut pas etre son propre ami ;) ", 1000);
 			}
 			//Deja ami ?
-			if (RelationBDTools.checkFriend(UserBDTools.getUserIdfromKey(userKey, conn), UserBDTools.getUserId(pseudo, conn), conn)) {
+			if (RelationBDTools.checkFriend(UserBDTools.getUserIdfromKey(key, conn), UserBDTools.getUserId(pseudo, conn), conn)) {
 				conn.close();
 				return ErrorJSON.serviceRefused(pseudo+" deja suivis", 1000);
 			}
 			
 			//Recup id de l'ami et Recup id du demandeur
 			int friendID = UserBDTools.getUserId(pseudo, conn);
-			int iD = UserBDTools.getUserIdfromKey(userKey, conn);
+			int iD = UserBDTools.getUserIdfromKey(key, conn);
 			
 			//Insetion dans la BD de la relation
 			if(!RelationBDTools.insertFriend(friendID, iD,conn)) {
@@ -58,6 +59,7 @@ public class Friend{
 			
 			//Great Succes !
 			retour = ErrorJSON.serviceAccepted();
+			retour.put("new_key", key);
 			conn.close();
 		}
 		catch (SQLException e) {
@@ -86,14 +88,16 @@ public class Friend{
 				conn.close();
 				return ErrorJSON.serviceRefused("Utilisateur inconnu", 1000);
 			}
-			if(!UserBDTools.checkConnexion(userKey, conn)) {
+			
+			String key = UserBDTools.checkKeyUpdate(userKey, conn);
+			if (key == null) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Utilisateur non-connecte", 1000);
+				return ErrorJSON.serviceRefused("Erreur clé correspondance ou timestamp depasse", 1000);
 			}
 
 			//Recup id de l'ami et de l'utilisateur
 			int relationID = UserBDTools.getUserId(pseudo, conn);
-			int loginID = UserBDTools.getUserIdfromKey(userKey, conn);
+			int loginID = UserBDTools.getUserIdfromKey(key, conn);
 			
 			//Test si ami
 			if(!RelationBDTools.checkFriend(loginID, relationID, conn)) {
@@ -109,6 +113,7 @@ public class Friend{
 				
 			//Great Succes
 			retour = ErrorJSON.serviceAccepted();
+			retour.put("new_key", key);
 			conn.close();
 		}
 
@@ -131,13 +136,14 @@ public class Friend{
 		try {
 			Connection conn = Database.getMySQLConnection();
 			//Verif de la key
-			if (!UserBDTools.checkConnexion(userKey,conn)) {
+			String key = UserBDTools.checkKeyUpdate(userKey, conn);
+			if (key == null) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Utilisateur non-connecte", 1000);
+				return ErrorJSON.serviceRefused("Erreur clé correspondance ou timestamp depasse", 1000);
 			}
 			
 			//Recup de l'id 
-			int userID = UserBDTools.getUserIdfromKey(userKey, conn);
+			int userID = UserBDTools.getUserIdfromKey(key, conn);
 			
 			//retour <- liste des relations
 			retour = RelationBDTools.getFriends(userID,conn);
@@ -150,6 +156,7 @@ public class Friend{
 				retour.put("Resultat", "Vous n'avez pas d'amis pour l'instant");
 				
 			//Great Succes
+			retour.put("new_key", key);
 			retour.put("status", "OK");
 			conn.close();
 		}

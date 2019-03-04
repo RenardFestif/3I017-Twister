@@ -11,7 +11,7 @@ public class LogOutTest {
 		JSONObject newuserser = new JSONObject();
 		
 		try {
-			newuserser= User.logout("l3nByzFyyZmbrd5QPV0cmjj0iTZ1WhHJH97Lzr57Ay7ptkfBo7NZtkWkD2uxKpil");
+			newuserser= User.logout("o9eVBqu1wtjsrNY60v9S6W2b5LKMUHxmEXwq0FDPfKjEQbTICNbJFTD1fKBYU5Qh");
 			System.out.println(newuserser.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();

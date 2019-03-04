@@ -5,6 +5,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserTools {
+	
+	public static final int length = 64;
 
 	public static boolean checkFormatMdp(String mdp) {
 

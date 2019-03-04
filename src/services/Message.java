@@ -46,9 +46,10 @@ public class Message {
 			
 
 			//verif de la key
-			if(!UserBDTools.checkConnexion(userKey, conn)) {
+			String key = UserBDTools.checkKeyUpdate(userKey, conn);
+			if (key == null) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Erreur correspondance cle utilisateur", 100);
+				return ErrorJSON.serviceRefused("Erreur clé correspondance ou timestamp depasse", 1000);
 			}
 
 			//Insertion
@@ -60,9 +61,10 @@ public class Message {
 
 			//Great Succes !
 			retour = ErrorJSON.serviceAccepted();
-			retour.put("user_id", UserBDTools.getUserIdfromKey(userKey, conn));
+			retour.put("user_id", UserBDTools.getUserIdfromKey(key, conn));
 			retour.put("message", message);
 			retour.put("message_id", id_mess);
+			retour.put("new_key", key);
 			conn.close();
 
 		} catch (SQLException e) {
@@ -93,9 +95,10 @@ public class Message {
 			Connection conn = Database.getMySQLConnection();
 
 			//Verif de la key
-			if(!UserBDTools.checkConnexion(userKey, conn)) {
+			String key = UserBDTools.checkKeyUpdate(userKey, conn);
+			if (key == null) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Utilisateur non connecte", 1000);
+				return ErrorJSON.serviceRefused("Erreur clé correspondance ou timestamp depasse", 1000);
 			}
 		
 			
@@ -114,6 +117,7 @@ public class Message {
 
 			//Great Succes !
 			retour = ErrorJSON.serviceAccepted();
+			retour.put("new_key", key);
 			conn.close();
 
 		} catch (SQLException e) {
@@ -156,27 +160,30 @@ public class Message {
 			
 			if(pattern == null && userId == 0 && userKey != null) {
 				//Verif de la key
-				if(!UserBDTools.checkConnexion(userKey, conn)) { 
+				String key = UserBDTools.checkKeyUpdate(userKey, conn);
+				if (key == null) {
 					conn.close();
-					
-					return ErrorJSON.serviceRefused("Erreur de connexion", 1000);
+					return ErrorJSON.serviceRefused("Erreur clé correspondance ou timestamp depasse", 1000);
 				}
-				
+
 				retour = MessageBDTools.getMessages(userKey, conn, query, message_collection);
+				retour.put("new_key", key);
 				retour.put("status", "OK");
 				conn.close();
 				return retour;
-				
+
 			}
-			
+
 			if(userId!=0) {
-				if(!UserBDTools.checkConnexion(userKey, conn)) { 
+				String key = UserBDTools.checkKeyUpdate(userKey, conn);
+				if (key == null) {
 					conn.close();
-					return ErrorJSON.serviceRefused("Erreur de connexion", 1000);
+					return ErrorJSON.serviceRefused("Erreur clé correspondance ou timestamp depasse", 1000);
 				}
 				
 				retour = MessageBDTools.getMessages(userKey, pattern, userId , query, message_collection);
 				conn.close();
+				retour.put("new_key", key);
 				retour.put("status", "OK");
 				return retour;
 			}
