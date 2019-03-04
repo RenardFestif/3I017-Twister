@@ -12,7 +12,7 @@ public class DeleteFriendTest {
 		JSONObject newuserser = new JSONObject();
 		
 		try {
-			newuserser= Friend.removeFriend("Momo", "g1LsPVd9aKO4lhOdyPPX4b0283J4Z6pJjbHKXSLwaigvVh6CfORA7ZGQLBNmwBDe");
+			newuserser= Friend.removeFriend("Moustt", "tQGzIEfFniM95biAwIxN0SePjrkQaYEzj8otUHICtX8BzrjPeNoxnXEdab4ZuERq");
 			System.out.println(newuserser.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Generated;
 
@@ -118,22 +119,25 @@ public class UserBDTools {
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(query);
 		boolean keyExist = false;
-		while(rs.next()) {
+		if(rs.next()) {
 			keyExist = true;
 			
 			Date date = rs.getDate("session_start");
 			Date now = new Date();
 			
-			Long diff = now.getTime() - date.getTime();
+			Long diff = Math.abs(now.getTime() - date.getTime());
+			
+			System.out.println(diff);
+			
 			
 			// si connexion inferieur à 10 minutes 
-			if(diff < 600000) {
-				query = "UPDATE sessions SET sessions_start = NOW() WHERE session_key='"+key+"'";
+			if(diff < 10000000) {
+				query = "UPDATE sessions SET session_start = NOW() WHERE session_key='"+key+"'";
 				st.executeUpdate(query);
 			}
 			else {
 				query = "DELETE FROM sessions WHERE session_key='"+key+"'";
-				st.executeQuery(query);
+				st.executeUpdate(query);
 			}
 			
 		}		

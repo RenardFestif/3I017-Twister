@@ -28,7 +28,7 @@ public class Database {
 	public static Connection getMySQLConnection() throws SQLException{
 		Database database = null; 
 		//Si ca bug c'est ici !
-		if(DBStatic.pooling == false) {
+		if(DBStatic.pooling == true) {
 			try {
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
 			} catch (InstantiationException e) {
