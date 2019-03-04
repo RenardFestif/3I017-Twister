@@ -53,8 +53,7 @@ public class RelationBDTools {
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(query);
 		
-		while(rs.next()) {
-			// Pas du tout sure de celle la, j'ai mis un peu au pif
+		while(rs.next()) { 
 			String name =  UserBDTools.getLogin(rs.getInt("user_id2"), conn);
 			retour.put(rs.getString("user_id2"), name);
 		}

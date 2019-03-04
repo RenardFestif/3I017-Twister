@@ -49,42 +49,42 @@
 	<!-- Mapping -->
 	<servlet-mapping>
 		<servlet-name>SignIn</servlet-name>
-		<url-pattern>/Twister/Acceuil/signin</url-pattern>
+		<url-pattern>/Acceuil/signin</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>LogIn</servlet-name>
-		<url-pattern>/Twister/Acceuil/login</url-pattern>
+		<url-pattern>/Acceuil/login</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>AddMessage</servlet-name>
-		<url-pattern>/Twister/Profil/ajoutmessage</url-pattern>
+		<url-pattern>/Profil/ajoutmessage</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>DeleteMessage</servlet-name>
-		<url-pattern>/Twister/Profil/deletemessage</url-pattern>
+		<url-pattern>/Profil/deletemessage</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>SearchMessage</servlet-name>
-		<url-pattern>/Twister/Profil/cherchermessage</url-pattern>
+		<url-pattern>/Profil/cherchermessage</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>AddFriend</servlet-name>
-		<url-pattern>/Twister/Profil/ajoutrelation</url-pattern>
+		<url-pattern>/Profil/ajoutrelation</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>DeleteFriend</servlet-name>
-		<url-pattern>/Twister/Profil/deleterelation</url-pattern>
+		<url-pattern>/Profil/deleterelation</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>ListFriend</servlet-name>
-		<url-pattern>/Twister/Profil/listFriend</url-pattern>
+		<url-pattern>/Profil/listFriend</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

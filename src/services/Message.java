@@ -126,76 +126,65 @@ public class Message {
 
 
 
-	public static JSONObject getMessages(String userKey) throws JSONException{
-		JSONObject retour = new JSONObject();
-
-		//Verif parametres
-		if(userKey == null) 
-			return ErrorJSON.serviceRefused("Champs manquants", -1);
-
-
-		try {
-
-			Connection conn = Database.getMySQLConnection();
-
-			//verif de la key
-			if(!UserBDTools.checkConnexion(userKey, conn)) {
-				conn.close();
-				return ErrorJSON.serviceRefused("Erreur correspondance cle utilisateur", 1000);
-			}
-
-			//Recherche de la liste de message
-			retour = MessageBDTools.getMessages(UserBDTools.getUserIdfromKey(userKey, conn), conn);
-			//Json null = erreur
-			if(retour == null) {
-				conn.close();
-				return ErrorJSON.serviceRefused("Recup messages Impossible", 1000);
-			}
-
-			//Great Succes
-			retour.put("status", "OK");
-			conn.close();
-
-		} catch (SQLException e) {
-			return ErrorJSON.serviceRefused(e.getMessage(), 1000);
-		}
-
-
-		return retour;
-	}
 
 
 
 
-
-
-	public static JSONObject searchMessage(String pattern, String userKey) throws JSONException {
+	public static JSONObject searchMessage(String pattern, String userKey, int userId) throws JSONException {
 		JSONObject retour = new JSONObject();
 		
 		//Verif parametres
-		if(pattern == null|| userKey == null ) {
-			return ErrorJSON.serviceRefused("Erreur parametres", -1);
-		}
+		
 		
 		try {
+			
 			Connection conn = Database.getMySQLConnection();
-			//Verif de la key
-			if(!UserBDTools.checkConnexion(userKey, conn)) { 
+			MongoClient mongo = MongoClients.create();
+			MongoDatabase db = mongo.getDatabase("thoirey_saadi");
+			
+			MongoCollection<Document> message_collection = db.getCollection("messages");
+			Document query = new Document();
+			
+			if(pattern == null && userKey == null && userId == 0 ) {
+				
+				//Recup de tout les messages
+				retour = MessageBDTools.getMessages(query, message_collection);
 				conn.close();
-				return ErrorJSON.serviceRefused("Erreur de connexion", 1000);
+				retour.put("status", "OK");
+				return retour;
 			}
 			
-			//retour <- liste de message
-			retour = MessageBDTools.getMessage(pattern, conn);
-			
-			//null = erreur ???
-			if(retour == null) {
+			if(pattern == null && userId == 0 && userKey != null) {
+				//Verif de la key
+				if(!UserBDTools.checkConnexion(userKey, conn)) { 
+					conn.close();
+					
+					return ErrorJSON.serviceRefused("Erreur de connexion", 1000);
+				}
+				
+				retour = MessageBDTools.getMessages(userKey, conn, query, message_collection);
+				retour.put("status", "OK");
 				conn.close();
-				return ErrorJSON.serviceRefused("Impossible de reccuperer le message", 1000);
+				return retour;
+				
 			}
+			
+			if(userId!=0) {
+				if(!UserBDTools.checkConnexion(userKey, conn)) { 
+					conn.close();
+					return ErrorJSON.serviceRefused("Erreur de connexion", 1000);
+				}
+				
+				retour = MessageBDTools.getMessages(userKey, pattern, userId , query, message_collection);
+				conn.close();
+				retour.put("status", "OK");
+				return retour;
+			}
+			
+			
 			
 			if(retour.length() == 0)
-				retour.put("Resultat", "Pas de resultat pour "+pattern);
+				retour.put("Resultat", "Pas de resultat pour "+userKey);
 				
 			//Great Succes
 			retour.put("status","OK");
