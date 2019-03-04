@@ -124,12 +124,21 @@ public class UserBDTools {
 		//Mettre a jour la clef et la date
 		//deco reco
 		
+		
 		rs.close();
 		st.close();
 		return keyExist;
 	}
 
 	public static boolean checkConnexion( String key, Connection conn) throws SQLException {
+		
+		if(checkKey(key,conn)) {
+			String query = "SELECT session_start FROM sessions WHERE session_key ='"+key+"'";
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			
+			
+		}
 		return checkKey(key, conn);
 	}
 
