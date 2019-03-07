@@ -5,11 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Generated;
-
-import tools.bd.Database;
 
 
 
@@ -131,19 +126,16 @@ public class UserBDTools {
 		String query = "SELECT * FROM sessions WHERE session_key='"+key+"'";
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(query);
-		boolean keyExist = false;
 		String newKey = null ;
 		if(rs.next()) {
-			keyExist = true;
-			
 			Date date = rs.getTime("session_start");
 			Date now = new Date();
 			
+			@SuppressWarnings("deprecation")
 			Long diff = (long) Math.abs(now.getMinutes() - date.getMinutes());
 			
 			
 			// si connexion inferieur à 10 minutes 
-			System.out.println(diff);
 			if(diff < 10) {
 				boolean present = true;
 				

@@ -1,9 +1,5 @@
 package tools.user;
 
-import java.sql.SQLException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class UserTools {
 	
 	public static final int length = 64;

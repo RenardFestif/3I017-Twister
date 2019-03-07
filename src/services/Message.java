@@ -6,9 +6,6 @@ import java.sql.SQLException;
 import org.bson.Document;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.mongodb.MongoClientURI;
-import com.mongodb.MongoURI;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -49,7 +46,7 @@ public class Message {
 			String key = UserBDTools.checkKeyUpdate(userKey, conn);
 			if (key == null) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Erreur clé correspondance ou timestamp depasse", 1000);
+				return ErrorJSON.serviceRefused("Erreur clï¿½ correspondance ou timestamp depasse", 1000);
 			}
 
 			//Insertion
@@ -98,7 +95,7 @@ public class Message {
 			String key = UserBDTools.checkKeyUpdate(userKey, conn);
 			if (key == null) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Erreur clé correspondance ou timestamp depasse", 1000);
+				return ErrorJSON.serviceRefused("Erreur clï¿½ correspondance ou timestamp depasse", 1000);
 			}
 		
 			
@@ -163,7 +160,7 @@ public class Message {
 				String key = UserBDTools.checkKeyUpdate(userKey, conn);
 				if (key == null) {
 					conn.close();
-					return ErrorJSON.serviceRefused("Erreur clé correspondance ou timestamp depasse", 1000);
+					return ErrorJSON.serviceRefused("Erreur clï¿½ correspondance ou timestamp depasse", 1000);
 				}
 
 				retour = MessageBDTools.getMessages(userKey, conn, query, message_collection);
@@ -178,7 +175,7 @@ public class Message {
 				String key = UserBDTools.checkKeyUpdate(userKey, conn);
 				if (key == null) {
 					conn.close();
-					return ErrorJSON.serviceRefused("Erreur clé correspondance ou timestamp depasse", 1000);
+					return ErrorJSON.serviceRefused("Erreur clï¿½ correspondance ou timestamp depasse", 1000);
 				}
 				
 				retour = MessageBDTools.getMessages(userKey, pattern, userId , query, message_collection);

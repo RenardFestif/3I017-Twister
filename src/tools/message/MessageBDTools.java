@@ -7,10 +7,7 @@ import java.sql.Statement;
 import java.util.Date;
 import java.util.Iterator;
 
-import org.bson.BSON;
-import org.bson.BsonObjectId;
 import org.bson.Document;
-import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -104,8 +101,6 @@ public class MessageBDTools {
 		boolean res = false;
 		while(cur.hasNext()) {
 
-			Document obj = cur.next();
-
 			res = true;
 		}
 
@@ -140,6 +135,7 @@ public class MessageBDTools {
 		int userID = UserBDTools.getUserIdfromKey(userKey, conn);
 		JSONObject listFriend = RelationBDTools.getFriends(userID, conn);
 		
+		@SuppressWarnings("unchecked")
 		Iterator<Integer> friendId = listFriend.keys();
 		
 		while (friendId.hasNext()) {
