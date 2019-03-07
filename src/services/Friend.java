@@ -30,11 +30,11 @@ public class Friend{
 				conn.close();
 				return ErrorJSON.serviceRefused("Utilisateur "+pseudo+" inconnu", 1000);
 			}
-			//Verif de la clée
+			//Verif de la clï¿½e
 			String key = UserBDTools.checkKeyUpdate(userKey, conn);
 			if (key == null) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Erreur clé correspondance ou timestamp depasse", 1000);
+				return ErrorJSON.serviceRefused("Erreur clï¿½ correspondance ou timestamp depasse", 1000);
 			}
 			//Verif que l'ami n'est pas le demandeur
 			if (RelationBDTools.keyPseudoEquals(userKey, pseudo, conn)) {
@@ -92,7 +92,7 @@ public class Friend{
 			String key = UserBDTools.checkKeyUpdate(userKey, conn);
 			if (key == null) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Erreur clé correspondance ou timestamp depasse", 1000);
+				return ErrorJSON.serviceRefused("Erreur clï¿½ correspondance ou timestamp depasse", 1000);
 			}
 
 			//Recup id de l'ami et de l'utilisateur
@@ -139,7 +139,7 @@ public class Friend{
 			String key = UserBDTools.checkKeyUpdate(userKey, conn);
 			if (key == null) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Erreur clé correspondance ou timestamp depasse", 1000);
+				return ErrorJSON.serviceRefused("Erreur clÃ© correspondance ou timestamp depasse", 1000);
 			}
 			
 			//Recup de l'id 
@@ -154,6 +154,50 @@ public class Friend{
 			}
 			if (retour.length() == 0 )
 				retour.put("Resultat", "Vous n'avez pas d'amis pour l'instant");
+				
+			//Great Succes
+			retour.put("new_key", key);
+			retour.put("status", "OK");
+			conn.close();
+		}
+
+		catch (SQLException e) {
+			return ErrorJSON.serviceRefused("SQL probleme // "+e.getMessage(), 1000);
+		}
+
+		
+		return retour;
+	}
+	
+	public static JSONObject getListAbonnes(String userKey) throws JSONException {
+JSONObject retour = new JSONObject();
+		
+		//Verif des parametres
+		if(userKey == null) {
+			return ErrorJSON.serviceRefused("Champs manquants", -1);
+		}
+		
+		try {
+			Connection conn = Database.getMySQLConnection();
+			//Verif de la key
+			String key = UserBDTools.checkKeyUpdate(userKey, conn);
+			if (key == null) {
+				conn.close();
+				return ErrorJSON.serviceRefused("Erreur cle correspondance ou timestamp depasse", 1000);
+			}
+			
+			//Recup de l'id 
+			int userID = UserBDTools.getUserIdfromKey(key, conn);
+			
+			//retour <- liste des relations
+			retour = RelationBDTools.getAbonnes(userID,conn);
+			//test si liste null
+			if(retour == null) {
+				conn.close();
+				return ErrorJSON.serviceRefused("Echec de creation de la liste d'abonnÃ©s", 1000);
+			}
+			if (retour.length() == 0 )
+				retour.put("Resultat", "Vous n'avez pas d'abonnes pour l'instant");
 				
 			//Great Succes
 			retour.put("new_key", key);

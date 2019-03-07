@@ -61,6 +61,24 @@ public class RelationBDTools {
 		st.close();
 		return retour;
 	}
+	
+public static JSONObject getAbonnes(int userID, Connection conn)throws SQLException, JSONException {
+		
+		JSONObject retour = new JSONObject();
+		
+		String query = "SELECT user_id1 FROM follow WHERE user_id2='"+userID+"'";
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(query);
+		
+		while(rs.next()) { 
+			String name =  UserBDTools.getLogin(rs.getInt("user_id1"), conn);
+			retour.put(rs.getString("user_id1"), name);
+		}
+		rs.close();
+		st.close();
+		return retour;
+	}
+
 
 	public static boolean checkFriend(int loginID, int relationID, Connection conn) throws SQLException{
 		
