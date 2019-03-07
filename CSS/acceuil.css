@@ -1,6 +1,7 @@
-header{
+#Twister{
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;   
 }
 
