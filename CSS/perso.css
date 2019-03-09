@@ -4,14 +4,17 @@ header{
     justify-content: space-around;
 }
 
-nav {
-
-}
-
 #corpus{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+nav {
+	width: 15%;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
 }
 
 #messages {
@@ -23,9 +26,21 @@ nav {
 }
 
 #recherchemessage{
-	padding-top: 5ex;
+	margin-top: 5ex;
 }
 
 #liste{
-	padding-top: 10ex;
+	margin-top: 5ex;
+	border:1px solid black;
+}
+
+.message {
+	text-align: center;
+	margin-left: 30ex;
+	margin-right: 30ex;
+	margin-bottom: 3ex;
+	padding-bottom: 2ex;
+	padding-top: 2ex;
+	border:1px solid black;
+
 }
