@@ -1,20 +1,62 @@
 header{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+	padding: 1em;
+	width: 100%;
+  display: flex;
+  justify-content: space-between;
+	position: fixed;
+}
+
+#deco{
+
+  padding: 5px 15px;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: #393939;
+  border-radius: 15px;
+  box-shadow: 1px 5px #999;
+  margin: 5ex;
+}
+
+#deco:hover {background-color: #3e8e41}
+
+#deco:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 
 nav {
+	padding: 16px;
 
 }
 
+#logo{
+	
+	height: 5em;
+	width: 5em;
+	align-self: center;
+	
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%
+}
+
 #corpus{
+	 
+    margin-top: 6em;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
 #messages {
+	padding: 16px;
 	width: 85%;
 	display: flex;
 	flex-direction: column;
@@ -23,9 +65,11 @@ nav {
 }
 
 #recherchemessage{
+	padding: 16px;
 	padding-top: 5ex;
 }
 
 #liste{
+	padding: 16px;
 	padding-top: 10ex;
 }
