@@ -1,20 +1,31 @@
+html{
+  width: 100%;
+}
+
+body{
+  width: 100%;
+  margin: 0px;
+ 
+}
+
 header{
-	padding: 1em;
+
 	width: 100%;
   display: flex;
   justify-content: space-between;
 	position: fixed;
+  background-color: #393939;
 }
 
 #deco{
-
+  align-self: center;
   padding: 5px 15px;
   font-size: 12px;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  color: #fff;
-  background-color: #393939;
+  color: #393939;
+  background-color: #DBFFE8;
   border-radius: 15px;
   box-shadow: 1px 5px #999;
   margin: 5ex;
@@ -28,8 +39,14 @@ header{
   transform: translateY(4px);
 }
 
+#mess{
+  
+  align-self: center;
+}
+
 nav {
 	padding: 16px;
+  position: fixed;
 
 }
 
@@ -38,6 +55,7 @@ nav {
 	height: 5em;
 	width: 5em;
 	align-self: center;
+  padding-left: 5em;
 	
 }
 
@@ -72,4 +90,17 @@ nav {
 #liste{
 	padding: 16px;
 	padding-top: 10ex;
+}
+
+#amis{
+  align-self: center;
+}
+
+#searchFriend{
+  background-color: white;
+  background-image: url("../images/loupe.png");
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding-left: 40px;
+  border-radius: 15px;
 }
