@@ -11,9 +11,8 @@
         <header class="sticky">
             <img id="logo" src ="../images/ancre.png" alt="logo" />
 
-            <form id = "mess" method="GET" action="">
-                <input type="text" name="pattern"/>
-                <input type="submit" value="loupe"/>
+            <form id="mess" method="GET" action="">
+                <input id = "pattern" type="text" name="pattern"/>
             </form>
 
             <a id="deco" href="deconnexion.html">Deconnexion</a>
@@ -34,18 +33,20 @@
                 </form>
             </nav>
         
-                <div id="messages">
-                    <article id="recherchemessage">
-                        <form method="GET" action> 
-                            <input type="text" name="message"/>
-                            <input type="submit" value="Poster"/>
-                        </form>
-                    </article>
-                    <article id="liste">
-                        <p>Liste de messages ici</p>
-                    </article>
-                </div>
+            <article id="messages">
+                
+                <form id="formMess" method="GET" action =""> 
+                    <textarea onkeypress="process(event, this)" class="autoExpand" rows='3' data-min-rows='3' name="message" placeholder="Exprimez-vous !"></textarea> 
+                </form>
+                <p>Liste de messages ici</p>
+                
+            </article>
         </div>
+
+        <script type="text/javascript" src="../js/autoExpand.js"></script>
+        <script type="text/javascript" src="../js/submitArea.js"></script>
+
+        
     </body>
 
 </html>
