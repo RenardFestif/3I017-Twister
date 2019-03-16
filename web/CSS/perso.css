@@ -98,6 +98,7 @@ nav {
 
 
 #messages {
+  width: 100%;
   margin-left: 15em;
 	padding: 1em 2em;
 	display: flex;
@@ -105,7 +106,9 @@ nav {
   
 }
 
-
+#formMess{
+  width: 100%;
+}
 
 
 #amis{
