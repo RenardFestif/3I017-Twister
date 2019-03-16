@@ -1,0 +1,132 @@
+html{
+  width: 100%;
+}
+
+body{
+  width: 100%;
+  margin: 0px;
+ 
+}
+
+header{
+
+	width: 100%;
+  display: flex;
+  justify-content: space-between;
+	position: fixed;
+  background-color: #393939;
+  height: 7em;
+}
+
+#pattern{
+  min-width: 25em;
+  border-radius: 15px;
+  padding-left: 40px;
+  height: 2em;
+}
+
+#deco{
+  
+  align-self: center;
+  padding: 5px 15px;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  color: #393939;
+  background-color: #DBFFE8;
+  border-radius: 15px;
+  box-shadow: 1px 5px #999;
+  margin-right: 19em;
+}
+
+#deco:hover {background-color: #3e8e41}
+
+#deco:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+#mess{
+  align-self: center;
+  margin-right: 2em;
+  margin-left: 2em;
+}
+
+
+
+#logo{
+	
+	height: 5em;
+	width: 5em;
+	align-self: center;
+  padding-left: 15em;
+	
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%
+}
+
+#corpus{
+	 
+    margin-top: 9em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+nav {
+  padding: 1em 2em;
+  position: fixed;
+  left: 0;
+  width: 15em;
+}
+
+#searchFriend{
+  background-color: white;
+  background-image: url("../images/loupe.png");
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding-left: 40px;
+  border-radius: 15px;
+}
+
+
+
+#messages {
+  margin-left: 15em;
+	padding: 1em 2em;
+	display: flex;
+	flex-direction: column;
+  
+}
+
+
+
+
+#amis{
+}
+
+
+
+
+textarea[name=message]{
+  border-radius: 15px;
+  padding: 15px;
+  height: 6em;
+  resize: none;
+  overflow: hidden;
+}
+
+textarea[name=message]:focus:enabled{
+  border: 2px solid #555;
+  box-shadow: 5px 5px 8px #555;
+}
+
+input[type=text]:focus{
+  border: 2px solid #555;
+}

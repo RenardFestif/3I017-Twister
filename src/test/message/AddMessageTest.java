@@ -4,7 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import services.Message;
-import services.User;
 
 public class AddMessageTest {
 	
