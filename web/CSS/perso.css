@@ -18,6 +18,11 @@ header{
   height: 7em;
 }
 
+#hLinks{
+  display: flex;
+  flex-direction: column;
+}
+
 #pattern{
   min-width: 25em;
   border-radius: 15px;
@@ -25,7 +30,7 @@ header{
   height: 2em;
 }
 
-#deco{
+.headerLink{
   
   align-self: center;
   padding: 5px 15px;
@@ -38,11 +43,13 @@ header{
   border-radius: 15px;
   box-shadow: 1px 5px #999;
   margin-right: 19em;
+  margin-top: 3ex;
+  margin-bottom: 1ex; 
 }
 
-#deco:hover {background-color: #3e8e41}
+.headerLink:hover {background-color: #3e8e41}
 
-#deco:active {
+.headerLink:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
@@ -76,7 +83,7 @@ header{
     margin-top: 9em;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+
 }
 
 nav {
@@ -104,10 +111,15 @@ nav {
 	display: flex;
 	flex-direction: column;
   
+  
 }
 
 #formMess{
   width: 100%;
+  align-content: center;
+  flex-direction: row;
+  justify-content: center;
+  display: flex;
 }
 
 
@@ -115,7 +127,10 @@ nav {
 }
 
 
-
+.autoExpand{
+  width: 50%;
+  min-width: 30em;
+}
 
 textarea[name=message]{
   border-radius: 15px;
