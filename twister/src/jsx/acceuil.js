@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import Login from "./jsx/connexion"
 
 class MainPage extends Component {
 	constructor(props){
 		super(props)
-		this.state = {pagecourante :"Acceuil", isConnected : false};
+		this.state = { pagecourante :"NavigationPannel", isConnected : false};
 		this.getConnected = this.getConnected.bind(this);
 		this.setLogout = this.setLogout.bind(this);
 		this.setLogin = this.setLogin.bind(this);
@@ -26,31 +27,27 @@ class MainPage extends Component {
 	  }
 
 	  render(){
-		  return (<div className="MainPage">
-	 			 	<NavigationPannel signin={this.setSignin} login={this.setLogin} logout={this.setLogout} isConnected={this.state.isConnected}/>
-					
-		  			</div>);
+		  return (
+				<div className="MainPage">
+	 			 	<NavigationPannel login={this.getConnected} logout={this.setLogout} isConnected={this.state.isConnected}/>
+					{this.props.pagecourante === "Acceuil" ? <Signin signin={this.setSignin}/>: <Login/> };
+		  	</div>);
 	  }
 }
 
 class NavigationPannel extends Component {
-	constructor(props){
-		super(props);
-	}
 
 	render(){
 		return (
 			<nav className="NavigationPannel">
-				  {this.props.isConnected === true ? <Logout logout={this.props.logout}/> : <Acceuil signin={this.props.signin} login={this.props.login}/>  }
+				  {this.props.isConnected === true ? <Logout logout={this.props.logout}/> : <Login login={this.props.login}/>}
       		</nav>
 		);
 	}
 }
 
 class Logout extends Component {
-	constructor(props){
-		super(props);
-	}
+
 	send(){
 		this.props.logout();
 	  }
@@ -59,46 +56,8 @@ class Logout extends Component {
 	  }
 }
 
-class Login extends Component{
-	constructor(props){
-	  super(props);
-	}
-	
-	send(){
-	  this.props.login();
-	}
-	
-	render(){
-	  return (
-	  <div className="Login">
-	  		 
-	  			<form className="modal-content animate" action="" method="GET" title="Connexion">
-                    <div className="container">
-                      <label htmlFor="username"><b>Login</b></label>
-                      <input type="text" placeholder="Login" name="username" required/>
-
-                      <label htmlFor="password"><b>Mot de passe</b></label>
-                      <input type="password" placeholder="Password" name="password" required/>
-                        
-                      <button className="log" type="submit" onClick={(event)=> this.send()}>Login</button>
-                    </div>
-
-                    <div className="container" id="mdp">
-                      <span className="psw"><a href="#">Mot de passe oublié ?</a></span>
-                    </div>
-					<div className="container" id="mdp">
-					<span className="psw"><a href="#">Pas encore inscrit ?</a></span>
-                    </div>
-					
-                </form>
-		</div>);
-	}
-}
 
 class Signin extends Component{
-	constructor(props){
-		super(props);
-	}
 
 	send(){
 		this.props.signin();
@@ -145,7 +104,7 @@ class Acceuil extends Component{
 	}
 
 	handleClick(s){
-		if(s == "l"){
+		if(s === "l"){
 			this.setState({login :true});
 			this.props.login();
 			return <Login/>;
