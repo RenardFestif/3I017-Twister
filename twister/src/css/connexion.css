@@ -1,0 +1,46 @@
+ul{
+    list-style: none;
+}
+
+#ma_connexion{
+    display:flex;
+    justify-content: center;
+}
+
+
+li{
+    display: flex;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.left-side{
+    min-width: 20ex;
+    
+}
+
+
+#button {
+    
+    display: flex;
+    justify-content: center;
+    min-width: 20ex;
+    margin-right: 10ex;
+    
+    
+}
+
+#liens{
+    display: flex;
+    flex-direction: column;
+}
+
+
+#connexion {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-self: center;
+}
