@@ -10,7 +10,7 @@ class MainPage extends Component{
         super(props);
         this.state = {pagecourrante:"Acceuil", connected : false};
         this.changepage = this.changepage.bind(this);
-        this.setState = this.setConnected.bind(this);
+        this.setConnected = this.setConnected.bind(this);
     }
 
 
@@ -24,10 +24,10 @@ class MainPage extends Component{
             page = <AcceuilPerso changepage = {this.changepage}/> 
         }else{
             if (pagecourrante === "inscription"){
-                page = <Inscription changepage = {this.changepage} connected = {this.setConnected} />;
+                page = <Inscription changepage = {this.changepage} setconnected = {this.setConnected}/>;
             }
             else if (pagecourrante === "connexion"){
-                page = <Connexion changepage = {this.changepage} connected = {this.setConnected}/>;
+                page = <Connexion changepage = {this.changepage} setconnected = {this.setConnected}/>;
             }
             else{
                 page = <Acceuil changepage = {this.changepage}/> 
@@ -40,12 +40,11 @@ class MainPage extends Component{
     }
 
     changepage(nomPage){
-        console.log(nomPage);
         this.setState({pagecourrante:nomPage});
     }
 
     setConnected(){
-        this.setState({connected:!this.connected});
+        this.setState({connected:!this.state.connected});
     }
 
 

@@ -5,16 +5,16 @@ class AcceuilPerso extends Component {
 
     render(){
         return (
-            <div className="AcceuilPerso">
-            <header class="sticky">
+            <div classNameName="AcceuilPerso">
+            <header classNameName="sticky">
                 <img id="logo" src ="../images/ancre.png" alt="logo" />
     
                 <form id="mess" method="GET" action="">
                     <input id = "pattern" type="text" name="pattern"/>
                 </form>
                 <div id="hLinks">
-                    <a class="headerLink" href="page_perso.html">Mon Profil</a>
-                    <a class="headerLink" href="deconnexion.html">Deconnexion</a>
+                    <a className="headerLink" href="page_perso.html">Mon Profil</a>
+                    <a className="headerLink" href="deconnexion.html">Deconnexion</a>
                 </div>
             </header>
     
@@ -36,7 +36,7 @@ class AcceuilPerso extends Component {
                 <article id="messages">
                     
                     <form id="formMess" method="GET" action =""> 
-                        <textarea onkeypress="process(event, this)" class="autoExpand" rows='3' data-min-rows='3' name="message" placeholder="Exprimez-vous !"></textarea> 
+                        <textarea /*ERREUR PAR ICI*/onKeyPress="process(event, this)" className="autoExpand" rows='3' data-min-rows='3' name="message" placeholder="Exprimez-vous !"></textarea> 
                     </form>
                     <p>Liste de messages ici</p>
                     

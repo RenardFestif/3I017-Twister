@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 
 class Inscription extends Component {
-    constructor(props){
-        super(props);
-    }
+	constructor(props){
+		super(props);
+		this.handleOnClick = this.handleOnClick.bind(this)
+	}
+
+	handleOnClick(){
+		this.props.changepage("acceuilperso");
+		this.props.setconnected();
+	  }
 
     render(){
 		return (
@@ -29,7 +35,7 @@ class Inscription extends Component {
 						<input type="password" placeholder="Et enfin un mot de passe super sécurisé !" name="password" required/>
 
 						<div className="clearfix">
-							<button type="submit" className="log" onClick={() => this.props.changepage("acceuilperso") }>Ca part !</button>
+							<button type="submit" className="log" onClick={() => this.handleOnClick()}>Ca part !</button>
 						</div>
 					</div>
 				</form>
