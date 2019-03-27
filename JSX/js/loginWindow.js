@@ -1,6 +1,8 @@
 var modal = document.getElementById('connexion');
 var modall = document.getElementById('inscription');
 
+alert("coucou");
+
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
