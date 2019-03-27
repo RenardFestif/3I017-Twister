@@ -122,7 +122,7 @@ class Acceuil extends Component{
 				<div id="container" className="">
 					<img id="logo" src="../images/logo.png" alt="logo"/>
 					<p id="title">Twister</p>
-					<button type="button" className="log" onClick={(event)=>this.handleClick("l")} >Inscription</button>
+					<button type="button" className="log" onSubmit={(event)=>this.handleClick("l")} >Inscription</button>
 					<button type="submit" className="log" onClick={(event)=>this.handleClick("s")}>Connexion</button>
 				</div>
 			</div>
