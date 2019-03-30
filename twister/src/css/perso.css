@@ -4,7 +4,7 @@ html{
 
 body{
   width: 100%;
-  margin: 0px;
+  margin: 0%;
  
 }
 
@@ -13,7 +13,6 @@ header{
 	width: 100%;
   display: flex;
   justify-content: space-between;
-	position: fixed;
   background-color: #393939;
   height: 7em;
 }
@@ -62,7 +61,6 @@ header{
 }
 
 
-
 #logo{
 	
 	height: 5em;
@@ -80,7 +78,7 @@ header{
 
 #corpus{
 	 
-    margin-top: 9em;
+    margin-top: 3em;
     display: flex;
     flex-direction: row;
 
