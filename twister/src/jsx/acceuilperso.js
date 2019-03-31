@@ -1,5 +1,27 @@
 import React, { Component } from 'react';
 
+function autoExpand(){
+    document.addEventListener('input', function (event){
+        if(event.target.tagName.toLowerCase() === 'textarea')
+          autoExpand(event.target);
+      },false);
+      
+      var autoExpand = function(field){
+        
+        field.style.height = '0px';
+        var computed = window.getComputedStyle(field);
+        
+        var height = parseInt(computed.getPropertyValue('border-top-width'), 10)
+                       + parseInt(computed.getPropertyValue('padding-top'), 10)
+                       + field.scrollHeight
+                       + parseInt(computed.getPropertyValue('padding-bottom'), 10)
+                       + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
+        
+        field.style.height = height + 'px';
+      }
+      
+}
+
 class AcceuilPerso extends Component {
 
 
@@ -36,15 +58,13 @@ class AcceuilPerso extends Component {
                 <article id="messages">
                     
                     <form id="formMess" method="GET" action =""> 
-                        <textarea /*ERREUR PAR ICI*/onKeyPress="process(event, this)" className="autoExpand" rows='3' data-min-rows='3' name="message" placeholder="Exprimez-vous !"></textarea> 
+                        <textarea /*ERREUR PAR ICI*/onKeyPress={autoExpand()} className="autoExpand" rows='3' data-min-rows='3' name="message" placeholder="Exprimez-vous !"></textarea> 
                     </form>
                     <p>Liste de messages ici</p>
                     
                 </article>
             </div>
     
-            <script type="text/javascript" src="../js/autoExpand.js"></script>
-            <script type="text/javascript" src="../js/submitArea.js"></script>
     
             </div>
         );

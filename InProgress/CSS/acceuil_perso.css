@@ -1,0 +1,39 @@
+#header{
+  background-color: #393939;
+
+}
+
+.button{
+  margin: 1ex;
+  max-width: 10em;
+  border-radius: 7px;
+}
+
+.buttons{
+  align-items: center;
+}
+
+.logo{
+  align-items: center;
+}
+
+.searchMess{
+  overflow:   hidden;
+  resize: none;
+  max-height: 2em;
+  align-self: center;
+  padding-left: 3ex;
+  margin: 4ex;  
+}
+
+.corps{
+  padding-top: 3em; 
+}
+
+.sider{
+  display: block;
+}
+
+.mess{
+  
+}
