@@ -36,14 +36,16 @@ class Pageperso extends Component {
     render(){ return(
         <div classNameName="AcceuilPerso">
             <header classNameName="sticky">
-                <img id="logo" src ="../images/ancre.png" alt="logo" />
-    
+                <img id="logo" src ="./images/logo.png" alt="logo" />
+
+                <button type="button" className="buttontop" onClick={()=> this.props.changepage("acceuilperso")}>Acceuil</button>
+                <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>Mon Profil</button>
+                
                 <form id="mess" method="GET" action="">
                     <input id = "pattern" type="text" name="pattern"/>
                 </form>
                 <div id="hLinks">
-                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("acceuilperso")}>Acceuil</button>
-					<button type="button" className="buttontop" onClick={()=> this.handleOnClick()}>Déconnexion</button>
+					<button type="button" className="" onClick={()=> this.handleOnClick()}>Déconnexion</button>
                 </div>
             </header>
     
@@ -57,7 +59,7 @@ class Pageperso extends Component {
                     <p>Nombre d'abonnements</p>
                     <p>on ajoutera des amis ici</p>
                     <form id="amis" method="GET" action> 
-                        <input id="searchFriend" type="text" name="pattern"/>
+                        <input id="searchFriend" type="text" name="pattern" />
                         
                     </form>
                 </nav>

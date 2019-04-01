@@ -19,7 +19,8 @@ header{
 
 #hLinks{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  margin-right: 10%;
 }
 
 #pattern{
@@ -50,7 +51,6 @@ header{
 
 .buttontop {
   display: inline-block;
-  padding: 5px 20px;
   font-size: 12px;
   cursor: pointer;
   text-align: center;
@@ -60,12 +60,11 @@ header{
   background-color: #393939;
   border: none;
   border-radius: 15px;
-  box-shadow: 0 9px #999;
   margin: 5%;
 }
 
 .buttontop:hover {
-  background-color: #3e8e41;
+  background-color:none;
   opacity: 0.75;
 }
 

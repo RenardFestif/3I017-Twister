@@ -3,14 +3,21 @@ import React, { Component } from 'react';
 class Message extends Component {
     constructor(props){
         super(props);
+        this.state = {message: props.msg};
         
     }
     
     render(){
         return (
-            <div className="Message">
-				Liste Message
-			</div>
+            <li className="Message">
+				<div className="truc" >
+                    <span>
+                        <span className = 'username'>@JP</span>
+                        <span>{this.state.message}</span>
+                        <span className = "datemess">13/13/13 13:13</span>
+                    </span>
+                </div>
+			</li>
             );
     }
 }
