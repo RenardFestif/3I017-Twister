@@ -48,6 +48,33 @@ header{
 
 .headerLink:hover {background-color: #3e8e41}
 
+.buttontop {
+  display: inline-block;
+  padding: 5px 20px;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #393939;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  margin: 5%;
+}
+
+.buttontop:hover {
+  background-color: #3e8e41;
+  opacity: 0.75;
+}
+
+.buttontop:active {
+background-color: #3e8e41;
+box-shadow: 0 5px #666;
+transform: translateY(4px);
+}
+
 .headerLink:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
@@ -66,7 +93,7 @@ header{
 	height: 5em;
 	width: 5em;
 	align-self: center;
-  padding-left: 15em;
+  padding-left: 10%;
 	
 }
 

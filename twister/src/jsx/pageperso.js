@@ -19,14 +19,12 @@ function autoExpand(){
                        + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
         
         field.style.height = height + 'px';
-      }  
+      }
+      
 }
-
-
-
-class AcceuilPerso extends Component {
+class Pageperso extends Component {
     constructor(props){
-        super(props)
+        super(props);
         this.handleOnClick = this.handleOnClick.bind(this);
     }
 
@@ -34,18 +32,17 @@ class AcceuilPerso extends Component {
         this.props.changepage("Acceuil");
         this.props.setconnected();
     }
-
-    render(){
-        return (
-            <div classNameName="AcceuilPerso">
+    
+    render(){ return(
+        <div classNameName="AcceuilPerso">
             <header classNameName="sticky">
-                <img id="logo" src ="../images/logo.png" alt="logo" />
+                <img id="logo" src ="../images/ancre.png" alt="logo" />
     
                 <form id="mess" method="GET" action="">
                     <input id = "pattern" type="text" name="pattern"/>
                 </form>
                 <div id="hLinks">
-                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>Mon Profil</button>
+                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("acceuilperso")}>Acceuil</button>
 					<button type="button" className="buttontop" onClick={()=> this.handleOnClick()}>Déconnexion</button>
                 </div>
             </header>
@@ -70,7 +67,7 @@ class AcceuilPerso extends Component {
                     <form id="formMess" method="GET" action =""> 
                         <textarea onKeyPress={autoExpand()} className="autoExpand" rows='3' data-min-rows='3' name="message" placeholder="Exprimez-vous !"></textarea> 
                     </form>
-                    <p> {<Message/>} </p>
+                    <p>{<Message/>}</p>
                     
                 </article>
             </div>
@@ -81,5 +78,4 @@ class AcceuilPerso extends Component {
     }
 }
 
-
-export default AcceuilPerso;
+export default Pageperso;

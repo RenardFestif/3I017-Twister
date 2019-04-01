@@ -3,12 +3,14 @@ import Acceuil from "./acceuil.js";
 import Inscription from "./incription.js";
 import Connexion from "./connexion.js";
 import AcceuilPerso from "./acceuilperso.js"
+import Pageperso from "./pageperso.js";
+import Message from "./message.js";
 
 
 class MainPage extends Component{
     constructor(props){
         super(props);
-        this.state = {pagecourrante:"Acceuil", connected : false};
+        this.state = {pagecourrante:"acceuilperso", connected : true};
         this.changepage = this.changepage.bind(this);
         this.setConnected = this.setConnected.bind(this);
     }
@@ -21,7 +23,10 @@ class MainPage extends Component{
         let page;
 
         if (connected === true){
-            page = <AcceuilPerso changepage = {this.changepage}/> 
+            if(pagecourrante === "acceuilperso")
+                page = <AcceuilPerso changepage = {this.changepage} setconnected = {this.setConnected}/> 
+            else if(pagecourrante==="pageperso")
+                page = <Pageperso changepage = {this.changepage} setconnected = {this.setConnected}/>
         }else{
             if (pagecourrante === "inscription"){
                 page = <Inscription changepage = {this.changepage} setconnected = {this.setConnected}/>;

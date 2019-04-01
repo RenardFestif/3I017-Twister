@@ -4,6 +4,7 @@ import './css/acceuil.css';
 import './css/login.css';
 import './css/connexion.css';
 import './css/perso.css';
+import './images/logo.png';
 import MainPage from "./jsx/mainpage";
 import * as serviceWorker from './serviceWorker';
 
