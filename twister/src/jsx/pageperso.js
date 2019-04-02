@@ -36,16 +36,17 @@ class Pageperso extends Component {
     render(){ return(
         <div classNameName="AcceuilPerso">
             <header classNameName="sticky">
-                <img id="logo" src ="./images/logo.png" alt="logo" />
-
-                <button type="button" className="buttontop" onClick={()=> this.props.changepage("acceuilperso")}>Acceuil</button>
-                <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>Mon Profil</button>
+                <img id="logo" src ="../images/logo.png" alt="logo" />
+                <div id="hLinks">
+                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>Profil</button>
+                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("acceuilperso")}>Acceuil</button>
+                </div>
                 
                 <form id="mess" method="GET" action="">
                     <input id = "pattern" type="text" name="pattern"/>
                 </form>
                 <div id="hLinks">
-					<button type="button" className="" onClick={()=> this.handleOnClick()}>Déconnexion</button>
+					<button type="button" className="buttontop" onClick={()=> this.handleOnClick()}>Déconnexion</button>
                 </div>
             </header>
     
