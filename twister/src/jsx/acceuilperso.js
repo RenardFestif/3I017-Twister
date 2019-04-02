@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Message from "./message.js";
+import MessageSet from "./messageSet.js";
 
 function autoExpand(){
     document.addEventListener('input', function (event){
@@ -71,9 +71,9 @@ class AcceuilPerso extends Component {
                 <article id="messages">
                     
                     <form id="formMess" method="GET" action =""> 
-                        <textarea onKeyPress={autoExpand()} className="autoExpand" rows='3' data-min-rows='3' name="message" placeholder="Exprimez-vous !"></textarea> 
+                        <textarea onKeyPress={autoExpand()} className="autoExpand"  name="message" placeholder="Exprimez-vous !"></textarea> 
                     </form>
-                    <p> {<Message/>} </p>
+                    {<MessageSet/>}
                     
                 </article>
             </div>

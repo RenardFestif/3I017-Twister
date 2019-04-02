@@ -4,7 +4,7 @@ import Inscription from "./incription.js";
 import Connexion from "./connexion.js";
 import AcceuilPerso from "./acceuilperso.js"
 import Pageperso from "./pageperso.js";
-import Message from "./message.js";
+
 
 
 class MainPage extends Component{
