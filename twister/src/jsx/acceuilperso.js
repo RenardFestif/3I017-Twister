@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MessageSet from "./messageSet.js";
+import logo from '../images/logo.png';
 
 function autoExpand(){
     document.addEventListener('input', function (event){
@@ -39,9 +40,9 @@ class AcceuilPerso extends Component {
         return (
             <div classNameName="AcceuilPerso">
             <header classNameName="sticky">
-                <img id="logo" src ="../images/logo.png" alt="logo" />
+                <img id="logo" src={logo} alt="logo" />
                 <div id="hLinks">
-                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>Profil</button>
+                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>Login</button>
                     <button type="button" className="buttontop" onClick={()=> this.props.changepage("acceuilperso")}>Acceuil</button>
                 </div>
                 

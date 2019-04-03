@@ -41,10 +41,9 @@ section{
 }
 
 #logo{
-    width: 10em;
-    height: 10em;
+    width: 20em;
+    height: 20em;
     align-self: center;
-    margin-bottom: -6em;
 }
 
 #Links{

@@ -4,7 +4,7 @@ import Inscription from "./incription.js";
 import Connexion from "./connexion.js";
 import AcceuilPerso from "./acceuilperso.js"
 import Pageperso from "./pageperso.js";
-
+import axios from "axios";
 
 
 class MainPage extends Component{

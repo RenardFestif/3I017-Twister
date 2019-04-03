@@ -89,10 +89,10 @@ transform: translateY(4px);
 
 #logo{
 	
-	height: 5em;
-	width: 5em;
+	height: 10em;
+	width: 10em;
 	align-self: center;
-  padding-left: 10%;
+  padding-left: 5%;
 	
 }
 
@@ -146,8 +146,6 @@ nav {
 }
 
 
-#amis{
-}
 
 
 .autoExpand{
