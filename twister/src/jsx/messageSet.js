@@ -58,11 +58,11 @@ class MessageSet extends Component {
     }
 }
 
-const MESSAGTEST={
+/*const MESSAGTEST={
     "status":"ok", 
     "Obj035647":"Bonjour tout le monde !", 
     "Obj466981":"Franchement pas cool de bloquer les transports #giletsjaunes"
-};
+};*/
 
 MessageSet.propTypes={
     messages: PropTypes.arrayOf(PropTypes.string)

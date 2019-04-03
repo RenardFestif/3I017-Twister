@@ -1,45 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE web-app PUBLIC 
 "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" 
-"http://java.sun.com/dtd/web-app_2_3.dtd"> 
+"http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
+	<filter>
+		<filter-name>CorsFilter</filter-name>
+		<filter-class>CORSFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>CorsFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+		
 	<!-- Servlets -->
 	<servlet>
 		<servlet-name>SignIn</servlet-name>
 		<servlet-class>servlet.user.CreateUser</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>LogIn</servlet-name>
 		<servlet-class>servlet.user.LogUser</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>AddMessage</servlet-name>
 		<servlet-class>servlet.message.AddMessage</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>DeleteMessage</servlet-name>
 		<servlet-class>servlet.message.DeleteMessage</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>SearchMessage</servlet-name>
 		<servlet-class>servlet.message.SearchMessage</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>AddFriend</servlet-name>
 		<servlet-class>servlet.relation.AddFriend</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>DeleteFriend</servlet-name>
 		<servlet-class>servlet.relation.DeleteFriend</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>ListFriend</servlet-name>
 		<servlet-class>servlet.relation.ListFriend</servlet-class>
@@ -51,40 +61,44 @@
 		<servlet-name>SignIn</servlet-name>
 		<url-pattern>/Acceuil/signin</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>LogIn</servlet-name>
 		<url-pattern>/Acceuil/login</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>AddMessage</servlet-name>
 		<url-pattern>/Profil/ajoutmessage</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>DeleteMessage</servlet-name>
 		<url-pattern>/Profil/deletemessage</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>SearchMessage</servlet-name>
 		<url-pattern>/Profil/cherchermessage</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>AddFriend</servlet-name>
 		<url-pattern>/Profil/ajoutrelation</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>DeleteFriend</servlet-name>
 		<url-pattern>/Profil/deleterelation</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>ListFriend</servlet-name>
 		<url-pattern>/Profil/listFriend</url-pattern>
 	</servlet-mapping>
+
 	
+
+
 </web-app>
+

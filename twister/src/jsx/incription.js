@@ -1,26 +1,57 @@
 import React, { Component } from 'react';
+import axios from "axios";
+
 
 class Inscription extends Component {
 	constructor(props){
 		super(props);
-		this.handleOnClick = this.handleOnClick.bind(this)
+		this.state={
+			login:"",
+			password:"",
+			mail:"",
+			nom:"",
+			prenom:""
+		};
+		this.handleOnClick = this.handleOnClick.bind(this);
+		this.traiteReponse = this.traiteReponse.bind(this);
+		this.send = this.send.bind(this);
+	}
+
+	send(){
+		var formData = new URLSearchParams();
+		formData.append("login",this.refs.login);
+		formData.append("password",this.refs.password);
+		formData.append("mail",this.refs.mail);
+		formData.append("nom",this.refs.nom);
+		formData.append("prenom",this.refs.prenom);
+
+		axios.get("http://localhost:8080/Twister/Acceuil/signin?"+formData).then(r=>{this.traiteReponse(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
+	}
+
+	traiteReponse(r){
+		console.log(r.data.nom);
+		if(r.data.status==="OK")
+			alert(r.data);
+			//this.props.changepage("connexion");
 	}
 
 	handleOnClick(){
-		this.props.changepage("acceuilperso");
-		this.props.setconnected();
+		//send();
+		//Felication Inscription
+		
+		this.props.changepage("inscription");
 	  }
 
     render(){
 		return (
 			<div className="Signin">
-				<form className="modal-content animate" action="" method="GET">
+				<div className="modal-content animate" >
 					<div className="container">
 						<h1>Inscription</h1>
 						<p>Remplis ce formulaire et rejoint le mouv' !</p>
 
 						<label htmlFor="nom"><b>Nom</b></label>
-						<input type="text" placeholder="Quel est ton nom ?" name="nom" required/>
+						<input type="text" placeholder="Quel est ton nom ?" name="nom" onInput={(evt) => {this.setState({nom:evt.target.get})}} required/>
 
 						<label htmlFor="prenom"><b>Prenom</b></label>
 						<input type="text" placeholder="Quel est ton prenom ?" name="prenom" required/>
@@ -35,10 +66,10 @@ class Inscription extends Component {
 						<input type="password" placeholder="Et enfin un mot de passe super sécurisé !" name="password" required/>
 
 						<div className="clearfix">
-							<button type="submit" className="log" onClick={() => this.handleOnClick()}>Ca part !</button>
+							<button onClick={this.send} className="log"  >Ca part !</button>
 						</div>
 					</div>
-				</form>
+				</div>
 			</div>			
         );
     }

@@ -4,13 +4,14 @@ import Inscription from "./incription.js";
 import Connexion from "./connexion.js";
 import AcceuilPerso from "./acceuilperso.js"
 import Pageperso from "./pageperso.js";
-import axios from "axios";
+
+
 
 
 class MainPage extends Component{
     constructor(props){
         super(props);
-        this.state = {pagecourrante:"acceuilperso", connected : true};
+        this.state = {pagecourrante:"acceuil", connected : false};
         this.changepage = this.changepage.bind(this);
         this.setConnected = this.setConnected.bind(this);
     }

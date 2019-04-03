@@ -73,7 +73,7 @@ public class User {
 			//Verif de la cle
 			if(!UserBDTools.checkConnexion(key, conn)) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Erreur clé correspondance ou timestamp depasse", 1000); 
+				return ErrorJSON.serviceRefused("Erreur clï¿½ correspondance ou timestamp depasse", 1000); 
 			}
 			
 			//Suprresion de l'entree dans la BD
