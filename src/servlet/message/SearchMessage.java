@@ -21,10 +21,15 @@ public class SearchMessage extends HttpServlet{
 		String userId = req.getParameter("userId");
 		
 		int id;
-		if (userId == null)
+		if (userId == "undefined")
 				id = 0;
 		else 
 			id = Integer.parseInt(userId);
+		
+		if (query == "undefined")
+			query = null;
+		if (userKey == "undefined")
+			userKey = null;
 	
 
 		try {
