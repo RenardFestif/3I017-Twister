@@ -10,7 +10,7 @@ public class CreatUserTest {
 		JSONObject newuserser = new JSONObject();
 		
 		try {
-			newuserser= User.createUser("Momo", "asDF123454321", "momomo@mail.fr","Maurice", "LeSinge");
+			newuserser= User.createUser("moiuyfd", "asDF123454321", "momomo@mail.fr","Maurice", "LeSinge");
 			System.out.println(newuserser.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();

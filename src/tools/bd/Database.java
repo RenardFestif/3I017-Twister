@@ -29,7 +29,7 @@ public class Database {
 		Database database = null; 
 		//Changer dans DBStatic
 		if(!DBStatic.pooling) {
-			return(DriverManager.getConnection("jdbc:mysql://" + DBStatic.host + "/" + DBStatic.bd, DBStatic.user, DBStatic.password));
+			return(DriverManager.getConnection("jdbc:mysql://" + DBStatic.host +  "/" + DBStatic.bd, DBStatic.user, DBStatic.password));
 		}else {
 			if (database == null) {
 				database = new Database("jdbc/db");
