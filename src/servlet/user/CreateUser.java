@@ -23,7 +23,6 @@ public class CreateUser extends HttpServlet {
 		String prenom = req.getParameter("prenom");
 		
 		try {
-			//appel du service
 			JSONObject retour = services.User.createUser(login, mdp, mail, nom, prenom);
 			
 			rep.setContentType("text/json");

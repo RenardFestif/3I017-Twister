@@ -19,26 +19,24 @@ class Inscription extends Component {
 
 	send(){
 		var formData = new URLSearchParams();
-		formData.append("login",this.refs.login);
-		formData.append("password",this.refs.password);
-		formData.append("mail",this.refs.mail);
-		formData.append("nom",this.refs.nom);
-		formData.append("prenom",this.refs.prenom);
+		formData.append("login",this.state.login);
+		formData.append("password",this.state.password);
+		formData.append("mail",this.state.mail);
+		formData.append("nom",this.state.nom);
+		formData.append("prenom",this.state.prenom);
 
 		axios.get("http://localhost:8080/Twister/Acceuil/signin?"+formData).then(r=>{this.traiteReponse(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
 	}
 
 	traiteReponse(r){
-		console.log(r.data.nom);
+		console.log(r.data);
 		if(r.data.status==="OK")
-			alert(r.data);
-			//this.props.changepage("connexion");
+			this.props.changepage("connexion");
 	}
 
 	handleOnClick(){
 		//send();
 		//Felication Inscription
-		
 		this.props.changepage("inscription");
 	  }
 
@@ -51,7 +49,7 @@ class Inscription extends Component {
 						<p>Remplis ce formulaire et rejoint le mouv' !</p>
 
 						<label htmlFor="nom"><b>Nom</b></label>
-						<input type="text" placeholder="Quel est ton nom ?" name="nom" onInput={(evt) => {this.setState({nom:evt.target.get})}} required/>
+						<input type="text" placeholder="Quel est ton nom ?" name="nom" ref="nom" onChange={(evt) => {this.setState({nom:this.refs.nom.value})}} required/>
 
 						<label htmlFor="prenom"><b>Prenom</b></label>
 						<input type="text" placeholder="Quel est ton prenom ?" name="prenom" required/>
