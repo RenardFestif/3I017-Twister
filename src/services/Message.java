@@ -78,7 +78,7 @@ public class Message {
 		JSONObject retour = new JSONObject();
 
 		//Faut bien faire commencer l'entr�e id de la table message a 1 sous peine de generer des erreurs
-		if( iDMessage == null ||userKey == null) 
+		if( iDMessage == "undefined" ||userKey == "undefined") 
 			return ErrorJSON.serviceRefused("erreur de parametres", -1);
 
 		try {
@@ -93,7 +93,7 @@ public class Message {
 
 			//Verif de la key
 			String key = UserBDTools.checkKeyUpdate(userKey, conn);
-			if (key == null) {
+			if (key == "undefined") {
 				conn.close();
 				return ErrorJSON.serviceRefused("Erreur cl� correspondance ou timestamp depasse", 1000);
 			}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 
 class MessageSet extends Component {
@@ -9,7 +10,6 @@ class MessageSet extends Component {
             userKey:props.userKey,
             query:props.query,
             userId:props.userId,
-            
         };
         //Les messages ne sont pas des etats et doivent être recuperrer dynamiquement   
         //En fonction de la clé
@@ -43,10 +43,26 @@ class MessageSet extends Component {
         }  
     }
     
+    send(){
+        var formData = new URLSearchParams();
+		formData.append("userKey",this.state.userKey);
+		formData.append("userId",this.state.userId);
+		formData.append("query",this.state.query);
+		
+
+        console.log("http://localhost:8080/Twister/Profil/cherchermessage?"+formData)
+		axios.get("http://localhost:8080/Twister/Profil/cherchermessage?"+formData).then(r=>{this.traiteReponse(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
+		
+	}
+
+	traiteReponse(r){
+		if(r.data.status==="OK")
+			this.props.changepage("connexion");
+    }
     
     render(){
 
-        this.getMessages()
+        this.send();
 
 
 

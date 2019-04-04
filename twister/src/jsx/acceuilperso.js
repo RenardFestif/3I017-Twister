@@ -38,8 +38,8 @@ class AcceuilPerso extends Component {
 
     render(){
         return (
-            <div classNameName="AcceuilPerso">
-            <header classNameName="sticky">
+            <div className="AcceuilPerso">
+            <header className="sticky">
                 <img id="logo" src={logo} alt="logo" />
                 <div id="hLinks">
                     <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>Login</button>
@@ -63,7 +63,7 @@ class AcceuilPerso extends Component {
                     <p>Nombre d'abonnés</p>
                     <p>Nombre d'abonnements</p>
                     <p>on ajoutera des amis ici</p>
-                    <form id="amis" method="GET" action> 
+                    <form id="amis" method="GET" > 
                         <input id="searchFriend" type="text" name="pattern"/>
                         
                     </form>
