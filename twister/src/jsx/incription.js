@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import { createRequireFromPath } from 'module';
+
 
 
 class Inscription extends Component {

@@ -7,15 +7,16 @@ class MessageSet extends Component {
     constructor(props){
         super(props);
         this.state = {
-            userKey:props.userKey,
             query:props.query,
             userId:props.userId,
         };
+
+        
         //Les messages ne sont pas des etats et doivent être recuperrer dynamiquement   
         //En fonction de la clé
     }
 
-    getMessages(){
+    /*getMessages(){
         //Tout à null searchMessage(null, null, 0)
         //Recherche de tout les messages
         if(this.state.userKey===undefined 
@@ -41,17 +42,17 @@ class MessageSet extends Component {
                 
             }
         }  
-    }
+    }*/
     
     send(){
         var formData = new URLSearchParams();
-		formData.append("userKey",this.state.userKey);
+		formData.append("userKey",this.props.userkey);
 		formData.append("userId",this.state.userId);
 		formData.append("query",this.state.query);
 		
 
         console.log("http://localhost:8080/Twister/Profil/cherchermessage?"+formData)
-		axios.get("http://localhost:8080/Twister/Profil/cherchermessage?"+formData).then(r=>{this.traiteReponse(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
+		axios.get("http://localhost:8080/Profil/cherchermessage?"+formData).then(r=>{this.traiteReponse(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
 		
 	}
 
@@ -61,10 +62,8 @@ class MessageSet extends Component {
     }
     
     render(){
-
+        
         this.send();
-
-
 
         return (
             <div className="MessageSet">
