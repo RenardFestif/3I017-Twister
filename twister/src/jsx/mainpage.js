@@ -11,9 +11,10 @@ import Pageperso from "./pageperso.js";
 class MainPage extends Component{
     constructor(props){
         super(props);
-        this.state = {pagecourrante:"acceuil", connected : false};
+        this.state = {pagecourrante:"acceuilperso", connected : false, login: "", cle:"", id:""};
         this.changepage = this.changepage.bind(this);
         this.setConnected = this.setConnected.bind(this);
+        this.getacceuilperso = this.getacceuilperso.bind(this);
     }
 
 
@@ -25,7 +26,7 @@ class MainPage extends Component{
 
         if (connected === true){
             if(pagecourrante === "acceuilperso")
-                page = <AcceuilPerso changepage = {this.changepage} setconnected = {this.setConnected}/> 
+                page = <AcceuilPerso changepage = {this.changepage} setconnected = {this.setConnected} getacceuilperso = {this.getacceuilperso}/> 
             else if(pagecourrante==="pageperso")
                 page = <Pageperso changepage = {this.changepage} setconnected = {this.setConnected}/>
         }else{
@@ -33,7 +34,7 @@ class MainPage extends Component{
                 page = <Inscription changepage = {this.changepage} setconnected = {this.setConnected}/>;
             }
             else if (pagecourrante === "connexion"){
-                page = <Connexion changepage = {this.changepage} setconnected = {this.setConnected}/>;
+                page = <Connexion changepage = {this.changepage} setconnected = {this.setConnected} getacceuilperso = {this.getacceuilperso}/>;
             }
             else{
                 page = <Acceuil changepage = {this.changepage}/> 
@@ -52,6 +53,11 @@ class MainPage extends Component{
     setConnected(){
         this.setState({connected:!this.state.connected});
     }
+
+    getacceuilperso(k, identifiant, log){
+        this.setState({login: log,id:identifiant, cle:k});
+    }
+
 
 
 }

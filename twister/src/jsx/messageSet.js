@@ -49,8 +49,6 @@ class MessageSet extends Component {
 		formData.append("userId",this.state.userId);
 		formData.append("query",this.state.query);
 		
-
-        console.log("http://localhost:8080/Twister/Profil/cherchermessage?"+formData)
 		axios.get("http://localhost:8080/Twister/Profil/cherchermessage?"+formData).then(r=>{this.traiteReponse(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
 		
 	}
@@ -63,7 +61,6 @@ class MessageSet extends Component {
     render(){
 
         this.send();
-
 
 
         return (

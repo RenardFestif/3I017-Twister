@@ -20,7 +20,7 @@ class Inscription extends Component {
 	}
 
 	send(){
-
+		
 		//Tester si les parametres sont bien tous remplit !
 		this.checkArg();
 
