@@ -30,11 +30,6 @@ class Inscription extends Component {
 		formData.append("mail",this.state.mail);
 		formData.append("nom",this.state.nom);
 		formData.append("prenom",this.state.prenom);
-
-		//console.log("http://localhost:8080/Twister/Acceuil/signin?"+formData)
-		
-
-
 		axios.get("http://localhost:8080/Twister/Acceuil/signin?"+formData).then(r=>{this.traiteReponse(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
 		
 	}
@@ -72,19 +67,19 @@ class Inscription extends Component {
 						<p>Remplis ce formulaire et rejoint le mouv' !</p>
 
 						<label htmlFor="nom"><b>Nom</b></label>
-						<input type="text" placeholder="Quel est ton nom ?" name="nom"  																	onInput={(evt) => {this.setState({nom: evt.target.value})}} required/>
+						<input type="text" placeholder="Quel est ton nom ?" name="nom" onInput={(evt) => {this.setState({nom: evt.target.value})}} required/>
 
 						<label htmlFor="prenom"><b>Prenom</b></label>
-						<input type="text" placeholder="Quel est ton prenom ?" name="prenom"  														onInput={(evt) => {this.setState({prenom: evt.target.value})}} required/>
+						<input type="text" placeholder="Quel est ton prenom ?" name="prenom" onInput={(evt) => {this.setState({prenom: evt.target.value})}} required/>
 
 						<label htmlFor="email"><b>Email</b></label>
-						<input type="text" placeholder="Renseigne ton Email !" name="email" 	 														onInput={(evt) => {this.setState({mail: evt.target.value})}} required/>
+						<input type="text" placeholder="Renseigne ton Email !" name="email"	onInput={(evt) => {this.setState({mail: evt.target.value})}} required/>
 
 						<label htmlFor="login"><b>Pseudo</b></label>
-						<input type="text" placeholder="Renseigne ton Pseudo" name="login" 	 															onInput={(evt) => {this.setState({login: evt.target.value})}} required/>
+						<input type="text" placeholder="Renseigne ton Pseudo" name="login" onInput={(evt) => {this.setState({login: evt.target.value})}} required/>
 
 						<label htmlFor="password"><b>Password</b></label>
-						<input type="password" placeholder="Et enfin un mot de passe super sécurisé !" name="password"   	onInput={(evt) => {this.setState({password: evt.target.value})}} required/>
+						<input type="password" placeholder="Et enfin un mot de passe super sécurisé !" name="password" onInput={(evt) => {this.setState({password: evt.target.value})}} required/>
 
 						<div className="clearfix">
 							<button onClick={this.send} className="log"  >Ca part !</button>
