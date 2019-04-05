@@ -25,7 +25,7 @@ public class AddFriend extends HttpServlet {
 			//appel service login
 			JSONObject retour = services.Friend.addFriend(pseudo, user_key);
 
-			rep.setContentType("text/plain");
+			rep.setContentType("text/json");
 			PrintWriter out = rep.getWriter();
 			out.println(retour.toString());
 			
