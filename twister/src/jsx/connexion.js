@@ -17,40 +17,33 @@ class Connexion extends Component{
 		formData.append("login",this.state.login);
     formData.append("password",this.state.password);
 
-    if(this.state.login === "" || this.state.password === ""){
-      alert("Merci de remplir tout les champs");
-      return;
-    }
+    
     
     axios.get("http://localhost:8080/Twister/Acceuil/login?"+formData).then(r=>{this.traiteReponse(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
-    console.log("http://localhost:8080/Twister/Acceuil/login?"+formData);
   }
 
+<<<<<<< HEAD
 
 
   traiteReponse(r){
 
 
     //Match !
+=======
+  traiteReponse(r){
+    
+>>>>>>> parent of bc0ee0a... Passage de key a MessageSet
     if(r.data.status==="OK"){
-      this.props.changepage("acceuilperso");
-      this.props.setKey(r.data.key);
-      this.props.setconnected();
-      
-    }
+    //Si mot de passe faux changement CSS ou bien alert
 
-    //Section a modifié car pas esthetique !
-    //Appel de fonction js => modification dom bootstrap 
-    if(r.data.message === "Mot de passe oublie ?")
-    {
-      alert("Mot de passe oublié ?")
-      return;
+    //Que faire si l'utilisteur est déja connecté ??
+
+
+    //Recuperation de la clé
+      this.props.changepage("acceuilperso");
+      this.props.setconnected();
     }
-    if(r.data.message === "Utilisateur inconnu")
-    {
-      alert("Utilisateur inconnu")
-      return;
-    }
+<<<<<<< HEAD
 
     /*//Recuperation de la clé
         this.setState({cle: r.data.key});
@@ -61,6 +54,8 @@ class Connexion extends Component{
     }*/
    
 
+=======
+>>>>>>> parent of bc0ee0a... Passage de key a MessageSet
   }
 
   

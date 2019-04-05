@@ -1,6 +1,5 @@
 package services;
 
-import java.io.ObjectInputStream.GetField;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -117,29 +116,17 @@ public class User {
 			
 			//retour de l'id
 			int id_user = UserBDTools.getUserId(login, conn);
-			String key = null;
+			
 			//Verif si l'utilisateur est deja connecte
 			if(UserBDTools.checkConnexion(id_user, conn)) {
-				
-				key = UserBDTools.getConnexion(id_user, conn);
-				if(key == null) {
-					return ErrorJSON.serviceRefused("Recuperation clé impossible", 1000);
-				}
-				
-				key = UserBDTools.checkKeyUpdate(key, conn);
-				if (key == null) {
-					return ErrorJSON.serviceRefused("Rechargement clé impossible", 1000);
-				}
-				
-				
+				conn.close();
+				return ErrorJSON.serviceRefused("Utilisateur deja connecte", 1000);
 			}
 			
 			
 			
 			//retour de la clef de connexion
-			if (key == null)
-				key = UserBDTools.insertConnexion(id_user, 0, conn);
-			
+			String key = UserBDTools.insertConnexion(id_user, 0, conn);
 			retour = ErrorJSON.serviceAccepted();
 			retour.put("userID", id_user);
 			retour.put("key", key);

@@ -29,6 +29,7 @@ function autoExpand(){
 class AcceuilPerso extends Component {
     constructor(props){
         super(props)
+<<<<<<< HEAD
      
         this.state={
             login:"",
@@ -38,6 +39,9 @@ class AcceuilPerso extends Component {
         this.getAmis = this.getAmis.bind(this);
        this.handleOnClick = this.handleOnClick.bind(this);
 
+=======
+        this.handleOnClick = this.handleOnClick.bind(this);
+>>>>>>> parent of bc0ee0a... Passage de key a MessageSet
     }
 
     handleOnClick(){
@@ -55,9 +59,6 @@ class AcceuilPerso extends Component {
 
 
     render(){
-        
-        
-        
         return (
             <div className="AcceuilPerso">
             <header className="sticky">
@@ -95,7 +96,7 @@ class AcceuilPerso extends Component {
                     <form id="formMess" method="GET" action =""> 
                         <textarea onKeyPress={autoExpand()} className="autoExpand"  name="message" placeholder="Exprimez-vous !"></textarea> 
                     </form>
-                    {<MessageSet userkey={this.props.userKey}/>}
+                    {<MessageSet/>}
                     
                 </article>
             </div>

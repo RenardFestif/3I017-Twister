@@ -40,27 +40,11 @@ public class UserBDTools {
 			st.close();
 			return key;
 		}
-		st.close();
-		
 
 		return null;
 
 	}
-
-	public static String getConnexion(int userID, Connection conn) throws SQLException {
-		String key = null;
-
-		String query = "SELECT session_key FROM sessions WHERE user_id='"+userID+"'";
-		Statement st = conn.createStatement();
-		ResultSet rs = st.executeQuery(query); 	
-		while(rs.next()) {
-			key = rs.getString("session_key");
-		}
-		rs.close();
-		st.close();
-		return key;
-	}
-
+	
 	public static boolean deleteConnexion(String key, Connection conn) throws SQLException{
 
 		String query = "DELETE FROM sessions WHERE session_key='"+key+"'";
@@ -125,7 +109,7 @@ public class UserBDTools {
 	}
 
 	public static boolean checkKey(String key, Connection conn) throws SQLException {
-
+		
 		String query = "SELECT * FROM sessions WHERE session_key='"+key+"'";
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(query);
@@ -137,7 +121,7 @@ public class UserBDTools {
 		st.close();
 		return keyExist;
 	}
-
+	
 	public static String checkKeyUpdate(String key, Connection conn) throws SQLException {
 		String query = "SELECT * FROM sessions WHERE session_key='"+key+"'";
 		Statement st = conn.createStatement();
@@ -146,47 +130,47 @@ public class UserBDTools {
 		if(rs.next()) {
 			Date date = rs.getTime("session_start");
 			Date now = new Date();
-
+			
 			@SuppressWarnings("deprecation")
 			Long diff = (long) Math.abs(now.getMinutes() - date.getMinutes());
-
-
+			
+			
 			// si connexion inferieur à 10 minutes 
 			if(diff < 10) {
 				boolean present = true;
-
-
-
+				
+				
+				
 				while(present) {
 					//Generation nouvelle key 
 					newKey = UserTools.generateKey(UserTools.length);
-
+					
 
 					//verif si elle est pas dans la base 
 					query = "SELECT * FROM sessions WHERE session_key='"+newKey+"'";
 					ResultSet rs2 = st.executeQuery(query);
 					present = false;
 					while(rs2.next()) {
-
+						
 						present = true;
 					}
 				}
-
+				
 				query = "UPDATE sessions SET session_key = '"+newKey+"' WHERE session_key='"+key+"'";
 				st.executeUpdate(query);
 				query = "UPDATE sessions SET session_start = NOW() WHERE session_key='"+newKey+"'";
 				st.executeUpdate(query);
-
+				
 			}
 			else {
-
+				
 				deleteConnexion(key, conn);
 				rs.close();
 				st.close();
 				return null;
-
+				
 			}
-
+			
 		}		
 		rs.close();
 		st.close();
@@ -196,9 +180,9 @@ public class UserBDTools {
 	public static boolean checkConnexion( String key, Connection conn) throws SQLException {
 		return checkKey(key, conn);
 	}
+	
 
-
-
+	
 
 	public static boolean checkConnexion( int userID, Connection conn) throws SQLException {
 

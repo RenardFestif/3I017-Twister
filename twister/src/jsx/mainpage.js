@@ -11,6 +11,7 @@ import Pageperso from "./pageperso.js";
 class MainPage extends Component{
     constructor(props){
         super(props);
+<<<<<<< HEAD
 
         this.state = {pagecourrante:"acceuil", connected:false, key:"", id:""};
         this.changepage = this.changepage.bind(this);
@@ -19,21 +20,29 @@ class MainPage extends Component{
 
         this.getacceuilperso = this.getacceuilperso.bind(this);
 
+=======
+        this.state = {pagecourrante:"acceuil", connected : false};
+        this.changepage = this.changepage.bind(this);
+        this.setConnected = this.setConnected.bind(this);
+>>>>>>> parent of bc0ee0a... Passage de key a MessageSet
     }
 
 
     render(){
         var {connected} = this.state;
         var {pagecourrante} = this.state;
-        
-        
+
         let page;
 
         if (connected === true){
             if(pagecourrante === "acceuilperso")
+<<<<<<< HEAD
 
                 page = <AcceuilPerso changepage = {this.changepage} setconnected = {this.setConnected} userKey={this.state.key} getacceuilperso = {this.getacceuilperso}/> 
 
+=======
+                page = <AcceuilPerso changepage = {this.changepage} setconnected = {this.setConnected}/> 
+>>>>>>> parent of bc0ee0a... Passage de key a MessageSet
             else if(pagecourrante==="pageperso")
                 page = <Pageperso changepage = {this.changepage} setconnected = {this.setConnected}/>
         }else{
@@ -41,9 +50,13 @@ class MainPage extends Component{
                 page = <Inscription changepage = {this.changepage} setconnected = {this.setConnected}/>;
             }
             else if (pagecourrante === "connexion"){
+<<<<<<< HEAD
 
                 page = <Connexion changepage = {this.changepage} setconnected = {this.setConnected} setKey = {this.setKey} getacceuilperso = {this.getacceuilperso}/>;
 
+=======
+                page = <Connexion changepage = {this.changepage} setconnected = {this.setConnected}/>;
+>>>>>>> parent of bc0ee0a... Passage de key a MessageSet
             }
             else{
                 page = <Acceuil changepage = {this.changepage}/> 
@@ -57,10 +70,6 @@ class MainPage extends Component{
 
     changepage(nomPage){
         this.setState({pagecourrante:nomPage});
-    }
-
-    setKey(newkey){
-        this.setState({key:newkey});
     }
 
     setConnected(){
