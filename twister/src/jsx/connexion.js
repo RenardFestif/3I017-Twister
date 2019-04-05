@@ -5,8 +5,9 @@ class Connexion extends Component{
   constructor(props){
     super(props);
     this.state={
-      login:"",
       password:"",
+      cle:"",
+      id:""
     }
 
   }
@@ -26,7 +27,9 @@ class Connexion extends Component{
   }
 
 
+
   traiteReponse(r){
+
 
     //Match !
     if(r.data.status==="OK"){
@@ -48,7 +51,16 @@ class Connexion extends Component{
       alert("Utilisateur inconnu")
       return;
     }
-    
+
+    /*//Recuperation de la clé
+        this.setState({cle: r.data.key});
+        this.setState({id: r.data.userID});
+        this.props.changepage("acceuilperso");
+        this.props.setconnected();
+        this.props.getacceuilperso(this.state.cle, this.state.id, this.state.login);
+    }*/
+   
+
   }
 
   
@@ -60,10 +72,10 @@ class Connexion extends Component{
 	  			<div className="modal-content animate">
                     <div className="container">
                       <label htmlFor="username"><b>Login</b></label>
-                      <input type="text" placeholder="Login" name="username"          onInput={(evt) => {this.setState({login: evt.target.value})}} required/>
+                      <input type="text" placeholder="Login" name="username" onInput={(evt) => {this.setState({login: evt.target.value})}} required/>
 
                       <label htmlFor="password"><b>Mot de passe</b></label>
-                      <input type="password" placeholder="Password" name="password"   onInput={(evt) => {this.setState({password: evt.target.value})}} required/>
+                      <input type="password" placeholder="Password" name="password" onInput={(evt) => {this.setState({password: evt.target.value})}} required/>
                         
                       <button className="log" type="submit" onClick={() => this.send()}>Login</button>
                     </div>

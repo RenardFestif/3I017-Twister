@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MessageSet from "./messageSet.js";
 import logo from '../images/logo.png';
+import Amis from "./amis.js";
 
 function autoExpand(){
     document.addEventListener('input', function (event){
@@ -28,15 +29,30 @@ function autoExpand(){
 class AcceuilPerso extends Component {
     constructor(props){
         super(props)
-        this.state={userKey:this.props.userKey}
-        this.handleOnClick = this.handleOnClick.bind(this);
-        
+     
+        this.state={
+            login:"",
+            key:"",
+            id:""
+        }
+        this.getAmis = this.getAmis.bind(this);
+       this.handleOnClick = this.handleOnClick.bind(this);
+
     }
 
     handleOnClick(){
+        var formData = new URLSearchParams();
+		formData.append("login",this.state.login);
+        formData.append("password",this.state.password);
+
         this.props.changepage("Acceuil");
         this.props.setconnected();
     }
+
+    getAmis(cle){
+        this.setState({key:cle});
+    }
+
 
     render(){
         
@@ -66,7 +82,7 @@ class AcceuilPerso extends Component {
                 <nav>
                     <p>Nombre de messages écrit</p>
                     <p>Nombre d'abonnés</p>
-                    <p>Nombre d'abonnements</p>
+                    <p>{<Amis getAmis={this.getAmis} />}</p>
                     <p>on ajoutera des amis ici</p>
                     <form id="amis" method="GET" > 
                         <input id="searchFriend" type="text" name="pattern"/>

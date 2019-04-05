@@ -37,7 +37,7 @@ public class SearchMessage extends HttpServlet{
 			
 			JSONObject retour = services.Message.searchMessage(query, userKey, id); 
 
-			rep.setContentType("text/plain");
+			rep.setContentType("text/json");
 			PrintWriter out = rep.getWriter();
 			out.println(retour.toString());
 		} catch (JSONException e) {

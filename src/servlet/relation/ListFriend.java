@@ -25,7 +25,7 @@ public class ListFriend extends HttpServlet {
 			//appel service user_key
 			JSONObject retour = services.Friend.getListFriends(user_key);
 
-			rep.setContentType("text/plain");
+			rep.setContentType("text/json");
 			PrintWriter out = rep.getWriter();
 			out.println(retour.toString());
 			

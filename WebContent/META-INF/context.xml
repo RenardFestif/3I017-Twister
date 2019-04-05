@@ -5,6 +5,6 @@ name="jdbc/db" type="javax.sql.DataSource"
 maxActive="100" maxIdle="30" maxWait="10000"
 url="jdbc:mysql://localhost/thoirey_saadi"
 driverClassName="com.mysql.jdbc.Driver"
-username="root" password=""
+username="root" password="root"
 />
 </Context>
