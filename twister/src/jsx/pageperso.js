@@ -34,7 +34,9 @@ class Pageperso extends Component {
         this.props.setconnected();
     }
     
-    render(){ return(
+    render(){ 
+        
+        return(
         <div classNameName="AcceuilPerso">
             <header classNameName="sticky">
                 <img id="logo" src={logo} alt="logo" />
@@ -71,7 +73,7 @@ class Pageperso extends Component {
                     <form id="formMess" method="GET" action =""> 
                         <textarea onKeyPress={autoExpand()} className="autoExpand" rows='3' data-min-rows='3' name="message" placeholder="Exprimez-vous !"></textarea> 
                     </form>
-                    {<MessageSet/>}
+                    {<MessageSet key={this.props.key}/>}
                     
                 </article>
             </div>

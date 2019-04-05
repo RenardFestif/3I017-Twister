@@ -29,13 +29,15 @@ function autoExpand(){
 class AcceuilPerso extends Component {
     constructor(props){
         super(props)
-        this.handleOnClick = this.handleOnClick.bind(this);
+     
         this.state={
             login:"",
             key:"",
             id:""
         }
         this.getAmis = this.getAmis.bind(this);
+       this.handleOnClick = this.handleOnClick.bind(this);
+
     }
 
     handleOnClick(){
@@ -53,6 +55,9 @@ class AcceuilPerso extends Component {
 
 
     render(){
+        
+        
+        
         return (
             <div className="AcceuilPerso">
             <header className="sticky">
@@ -90,7 +95,7 @@ class AcceuilPerso extends Component {
                     <form id="formMess" method="GET" action =""> 
                         <textarea onKeyPress={autoExpand()} className="autoExpand"  name="message" placeholder="Exprimez-vous !"></textarea> 
                     </form>
-                    {<MessageSet/>}
+                    {<MessageSet userkey={this.props.userKey}/>}
                     
                 </article>
             </div>
