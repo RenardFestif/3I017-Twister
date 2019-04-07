@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MessageSet from "./messageSet.js";
 import logo from '../images/logo.png';
 import Amis from "./amis.js";
+import axios from 'axios';
 
 function autoExpand(){
     document.addEventListener('input', function (event){
@@ -29,41 +30,42 @@ function autoExpand(){
 class AcceuilPerso extends Component {
     constructor(props){
         super(props)
-     
-        this.state={
-            login:"",
-            key:"",
-            id:""
-        }
+        
         this.getAmis = this.getAmis.bind(this);
-       this.handleOnClick = this.handleOnClick.bind(this);
+        
 
     }
 
-    handleOnClick(){
+    deconnexion(){
         var formData = new URLSearchParams();
-		formData.append("login",this.state.login);
-        formData.append("password",this.state.password);
+		formData.append("userKey",this.props.userKey);
+        console.log("http://localhost:8080/Twister/Acceuil/logout?"+formData)
+        axios.get("http://localhost:8080/Twister/Acceuil/logout?"+formData).then(r=>{this.traiteDeco(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});      
+    }
 
-        this.props.changepage("Acceuil");
-        this.props.setconnected();
+    traiteDeco(r){
+        console.log(r.data);
+        if (r.data.status === "OK"){
+            this.props.setLogout();
+            this.props.changepage("acceuil");
+        }
     }
 
     getAmis(cle){
-        this.setState({key:cle});
+        
     }
+
 
 
     render(){
         
-        
+        //Tester les etats pour voir si il fait afficher les message d'acceuil ou bien ceux du profil (Idem pour la side navbar)
         
         return (
             <div className="AcceuilPerso">
             <header className="sticky">
                 <img id="logo" src={logo} alt="logo" />
                 <div id="hLinks">
-                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>Login</button>
                     <button type="button" className="buttontop" onClick={()=> this.props.changepage("acceuilperso")}>Acceuil</button>
                 </div>
                 
@@ -71,18 +73,21 @@ class AcceuilPerso extends Component {
                     <input id = "pattern" type="text" name="pattern"/>
                 </form>
                 <div id="hLinks">
-					<button type="button" className="buttontop" onClick={()=> this.handleOnClick()}>Déconnexion</button>
+					<button type="button" className="buttontop" onClick={()=> this.deconnexion()}>Déconnexion</button>
+                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>{this.props.login}</button>
                 </div>
             </header>
     
             
-    
+            
+
+        
             <div id="corpus">
     
                 <nav>
                     <p>Nombre de messages écrit</p>
                     <p>Nombre d'abonnés</p>
-                    <p>{<Amis getAmis={this.getAmis} />}</p>
+                    <div>{<Amis getAmis={this.getAmis} />}</div>
                     <p>on ajoutera des amis ici</p>
                     <form id="amis" method="GET" > 
                         <input id="searchFriend" type="text" name="pattern"/>
@@ -95,7 +100,7 @@ class AcceuilPerso extends Component {
                     <form id="formMess" method="GET" action =""> 
                         <textarea onKeyPress={autoExpand()} className="autoExpand"  name="message" placeholder="Exprimez-vous !"></textarea> 
                     </form>
-                    {<MessageSet userkey={this.props.userKey}/>}
+                    {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey}/>}
                     
                 </article>
             </div>

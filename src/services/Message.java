@@ -46,7 +46,7 @@ public class Message {
 			String key = UserBDTools.checkKeyUpdate(userKey, conn);
 			if (key == null) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Erreur cl� correspondance ou timestamp depasse", 1000);
+				return ErrorJSON.serviceRefused("Erreur de correspondance ou timestamp depasse", 1000);
 			}
 
 			//Insertion
@@ -95,7 +95,7 @@ public class Message {
 			String key = UserBDTools.checkKeyUpdate(userKey, conn);
 			if (key == "undefined") {
 				conn.close();
-				return ErrorJSON.serviceRefused("Erreur cl� correspondance ou timestamp depasse", 1000);
+				return ErrorJSON.serviceRefused("Erreur de correspondance ou timestamp depasse", 1000);
 			}
 		
 			
@@ -160,10 +160,10 @@ public class Message {
 				String key = UserBDTools.checkKeyUpdate(userKey, conn);
 				if (key == null) {
 					conn.close();
-					return ErrorJSON.serviceRefused("Erreur cl� correspondance ou timestamp depasse", 1000);
+					return ErrorJSON.serviceRefused("Erreur de correspondance ou timestamp depasse", 1000);
 				}
 
-				retour = MessageBDTools.getMessages(userKey, conn, query, message_collection);
+				retour = MessageBDTools.getMessages(key, conn, query, message_collection);
 				retour.put("new_key", key);
 				retour.put("status", "OK");
 				conn.close();
@@ -175,10 +175,10 @@ public class Message {
 				String key = UserBDTools.checkKeyUpdate(userKey, conn);
 				if (key == null) {
 					conn.close();
-					return ErrorJSON.serviceRefused("Erreur cl� correspondance ou timestamp depasse", 1000);
+					return ErrorJSON.serviceRefused("Erreur de correspondance ou timestamp depasse", 1000);
 				}
 				
-				retour = MessageBDTools.getMessages(userKey, pattern, userId , query, message_collection);
+				retour = MessageBDTools.getMessages(key, pattern, userId , query, message_collection);
 				conn.close();
 				retour.put("new_key", key);
 				retour.put("status", "OK");

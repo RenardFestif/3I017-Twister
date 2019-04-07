@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +17,7 @@ import org.json.JSONObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.model.Filters;
 
 import tools.relation.RelationBDTools;
 import tools.user.UserBDTools;
@@ -130,22 +133,36 @@ public class MessageBDTools {
 
 	public static JSONObject getMessages(String userKey,Connection conn, Document query, MongoCollection<Document> message_collection) throws SQLException, JSONException {
 		JSONObject retour = new JSONObject();
-		JSONObject tmp = new JSONObject();
-		
 		int userID = UserBDTools.getUserIdfromKey(userKey, conn);
 		JSONObject listFriend = RelationBDTools.getFriends(userID, conn);
 		
-		@SuppressWarnings("unchecked")
-		Iterator<Integer> friendId = listFriend.keys();
+		
+		Iterator<String> friendId = listFriend.keys();
+		ArrayList<String> concerned = new ArrayList<String>();
+		concerned.add(Integer.toString(userID));
 		
 		while (friendId.hasNext()) {
-			
-			int id = friendId.next();
-			tmp = getMessages(userKey, "", id, query, message_collection);
-			retour.put(Integer.toString(id), tmp);
+			concerned.add(friendId.next());
 		}
+		
+		
 
+		
+		for (String string : concerned) {
+			query.put("user_id", string);
+			System.out.println(query);
+		}
+		
+		System.out.println(query);
+		FindIterable<Document> fi = message_collection.find(query).sort(new Document("date", -1));
+		MongoCursor<Document> cur = fi.iterator();
+		
+		while(cur.hasNext()) {
 
+			Document obj = cur.next();
+			System.out.println(obj);
+			retour.append(obj.getObjectId("_id").toString(), obj.getString("content"));
+		}
 		
 		return retour;
 	}
@@ -161,13 +178,12 @@ public class MessageBDTools {
 			query.append("content", "/.*"+pattern+"*./");
 
 
-		FindIterable<Document> fi = message_collection.find(query);
+		FindIterable<Document> fi = message_collection.find(query).sort(new Document("date", -1));
 		MongoCursor<Document> cur = fi.iterator();
 
 		while(cur.hasNext()) {
 
 			Document obj = cur.next();
-
 			retour.put(obj.getObjectId("_id").toString(), obj.getString("content"));
 		}
 

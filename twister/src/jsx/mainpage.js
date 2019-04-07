@@ -12,13 +12,13 @@ class MainPage extends Component{
     constructor(props){
         super(props);
 
-        this.state = {pagecourrante:"acceuil", connected:false, key:"", id:""};
+        this.state = {pagecourrante:"acceuil", connected:false, key:"", id:"", login:""};
+
         this.changepage = this.changepage.bind(this);
         this.setConnected = this.setConnected.bind(this);
         this.setKey = this.setKey.bind(this);
-
-        this.getacceuilperso = this.getacceuilperso.bind(this);
-
+        this.setUser = this.setUser.bind(this);
+        this.setLogout = this.setLogout.bind(this);
     }
 
 
@@ -32,7 +32,7 @@ class MainPage extends Component{
         if (connected === true){
             if(pagecourrante === "acceuilperso")
 
-                page = <AcceuilPerso changepage = {this.changepage} setconnected = {this.setConnected} userKey={this.state.key} getacceuilperso = {this.getacceuilperso}/> 
+                page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} login={this.state.login} userId = {this.state.id} /> 
 
             else if(pagecourrante==="pageperso")
                 page = <Pageperso changepage = {this.changepage} setconnected = {this.setConnected}/>
@@ -42,7 +42,7 @@ class MainPage extends Component{
             }
             else if (pagecourrante === "connexion"){
 
-                page = <Connexion changepage = {this.changepage} setconnected = {this.setConnected} setKey = {this.setKey} getacceuilperso = {this.getacceuilperso}/>;
+                page = <Connexion changepage = {this.changepage} setconnected = {this.setConnected} setKey = {this.setKey} setUser= {this.setUser}/>;
 
             }
             else{
@@ -67,8 +67,13 @@ class MainPage extends Component{
         this.setState({connected:!this.state.connected});
     }
 
-    getacceuilperso(k, identifiant, log){
-        this.setState({login: log,id:identifiant, cle:k});
+    setUser(identifiant, log){
+        this.setState({login: log,id:identifiant, });
+    }
+
+    setLogout(){
+        this.setState({login: "",id:"",key:""});
+        this.setConnected();
     }
 
 
