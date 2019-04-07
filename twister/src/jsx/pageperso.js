@@ -73,7 +73,7 @@ class Pageperso extends Component {
                     <form id="formMess" method="GET" action =""> 
                         <textarea onKeyPress={autoExpand()} className="autoExpand" rows='3' data-min-rows='3' name="message" placeholder="Exprimez-vous !"></textarea> 
                     </form>
-                    {<MessageSet key={this.props.key}/>}
+                    {<MessageSet key={this.props.key} setLogout={this.props.setLogout} changepage={this.props.changepage}/>}
                     
                 </article>
             </div>

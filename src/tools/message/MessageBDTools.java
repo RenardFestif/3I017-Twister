@@ -138,32 +138,25 @@ public class MessageBDTools {
 		
 		
 		Iterator<String> friendId = listFriend.keys();
-		ArrayList<String> concerned = new ArrayList<String>();
-		concerned.add(Integer.toString(userID));
+		ArrayList<Integer> concerned = new ArrayList<>();
+		concerned.add(userID);
 		
 		while (friendId.hasNext()) {
-			concerned.add(friendId.next());
+			concerned.add(Integer.parseInt(friendId.next()));
 		}
-		
 		
 
-		
-		for (String string : concerned) {
-			query.put("user_id", string);
-			System.out.println(query);
-		}
-		
-		System.out.println(query);
-		FindIterable<Document> fi = message_collection.find(query).sort(new Document("date", -1));
+		FindIterable<Document> fi = message_collection.find(Filters.in("user_id",concerned)).sort(new Document("date", -1));
 		MongoCursor<Document> cur = fi.iterator();
 		
 		while(cur.hasNext()) {
-
+			JSONObject mess = new JSONObject();
 			Document obj = cur.next();
-			System.out.println(obj);
-			retour.append(obj.getObjectId("_id").toString(), obj.getString("content"));
+			mess.put("auteur",obj.getString("user_name"));
+			mess.put("date",obj.getDate("date").toString());
+			mess.put("content",obj.getString("content"));
+			retour.put(obj.getObjectId("_id").toString(), mess);
 		}
-		
 		return retour;
 	}
 
@@ -183,12 +176,18 @@ public class MessageBDTools {
 
 		while(cur.hasNext()) {
 
+			JSONObject mess = new JSONObject();
 			Document obj = cur.next();
-			retour.put(obj.getObjectId("_id").toString(), obj.getString("content"));
+			mess.put("auteur",obj.getString("user_name"));
+			mess.put("date",obj.getDate("date").toString());
+			mess.put("content",obj.getString("content"));
+			retour.put(obj.getObjectId("_id").toString(), mess);
 		}
 
 		return retour;
 	}
+
+
 
 
 

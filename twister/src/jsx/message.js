@@ -3,20 +3,17 @@ import React, { Component } from 'react';
 class Message extends Component {
     constructor(props){
         super(props);
-        this.state = {message: props.msg};
+        this.state = {message: props.content};
         
     }
     
     render(){
         return (
             <li className="Message">
-				<div className="truc" >
-                    <span>
-                        <span className = 'username'>@JP</span>
-                        <span>{this.state.message}</span>
-                        <span className = "datemess">13/13/13 13:13</span>
-                    </span>
-                </div>
+                <pre>@{this.props.auteur} </pre>
+                <pre>{this.state.message} </pre>
+                <pre>{this.props.date}</pre>
+
 			</li>
             );
     }
