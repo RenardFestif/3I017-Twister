@@ -50,7 +50,7 @@ public class Message {
 			}
 
 			//Insertion
-			String id_mess = MessageBDTools.insertMessage(message, userKey, conn, query, message_collection);
+			String id_mess = MessageBDTools.insertMessage(message, key, conn, query, message_collection);
 			if( id_mess == null) {
 				conn.close();
 				return ErrorJSON.serviceRefused("Insertion Impossible", 1000);
