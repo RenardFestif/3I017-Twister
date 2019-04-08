@@ -6,39 +6,57 @@ class Amis extends Component {
     constructor(props){
         super(props);
         this.state = {
-            userKey:props.userKey,
             userId:props.userId,
-            listFriend: []
+            listFriend: [],
+            listAbonnes: []
         };
     }
 
-    getFriend(){
-    }
-
-    send(){
+    getAbonnement(){
         var formData = new URLSearchParams();
-        formData.append("user_key",this.props.user_key);
+        formData.append("user_key",this.props.userKey);
         console.log("http://localhost:8080/Twister/Profil/listFriend?"+formData);
-        axios.get("http://localhost:8080/Twister/Profil/listFriend?"+formData).then(r=>{this.traiteReponse(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
+        axios.get("http://localhost:8080/Twister/Profil/listFriend?"+formData).then(
+            r=>{this.traiteReponse(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
     }
 
-    traiteReponse(r){
-        console.log(r.data);
-        if(r.data.status === "OK"){
+    getAbonnes(){
+        var formData = new URLSearchParams();
+        formData.append("user_key",this.props.userKey);
+        console.log("http://localhost:8080/Twister/Profil/listAbonnes?"+formData);
+        axios.get("http://localhost:8080/Twister/Profil/listAbonnes?"+formData).then(
+            r=>{this.traiteReponseFriend(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
+    }
+
+    traiteReponseFriend(r){
+        //ListeFriend est une liste contenant les login d'amis
+        //on vérifie si on a des amis
+        if(r.data.status === "OK" && r.data.amis !== undefined){
             this.setState({userKey: r.data.key});
-            this.setState({listFriend: r.data.Resultat});
-            //this.props.getAmis(this.state.userKey);
-            
+            this.setState({listFriend: r.data.amis});
+        }
+    }
+
+    traiteReponseAbonnes(r){
+        //ListeFriend est une liste contenant les login d'amis
+        //on vérifie si on a des amis
+        if(r.data.status === "OK" && r.data.amis !== undefined){
+            this.setState({userKey: r.data.key});
+            this.setState({listAbonnes: r.data.amis});
         }
     }
 
 
+
+
     render(){
 
-        this.send();
+        this.getAbonnement();
+        this.getAbonnes();
         return (
             <div className="Amis">
-                {this.state.listFriend}
+                <p>{this.state.listFriend.length} abonnements</p>
+                <p>{this.state.listAbonnes.length} abonnés</p>
             </div>
             );
     }

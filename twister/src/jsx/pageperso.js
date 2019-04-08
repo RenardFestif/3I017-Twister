@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MessageSet from "./messageSet.js";
+import Amis from "./amis.js";
 import logo from '../images/logo.png';
 
 function autoExpand(){
@@ -33,6 +34,8 @@ class Pageperso extends Component {
         this.props.changepage("Acceuil");
         this.props.setconnected();
     }
+
+    
     
     render(){ 
         
@@ -60,7 +63,7 @@ class Pageperso extends Component {
                 <nav>
                     <p>Nombre de messages écrit</p>
                     <p>Nombre d'abonnés</p>
-                    <p>Nombre d'abonnements</p>
+                    <div>{<Amis userKey={this.props.userKey} setKey={this.props.setKey}/>}</div>
                     <p>on ajoutera des amis ici</p>
                     <form id="amis" method="GET" action> 
                         <input id="searchFriend" type="text" name="pattern" />

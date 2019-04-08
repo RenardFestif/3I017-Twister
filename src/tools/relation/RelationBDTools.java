@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,11 +54,14 @@ public class RelationBDTools {
 		String query = "SELECT user_id2 FROM follow WHERE user_id1='"+userID+"'";
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(query);
+		List<JSONObject> listFriend = new ArrayList<>();
 		
 		while(rs.next()) { 
 			String name =  UserBDTools.getLogin(rs.getInt("user_id2"), conn);
-			retour.put(rs.getString("user_id2"), name);
+			JSONObject ami = new JSONObject();
+			listFriend.add(ami.put("login", name));
 		}
+		retour.put("amis", listFriend);
 		rs.close();
 		st.close();
 		return retour;
@@ -69,11 +74,14 @@ public static JSONObject getAbonnes(int userID, Connection conn)throws SQLExcept
 		String query = "SELECT user_id1 FROM follow WHERE user_id2='"+userID+"'";
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(query);
+		List<JSONObject> listAbonnes = new ArrayList<>();
 		
 		while(rs.next()) { 
 			String name =  UserBDTools.getLogin(rs.getInt("user_id1"), conn);
-			retour.put(rs.getString("user_id1"), name);
+			JSONObject ami = new JSONObject();
+			listAbonnes.add(ami.put("login", name));
 		}
+		retour.put("amis", listAbonnes);
 		rs.close();
 		st.close();
 		return retour;

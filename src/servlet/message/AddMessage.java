@@ -25,7 +25,7 @@ public class AddMessage extends HttpServlet{
 			//appel service user_key
 			JSONObject retour = services.Message.addMessage(message, user_key);
 			
-			rep.setContentType("text/plain");
+			rep.setContentType("text/json");
 			PrintWriter out = rep.getWriter();
 			out.println(retour.toString());
 		} catch (JSONException e) {
