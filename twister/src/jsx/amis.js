@@ -17,16 +17,17 @@ class Amis extends Component {
 
     send(){
         var formData = new URLSearchParams();
-		formData.append("user_key",this.props.user_key);
+        formData.append("user_key",this.props.user_key);
+        console.log("http://localhost:8080/Twister/Profil/listFriend?"+formData);
         axios.get("http://localhost:8080/Twister/Profil/listFriend?"+formData).then(r=>{this.traiteReponse(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
     }
 
     traiteReponse(r){
-        console.log(r.data.user_key);
+        console.log(r.data);
         if(r.data.status === "OK"){
             this.setState({userKey: r.data.key});
             this.setState({listFriend: r.data.Resultat});
-            this.props.getAmis(this.state.userKey);
+            //this.props.getAmis(this.state.userKey);
             
         }
     }

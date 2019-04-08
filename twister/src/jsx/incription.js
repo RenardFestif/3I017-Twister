@@ -35,6 +35,7 @@ class Inscription extends Component {
 	}
 
 	traiteReponse(r){
+		console.log(r.data);
 		if(r.data.status==="OK")
 			this.props.changepage("connexion");
 	}

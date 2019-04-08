@@ -87,7 +87,7 @@ class AcceuilPerso extends Component {
                 <nav>
                     <p>Nombre de messages écrit</p>
                     <p>Nombre d'abonnés</p>
-                    <div>{<Amis getAmis={this.getAmis} />}</div>
+                    <div>{<Amis getAmis={this.getAmis} userKey={this.props.userKey} setKey={this.props.setKey}/>}</div>
                     <p>on ajoutera des amis ici</p>
                     <form id="amis" method="GET" > 
                         <input id="searchFriend" type="text" name="pattern"/>
