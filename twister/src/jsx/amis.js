@@ -7,15 +7,12 @@ class Amis extends Component {
         super(props);
         this.state = {
             userId:props.userId,
-            listFriend: []
+            listFriend: [],
+            listAbonnes: []
         };
     }
 
-    getFriend(){
-
-    }
-
-    send(){
+    getAbonnement(){
         var formData = new URLSearchParams();
         formData.append("user_key",this.props.userKey);
         console.log("http://localhost:8080/Twister/Profil/listFriend?"+formData);
@@ -23,22 +20,43 @@ class Amis extends Component {
             r=>{this.traiteReponse(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
     }
 
-    traiteReponse(r){
+    getAbonnes(){
+        var formData = new URLSearchParams();
+        formData.append("user_key",this.props.userKey);
+        console.log("http://localhost:8080/Twister/Profil/listAbonnes?"+formData);
+        axios.get("http://localhost:8080/Twister/Profil/listAbonnes?"+formData).then(
+            r=>{this.traiteReponseFriend(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
+    }
+
+    traiteReponseFriend(r){
         //ListeFriend est une liste contenant les login d'amis
         //on vérifie si on a des amis
-        if(r.data.status === "OK" && r.data.login !== undefined){
+        if(r.data.status === "OK" && r.data.amis !== undefined){
             this.setState({userKey: r.data.key});
-            this.setState({listFriend: this.state.listFriend.push(r.data.login)});
+            this.setState({listFriend: r.data.amis});
+        }
+    }
+
+    traiteReponseAbonnes(r){
+        //ListeFriend est une liste contenant les login d'amis
+        //on vérifie si on a des amis
+        if(r.data.status === "OK" && r.data.amis !== undefined){
+            this.setState({userKey: r.data.key});
+            this.setState({listAbonnes: r.data.amis});
         }
     }
 
 
+
+
     render(){
 
-        this.send();
+        this.getAbonnement();
+        this.getAbonnes();
         return (
             <div className="Amis">
-                {this.state.listFriend.length}
+                <p>{this.state.listFriend.length} abonnements</p>
+                <p>{this.state.listAbonnes.length} abonnés</p>
             </div>
             );
     }

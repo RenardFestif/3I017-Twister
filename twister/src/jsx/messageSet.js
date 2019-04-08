@@ -65,11 +65,6 @@ class MessageSet extends Component {
 
             //console.log(this.state.listMessages);
 
-
-            
-
-            
-
             
         }else{
             //this.props.setLogout();
