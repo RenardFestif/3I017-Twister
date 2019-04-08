@@ -87,7 +87,7 @@ class AcceuilPerso extends Component {
                 <nav>
                     <p>Nombre de messages écrit</p>
                     <p>Nombre d'abonnés</p>
-                    <div>{<Amis getAmis={this.getAmis} userKey={this.props.userKey} setKey={this.props.setKey}/>}</div>
+                    <div>{<Amis userKey={this.props.userKey} setKey={this.props.setKey}/>}</div>
                     <p>on ajoutera des amis ici</p>
                     <form id="amis" method="GET" > 
                         <input id="searchFriend" type="text" name="pattern"/>
@@ -98,7 +98,7 @@ class AcceuilPerso extends Component {
                 <article id="messages">
                     
                     <form id="formMess" method="GET" action =""> 
-                        <textarea onKeyPress={autoExpand()} className="autoExpand"  name="message" placeholder="Exprimez-vous !"></textarea> 
+                        <textarea onKeyPress={autoExpand()} className="autoExpand"  rows='3' data-min-rows='3' name="message" placeholder="Exprimez-vous !"></textarea> 
                     </form>
                     {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey}/>}
                     

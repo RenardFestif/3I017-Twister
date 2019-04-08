@@ -22,7 +22,6 @@ class Connexion extends Component{
   }
 
   traiteReponse(r){
-    
     console.log(r.data);
     if(r.data.status==="OK"){
     //Si mot de passe faux changement CSS ou bien alert

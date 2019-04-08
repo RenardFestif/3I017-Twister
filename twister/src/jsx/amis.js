@@ -6,29 +6,29 @@ class Amis extends Component {
     constructor(props){
         super(props);
         this.state = {
-            userKey:props.userKey,
             userId:props.userId,
             listFriend: []
         };
     }
 
     getFriend(){
+
     }
 
     send(){
         var formData = new URLSearchParams();
-        formData.append("user_key",this.props.user_key);
+        formData.append("user_key",this.props.userKey);
         console.log("http://localhost:8080/Twister/Profil/listFriend?"+formData);
-        axios.get("http://localhost:8080/Twister/Profil/listFriend?"+formData).then(r=>{this.traiteReponse(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
+        axios.get("http://localhost:8080/Twister/Profil/listFriend?"+formData).then(
+            r=>{this.traiteReponse(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
     }
 
     traiteReponse(r){
-        console.log(r.data);
-        if(r.data.status === "OK"){
+        //ListeFriend est une liste contenant les login d'amis
+        //on vérifie si on a des amis
+        if(r.data.status === "OK" && r.data.login !== undefined){
             this.setState({userKey: r.data.key});
-            this.setState({listFriend: r.data.Resultat});
-            //this.props.getAmis(this.state.userKey);
-            
+            this.setState({listFriend: this.state.listFriend.push(r.data.login)});
         }
     }
 
@@ -38,7 +38,7 @@ class Amis extends Component {
         this.send();
         return (
             <div className="Amis">
-                {this.state.listFriend}
+                {this.state.listFriend.length}
             </div>
             );
     }

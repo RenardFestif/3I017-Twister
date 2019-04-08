@@ -55,7 +55,7 @@ public class RelationBDTools {
 		
 		while(rs.next()) { 
 			String name =  UserBDTools.getLogin(rs.getInt("user_id2"), conn);
-			retour.put(rs.getString("user_id2"), name);
+			retour.put("login", name);
 		}
 		rs.close();
 		st.close();
