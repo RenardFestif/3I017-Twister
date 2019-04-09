@@ -4,7 +4,7 @@ import Inscription from "./incription.js";
 import Connexion from "./connexion.js";
 import AcceuilPerso from "./acceuilperso.js"
 import Pageperso from "./pageperso.js";
-
+import Pageami from "./pageami.js";
 
 
 
@@ -12,7 +12,7 @@ class MainPage extends Component{
     constructor(props){
         super(props);
 
-        this.state = {pagecourrante:"acceuil", connected:false, key:"", id:"", login:""};
+        this.state = {pagecourrante:"acceuil", connected:false, key:"", id:"", login:"", ami:""};
 
         this.changepage = this.changepage.bind(this);
         this.setConnected = this.setConnected.bind(this);
@@ -35,7 +35,8 @@ class MainPage extends Component{
                 page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} login={this.state.login} userId = {this.state.id} /> 
 
             else if(pagecourrante==="pageperso")
-                page = <Pageperso changepage = {this.changepage} setconnected = {this.setConnected}/>
+                page = <Pageperso changepage = {this.changepage} setLogout = {this.setLogout} login = {this.state.login} userId = {this.state.userId}/>;
+
         }else{
             if (pagecourrante === "inscription"){
                 page = <Inscription changepage = {this.changepage} setconnected = {this.setConnected}/>;

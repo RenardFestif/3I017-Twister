@@ -11,7 +11,7 @@ public class ListFriendTest {
 		JSONObject newuserser = new JSONObject();
 
 		try {
-			newuserser= Friend.getListFriends("loNH9BcNcdyWUlcG9Z7aW7mkNdKqtaAHeK0cXk8b3V7Twky0iAzMWly6w3PHopcj");
+			newuserser= Friend.getListFriends("bd7jchMD1QXwee4UEqoGNYYX2j5gOMdrWrbqWpZCYvxT3OLSxLOIGWeNBQDfuc8i");
 			System.out.println(newuserser.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();

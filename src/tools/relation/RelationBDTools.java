@@ -58,6 +58,7 @@ public class RelationBDTools {
 		
 		while(rs.next()) { 
 			String name =  UserBDTools.getLogin(rs.getInt("user_id2"), conn);
+			System.out.println(name+" "+userID);
 			JSONObject ami = new JSONObject();
 			listFriend.add(ami.put("login", name));
 		}
@@ -78,6 +79,7 @@ public static JSONObject getAbonnes(int userID, Connection conn)throws SQLExcept
 		
 		while(rs.next()) { 
 			String name =  UserBDTools.getLogin(rs.getInt("user_id1"), conn);
+			System.out.println(name+" "+userID);
 			JSONObject ami = new JSONObject();
 			listAbonnes.add(ami.put("login", name));
 		}

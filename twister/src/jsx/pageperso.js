@@ -62,8 +62,7 @@ class Pageperso extends Component {
     
                 <nav>
                     <p>Nombre de messages écrit</p>
-                    <p>Nombre d'abonnés</p>
-                    <div>{<Amis userKey={this.props.userKey} setKey={this.props.setKey}/>}</div>
+                    <div>{<Amis userKey={this.props.userKey}/>}</div>
                     <p>on ajoutera des amis ici</p>
                     <form id="amis" method="GET" action> 
                         <input id="searchFriend" type="text" name="pattern" />

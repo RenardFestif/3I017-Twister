@@ -37,10 +37,10 @@ class AcceuilPerso extends Component {
         this.state = {
             date:new Date(),
             listMessages:[],
-            query:'',
+            query:''
         }
         
-        this.shouldI    = this.shouldI.bind(this);
+        this.shouldI = this.shouldI.bind(this);
         
         this.send();
     }
@@ -59,7 +59,6 @@ class AcceuilPerso extends Component {
         var formData = new URLSearchParams();
         formData.append("user_key",this.props.userKey);
         formData.append("message",mess);
-        //console.log("http://localhost:8080/Twister/Profil/ajoutmessage?"+formData)
         axios.get("http://localhost:8080/Twister/Profil/ajoutmessage?"+formData).then(r=>{this.traiteAddMess(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});      
         
         
@@ -82,12 +81,10 @@ class AcceuilPerso extends Component {
     deconnexion(){
         var formData = new URLSearchParams();
 		formData.append("userKey",this.props.userKey);
-        //console.log("http://localhost:8080/Twister/Acceuil/logout?"+formData)
         axios.get("http://localhost:8080/Twister/Acceuil/logout?"+formData).then(r=>{this.traiteDeco(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});      
     }
 
     traiteDeco(r){
-        //console.log(r.data);
         if (r.data.status === "OK"){
             this.props.setLogout();
         }
@@ -174,6 +171,10 @@ class AcceuilPerso extends Component {
         }
     }
 
+    setPagePerso(){
+
+        this.props.changepage("acceuilperso")
+    }
 
 
     render(){
@@ -205,7 +206,7 @@ class AcceuilPerso extends Component {
     
                 <nav>
                     <p>Nombre de messages écrit</p>
-                    <div>{<Amis userKey={this.props.userKey} setKey={this.props.setKey}/>}</div>
+                    <div>{<Amis userKey={this.props.userKey} changepage={this.changepage}/>}</div>
                     <p>on ajoutera des amis ici</p>
                     <form id="amis" method="GET" > 
                         <input id="searchFriend" type="text" name="pattern"/>
