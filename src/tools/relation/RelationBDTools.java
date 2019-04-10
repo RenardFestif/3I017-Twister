@@ -79,14 +79,8 @@ public static JSONObject getAbonnes(int userID, Connection conn)throws SQLExcept
 		
 		while(rs.next()) { 
 			String name =  UserBDTools.getLogin(rs.getInt("user_id1"), conn);
-<<<<<<< HEAD
 			JSONObject follower = new JSONObject();
 			listAbonnes.add(follower.put("login", name));
-=======
-			System.out.println(name+" "+userID);
-			JSONObject ami = new JSONObject();
-			listAbonnes.add(ami.put("login", name));
->>>>>>> branch 'master' of https://github.com/RenardFestif/3I017-Twister.git
 		}
 		retour.put("amis", listAbonnes);
 		rs.close();
