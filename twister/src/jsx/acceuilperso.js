@@ -40,9 +40,9 @@ class AcceuilPerso extends Component {
             query:''
         }
         
-        this.shouldI = this.shouldI.bind(this);
+        //this.shouldI = this.shouldI.bind(this);
         
-        this.send();
+     
     }
 
     onKeyPressHandler(e){
@@ -81,6 +81,7 @@ class AcceuilPerso extends Component {
     deconnexion(){
         var formData = new URLSearchParams();
         formData.append("userKey",this.props.userKey);
+        console.log("http://localhost:8080/Twister/Acceuil/logout?"+formData);
         axios.get("http://localhost:8080/Twister/Acceuil/logout?"+formData).then(r=>{this.traiteDeco(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});      
     }
 
@@ -114,7 +115,7 @@ class AcceuilPerso extends Component {
 		if(r.data.status==="OK"){
             //Mettre a jour la clé
             
-            console.log(r.data);
+            console.log(r.data+" traite");
 
             //Construction d'un tableau de tableau pour tout les messages 
             /*forme =>
@@ -136,7 +137,7 @@ class AcceuilPerso extends Component {
                 }
                 messageTmp      = [];
             });
-            //console.log(messagesList);
+
             this.setState({
                 listMessages:messagesList,
             })
@@ -149,14 +150,14 @@ class AcceuilPerso extends Component {
         }		
     }
 
-    shouldI(n){
+    /*shouldI(n){
         if(new Date().getMinutes()-this.state.date.getMinutes > n){
             this.setState({
                 date:new Date(),
             });
             this.send();
         }
-    }
+    }*/
 
     setPattern(event){
         this.setState({
@@ -177,8 +178,13 @@ class AcceuilPerso extends Component {
         this.props.changepage("acceuilperso")
     }
 
+    //rajouter mount
+    componentDidMount(){
+        this.send();
+    }
 
-    render(){
+
+    render(){/**/
         
         //Tester les etats pour voir si il fait afficher les message d'acceuil ou bien ceux du profil (Idem pour la side navbar)
         
@@ -195,7 +201,7 @@ class AcceuilPerso extends Component {
                 </div>
                 <div id="hLinks">
 					<button type="button" className="buttontop" onClick={()=> this.deconnexion()}>Déconnexion</button>
-                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>{this.props.login}</button>
+                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}></button>
                 </div>
             </header>
     
@@ -207,7 +213,7 @@ class AcceuilPerso extends Component {
     
                 <nav>
                     <p>Nombre de messages écrit</p>
-                    <div>{<Amis userKey={this.props.userKey} changepage={this.changepage} setLogin={this.setlogin}/>}</div>
+                    <div>{<Amis userKey={this.props.userKey} changepage={this.changepage} setAmi={this.setAmi} setKey={this.props.setKey}/>}</div>
                     <p>on ajoutera des amis ici</p>
                     <form id="amis" method="GET" > 
                         <input id="searchFriend" type="text" name="pattern"/>
@@ -221,7 +227,7 @@ class AcceuilPerso extends Component {
                         <textarea onKeyPress={(event) => this.onKeyPressHandler(event)} className="autoExpand"  name="message" placeholder="Exprimez-vous !"></textarea> 
                     </form>
                     
-                    {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages} shouldI={this.shouldI}/>}
+                    {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages} /*shouldI={this.shouldI}*//>}
                     
                 </article>
             </div>

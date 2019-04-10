@@ -9,6 +9,7 @@ class Amis extends Component {
             listFriend: []
         };
         this.handleOnClick = this.handleOnClick.bind(this);
+        this.getAbonnement = this.getAbonnement.bind(this);
 
     }
 
@@ -26,20 +27,29 @@ class Amis extends Component {
         //on vérifie si on a des amis
         console.log(r.data);
         if(r.data.status === "OK" && r.data.amis !== undefined){
-            this.setState({userKey: r.data.new_key});
             this.setState({listFriend: r.data.amis});
+            this.props.setKey(r.data.new_key);
         }
     }
 
     handleOnClick(login_ami){
-        this.setLogin(login_ami);
+        this.setAmi(login_ami);
         this.props.changepage("pageperso");
         
     }
+    
+    componentWillMount(){
+        console.log("je suis ici");
+        this.getAbonnement();
+    }
+
+    componentWillUnmount(){
+
+    }
 
     render(){
+        console.log("sdfikji")
 
-        this.getAbonnement();
         return (
             <div className="Amis">
                 <h1>Liste d'Amis : {this.state.listFriend.length} </h1>

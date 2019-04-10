@@ -18,7 +18,7 @@ class MainPage extends Component{
         this.setKey = this.setKey.bind(this);
         this.setUser = this.setUser.bind(this);
         this.setLogout = this.setLogout.bind(this);
-        this.setLogin = this.setLogin.bind(this)
+        this.setAmi = this.setAmi.bind(this)
     }
 
 
@@ -32,10 +32,10 @@ class MainPage extends Component{
         if (connected === true){
             if(pagecourrante === "acceuilperso")
 
-                page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setlogin={this.login} userId={this.state.id} /> 
+                page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi={this.setAmi} userId={this.state.id} login={this.state} /> 
 
             else if(pagecourrante==="pageperso")
-                page = <Pageperso changepage = {this.changepage} setLogout = {this.setLogout} setLogin = {this.login} userId = {this.state.userId}/>;
+                page = <Pageperso changepage = {this.changepage} setLogout = {this.setLogout} setAmi = {this.setAmi} userId = {this.state.userId}/>;
 
         }else{
             if (pagecourrante === "inscription"){
@@ -72,8 +72,8 @@ class MainPage extends Component{
         this.setState({login: log,id:identifiant, });
     }
 
-    setLogin(log){
-        this.setState({login: log});
+    setAmi(ami){
+        this.setState({ami: ami});
     }
 
     setLogout(){

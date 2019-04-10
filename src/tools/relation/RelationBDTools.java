@@ -58,9 +58,9 @@ public class RelationBDTools {
 		
 		while(rs.next()) { 
 			String name =  UserBDTools.getLogin(rs.getInt("user_id2"), conn);
-			System.out.println(name+" "+userID);
 			JSONObject ami = new JSONObject();
-			listFriend.add(ami.put("login", name));
+			Integer userID_ami = UserBDTools.getUserId(name, conn);
+			listFriend.add(ami.put(userID_ami.toString(), name));
 		}
 		retour.put("amis", listFriend);
 		rs.close();

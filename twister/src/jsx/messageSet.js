@@ -9,11 +9,11 @@ class MessageSet extends Component {
     render(){
 
         //Rafraichissement 5 min
-        this.props.shouldI(5);
+        //this.props.shouldI(5);
 
         return (
             <div className="MessageSet">
-                {this.props.listMessages.map(item => <Message date={item[1].date} auteur={item[1].auteur} content={item[1].content}/>)}
+                {this.props.listMessages.map((item, index) => <Message  key = {index} date={item[1].date} auteur={item[1].auteur} content={item[1].content}/>)}
             </div>
             );
     }

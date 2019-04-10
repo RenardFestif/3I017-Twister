@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -135,14 +136,17 @@ public class MessageBDTools {
 		JSONObject retour = new JSONObject();
 		int userID = UserBDTools.getUserIdfromKey(userKey, conn);
 		JSONObject listFriend = RelationBDTools.getFriends(userID, conn);
+		List<JSONObject> list = (List<JSONObject>) listFriend.get("amis");
 		
 		
-		Iterator<String> friendId = listFriend.keys();
+		
+		Iterator<JSONObject> friendId = list.keys();
 		ArrayList<Integer> concerned = new ArrayList<>();
 		concerned.add(userID);
-		
-		while (friendId.hasNext()) {
-			concerned.add(Integer.parseInt(friendId.next()));
+		if(friendId != null) {
+			while (friendId.hasNext()) {
+				concerned.add(Integer.parseInt(friendId.next()));
+			}
 		}
 		
 

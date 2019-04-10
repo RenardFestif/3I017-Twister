@@ -63,7 +63,7 @@ class Pageperso extends Component {
                 <nav>
                     <p>Nombre de messages écrit</p>
                     <p>Nombre d'abonnés</p>
-                    <div>{<Amis userKey={this.props.userKey} setKey={this.props.setKey}/>}</div>
+                    <div>{<Amis userKey={this.props.userKey} setKey={this.props.setKey} setAmi={this.setAmi}/>}</div>
                     <p>on ajoutera des amis ici</p>
                     <form id="amis" method="GET" action> 
                         <input id="searchFriend" type="text" name="pattern" />
@@ -76,7 +76,7 @@ class Pageperso extends Component {
                     <form id="formMess" method="GET" action =""> 
                         <textarea onKeyPress={autoExpand()} className="autoExpand" rows='3' data-min-rows='3' name="message" placeholder="Exprimez-vous !"></textarea> 
                     </form>
-                    {<MessageSet key={this.props.key} setLogout={this.props.setLogout} changepage={this.props.changepage}/>}
+                    {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages} /*shouldI={this.shouldI}*//>}
                     
                 </article>
             </div>
