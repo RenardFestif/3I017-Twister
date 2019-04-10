@@ -78,8 +78,8 @@ public static JSONObject getAbonnes(int userID, Connection conn)throws SQLExcept
 		
 		while(rs.next()) { 
 			String name =  UserBDTools.getLogin(rs.getInt("user_id1"), conn);
-			JSONObject ami = new JSONObject();
-			listAbonnes.add(ami.put("login", name));
+			JSONObject follower = new JSONObject();
+			listAbonnes.add(follower.put("login", name));
 		}
 		retour.put("amis", listAbonnes);
 		rs.close();
