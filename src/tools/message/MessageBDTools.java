@@ -152,6 +152,7 @@ public class MessageBDTools {
 		while(cur.hasNext()) {
 			JSONObject mess = new JSONObject();
 			Document obj = cur.next();
+			System.out.println(obj);
 			mess.put("auteur",obj.getString("user_name"));
 			mess.put("date",obj.getDate("date").toString());
 			mess.put("content",obj.getString("content"));

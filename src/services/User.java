@@ -127,9 +127,6 @@ public class User {
 				}
 				
 				key = UserBDTools.checkKeyUpdate(key, conn);
-				if (key == null) {
-					return ErrorJSON.serviceRefused("Rechargement clé impossible", 1000);
-				}
 				
 				
 			}
