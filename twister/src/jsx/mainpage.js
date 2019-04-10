@@ -4,7 +4,6 @@ import Inscription from "./incription.js";
 import Connexion from "./connexion.js";
 import AcceuilPerso from "./acceuilperso.js"
 import Pageperso from "./pageperso.js";
-import Pageami from "./pageami.js";
 
 
 
@@ -19,6 +18,7 @@ class MainPage extends Component{
         this.setKey = this.setKey.bind(this);
         this.setUser = this.setUser.bind(this);
         this.setLogout = this.setLogout.bind(this);
+        this.setLogin = this.setLogin.bind(this)
     }
 
 
@@ -32,10 +32,10 @@ class MainPage extends Component{
         if (connected === true){
             if(pagecourrante === "acceuilperso")
 
-                page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} login={this.state.login} userId = {this.state.id} /> 
+                page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setlogin={this.login} userId={this.state.id} /> 
 
             else if(pagecourrante==="pageperso")
-                page = <Pageperso changepage = {this.changepage} setLogout = {this.setLogout} login = {this.state.login} userId = {this.state.userId}/>;
+                page = <Pageperso changepage = {this.changepage} setLogout = {this.setLogout} setLogin = {this.login} userId = {this.state.userId}/>;
 
         }else{
             if (pagecourrante === "inscription"){
@@ -70,6 +70,10 @@ class MainPage extends Component{
 
     setUser(identifiant, log){
         this.setState({login: log,id:identifiant, });
+    }
+
+    setLogin(log){
+        this.setState({login: log});
     }
 
     setLogout(){

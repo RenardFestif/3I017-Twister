@@ -80,11 +80,12 @@ class AcceuilPerso extends Component {
 
     deconnexion(){
         var formData = new URLSearchParams();
-		formData.append("userKey",this.props.userKey);
+        formData.append("userKey",this.props.userKey);
         axios.get("http://localhost:8080/Twister/Acceuil/logout?"+formData).then(r=>{this.traiteDeco(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});      
     }
 
     traiteDeco(r){
+        console.log(r.data);
         if (r.data.status === "OK"){
             this.props.setLogout();
         }
@@ -206,7 +207,7 @@ class AcceuilPerso extends Component {
     
                 <nav>
                     <p>Nombre de messages écrit</p>
-                    <div>{<Amis userKey={this.props.userKey} changepage={this.changepage}/>}</div>
+                    <div>{<Amis userKey={this.props.userKey} changepage={this.changepage} setLogin={this.setlogin}/>}</div>
                     <p>on ajoutera des amis ici</p>
                     <form id="amis" method="GET" > 
                         <input id="searchFriend" type="text" name="pattern"/>

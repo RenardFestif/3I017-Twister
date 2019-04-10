@@ -15,14 +15,11 @@ class Connexion extends Component{
     var formData = new URLSearchParams();
 		formData.append("login",this.state.login);
     formData.append("password",this.state.password);
-
-   
-    
+    console.log("ici");
     axios.get("http://localhost:8080/Twister/Acceuil/login?"+formData).then(r=>{this.traiteReponse(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
   }
 
   traiteReponse(r){
-    console.log(r.data);
     if(r.data.status==="OK"){
     //Si mot de passe faux changement CSS ou bien alert
 

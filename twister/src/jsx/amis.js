@@ -15,6 +15,7 @@ class Amis extends Component {
     getAbonnement(){
         var formData = new URLSearchParams();
         formData.append("user_key",this.props.userKey);
+        console.log("http://localhost:8080/Twister/Profil/listFriend?"+formData);
         axios.get("http://localhost:8080/Twister/Profil/listFriend?"+formData).then(
             r=>{this.traiteReponseFriend(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
     }
@@ -30,13 +31,10 @@ class Amis extends Component {
         }
     }
 
-    handleOnClick(login){
-        this.props.changepage("pageami");
-        this.setPageami(login);
-    }
-
-    setPageami(friend){
-        this.setState({ami:friend});
+    handleOnClick(login_ami){
+        this.setLogin(login_ami);
+        this.props.changepage("pageperso");
+        
     }
 
     render(){
