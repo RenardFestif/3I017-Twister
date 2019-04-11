@@ -27,6 +27,11 @@ function autoExpand(){
 class Pageperso extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            date:new Date(),
+            listMessages:[],
+            query:''
+        }
         this.handleOnClick = this.handleOnClick.bind(this);
     }
 
@@ -40,11 +45,11 @@ class Pageperso extends Component {
     render(){ 
         
         return(
-        <div classNameName="AcceuilPerso">
-            <header classNameName="sticky">
+        <div className="AcceuilPerso">
+            <header className="sticky">
                 <img id="logo" src={logo} alt="logo" />
                 <div id="hLinks">
-                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>Login</button>
+                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>{this.props.login}</button>
                     <button type="button" className="buttontop" onClick={()=> this.props.changepage("acceuilperso")}>Acceuil</button>
                 </div>
                 
@@ -52,7 +57,7 @@ class Pageperso extends Component {
                     <input id = "pattern" type="text" name="pattern"/>
                 </form>
                 <div id="hLinks">
-					<button type="button" className="buttontop" onClick={()=> this.handleOnClick()}>Déconnexion</button>
+					<button type="button" className="buttontop" onClick={()=> this.props.deconnexion()}>Déconnexion</button>
                 </div>
             </header>
     
@@ -63,9 +68,9 @@ class Pageperso extends Component {
                 <nav>
                     <p>Nombre de messages écrit</p>
                     <p>Nombre d'abonnés</p>
-                    <div>{<Amis userKey={this.props.userKey} setKey={this.props.setKey} setAmi={this.setAmi}/>}</div>
+                    <div>{<Amis userKey={this.props.userKey} setKey={this.props.setKey} setAmi={this.props.setAmi} changepage={this.props.changepage}/>}</div>
                     <p>on ajoutera des amis ici</p>
-                    <form id="amis" method="GET" action> 
+                    <form id="amis" method="GET" action=""> 
                         <input id="searchFriend" type="text" name="pattern" />
                         
                     </form>

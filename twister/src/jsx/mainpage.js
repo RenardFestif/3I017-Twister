@@ -4,7 +4,7 @@ import Inscription from "./incription.js";
 import Connexion from "./connexion.js";
 import AcceuilPerso from "./acceuilperso.js"
 import Pageperso from "./pageperso.js";
-
+import axios from 'axios';
 
 
 class MainPage extends Component{
@@ -32,10 +32,10 @@ class MainPage extends Component{
         if (connected === true){
             if(pagecourrante === "acceuilperso")
 
-                page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi={this.setAmi} userId={this.state.id} login={this.state} /> 
+                page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi={this.setAmi} userId={this.state.id} login={this.state} deconnexion={this.deconnexion} /> 
 
             else if(pagecourrante==="pageperso")
-                page = <Pageperso changepage = {this.changepage} setLogout = {this.setLogout} setAmi = {this.setAmi} userId = {this.state.userId}/>;
+                page = <Pageperso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi = {this.setAmi} userId = {this.state.userId} login={this.state} deconnexion={this.deconnexion}/>;
 
         }else{
             if (pagecourrante === "inscription"){
@@ -77,8 +77,23 @@ class MainPage extends Component{
     }
 
     setLogout(){
-        this.setState({login: "",id:"",key:""});
+        this.setState({login: "",id:"",key:"", ami:""});
         this.setConnected();
+    }
+
+    deconnexion(){
+        var formData = new URLSearchParams();
+        formData.append("userKey",this.props.userKey);
+        console.log("http://localhost:8080/Twister/Acceuil/logout?"+formData);
+        axios.get("http://localhost:8080/Twister/Acceuil/logout?"+formData).then(r=>{this.traiteDeco(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});      
+    }
+
+    traiteDeco(r){
+        console.log(r.data);
+        if (r.data.status === "OK"){
+            this.props.setLogout();
+        }
+        this.props.changepage("acceuil");
     }
 
 

@@ -78,21 +78,6 @@ class AcceuilPerso extends Component {
         }
     }
 
-    deconnexion(){
-        var formData = new URLSearchParams();
-        formData.append("userKey",this.props.userKey);
-        console.log("http://localhost:8080/Twister/Acceuil/logout?"+formData);
-        axios.get("http://localhost:8080/Twister/Acceuil/logout?"+formData).then(r=>{this.traiteDeco(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});      
-    }
-
-    traiteDeco(r){
-        console.log(r.data);
-        if (r.data.status === "OK"){
-            this.props.setLogout();
-        }
-        this.props.changepage("acceuil");
-    }
-
     send(){
         var formData = new URLSearchParams();
         
@@ -110,7 +95,6 @@ class AcceuilPerso extends Component {
 	}
 
 	traiteReponse(r){
-        
         
 		if(r.data.status==="OK"){
             //Mettre a jour la clé
@@ -144,10 +128,10 @@ class AcceuilPerso extends Component {
 
             this.props.setKey(r.data.new_key);
             
-        }else{
+        }/*else{
             this.props.setLogout();
             this.props.changepage("connexion");
-        }		
+        }	*/	
     }
 
     /*shouldI(n){
@@ -171,11 +155,6 @@ class AcceuilPerso extends Component {
             })
             event.preventDefault();
         }
-    }
-
-    setPagePerso(){
-
-        this.props.changepage("acceuilperso")
     }
 
     //rajouter mount
@@ -213,7 +192,7 @@ class AcceuilPerso extends Component {
     
                 <nav>
                     <p>Nombre de messages écrit</p>
-                    <div>{<Amis userKey={this.props.userKey} changepage={this.changepage} setAmi={this.setAmi} setKey={this.props.setKey}/>}</div>
+                    <div>{<Amis userKey={this.props.userKey} changepage={this.props.changepage} setAmi={this.props.setAmi} setKey={this.props.setKey} setLogout={this.props.setLogout} deconnexion={this.deconnexion}/>}</div>
                     <p>on ajoutera des amis ici</p>
                     <form id="amis" method="GET" > 
                         <input id="searchFriend" type="text" name="pattern"/>

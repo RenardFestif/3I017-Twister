@@ -3,11 +3,15 @@ import axios from 'axios';
 
 
 class Amis extends Component {
+
+    _isMounted = false;
+
     constructor(props){
         super(props);
         this.state = {
             listFriend: []
         };
+
         this.handleOnClick = this.handleOnClick.bind(this);
         this.getAbonnement = this.getAbonnement.bind(this);
 
@@ -25,30 +29,31 @@ class Amis extends Component {
     traiteReponseFriend(r){
         //ListeFriend est une liste contenant les login d'amis
         //on vérifie si on a des amis
-        console.log(r.data);
-        if(r.data.status === "OK" && r.data.amis !== undefined){
-            this.setState({listFriend: r.data.amis});
-            this.props.setKey(r.data.new_key);
+        if(this._isMounted){
+            console.log(r.data);
+            if(r.data.status === "OK" && r.data.amis !== undefined){
+                this.setState({listFriend: r.data.amis});
+                this.props.setKey(r.data.new_key);
+            }
         }
     }
 
     handleOnClick(login_ami){
-        this.setAmi(login_ami);
+        this.props.setAmi(login_ami);
         this.props.changepage("pageperso");
         
     }
     
-    componentWillMount(){
-        console.log("je suis ici");
+    componentDidMount(){
+        this._isMounted = true;
         this.getAbonnement();
     }
 
     componentWillUnmount(){
-
+        this._isMounted = false;
     }
 
     render(){
-        console.log("sdfikji")
 
         return (
             <div className="Amis">
