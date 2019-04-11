@@ -32,10 +32,10 @@ class MainPage extends Component{
         if (connected === true){
             if(pagecourrante === "acceuilperso")
 
-                page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi={this.setAmi} userId={this.state.id} login={this.state} deconnexion={this.deconnexion} /> 
+                page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi={this.setAmi} userId={this.state.id} login={this.state.login} ami={this.state.ami} deconnexion={this.deconnexion} /> 
 
             else if(pagecourrante==="pageperso")
-                page = <Pageperso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi = {this.setAmi} userId = {this.state.userId} login={this.state} deconnexion={this.deconnexion}/>;
+                page = <Pageperso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi = {this.setAmi} userId = {this.state.userId} login={this.state.login} ami={this.state.ami} deconnexion={this.deconnexion}/>;
 
         }else{
             if (pagecourrante === "inscription"){
