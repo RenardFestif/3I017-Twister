@@ -40,17 +40,27 @@ class Pageperso extends Component {
         this.props.setconnected();
     }
 
-    
+    retouracceuil(){
+        this.props.changepage("acceuilperso");
+        this.props.setAmi("");
+    }
     
     render(){ 
-        
+        if(this.props.ami=== ""){
+            /*affichage de sa page*/
+            console.log(this.props.login);
+        }
+        else{
+            /* affichage de la page de son ami */
+            console.log(this.props.ami);
+        }
         return(
         <div className="AcceuilPerso">
             <header className="sticky">
                 <img id="logo" src={logo} alt="logo" />
                 <div id="hLinks">
-                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>{this.props.login}</button>
-                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("acceuilperso")}>Acceuil</button>
+                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>Login</button>
+                    <button type="button" className="buttontop" onClick={()=> this.retouracceuil()}>Acceuil</button>
                 </div>
                 
                 <form id="mess" method="GET" action="">
@@ -67,13 +77,7 @@ class Pageperso extends Component {
     
                 <nav>
                     <p>Nombre de messages écrit</p>
-                    <p>Nombre d'abonnés</p>
                     <div>{<Amis userKey={this.props.userKey} setKey={this.props.setKey} setAmi={this.props.setAmi} changepage={this.props.changepage}/>}</div>
-                    <p>on ajoutera des amis ici</p>
-                    <form id="amis" method="GET" action=""> 
-                        <input id="searchFriend" type="text" name="pattern" />
-                        
-                    </form>
                 </nav>
             
                 <article id="messages">

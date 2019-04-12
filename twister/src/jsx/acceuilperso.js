@@ -173,6 +173,7 @@ class AcceuilPerso extends Component {
                 <img id="logo" src={logo} alt="logo" />
                 <div id="hLinks">
                     <button type="button" className="buttontop" onClick={()=> this.props.changepage("acceuilperso")}>Acceuil</button>
+                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>login</button>
                 </div>
                 
                 <div id="mess">
@@ -180,7 +181,6 @@ class AcceuilPerso extends Component {
                 </div>
                 <div id="hLinks">
 					<button type="button" className="buttontop" onClick={()=> this.deconnexion()}>Déconnexion</button>
-                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}></button>
                 </div>
             </header>
     
@@ -193,11 +193,7 @@ class AcceuilPerso extends Component {
                 <nav>
                     <p>Nombre de messages écrit</p>
                     <div>{<Amis userKey={this.props.userKey} changepage={this.props.changepage} setAmi={this.props.setAmi} setKey={this.props.setKey} setLogout={this.props.setLogout} deconnexion={this.deconnexion}/>}</div>
-                    <p>on ajoutera des amis ici</p>
-                    <form id="amis" method="GET" > 
-                        <input id="searchFriend" type="text" name="pattern"/>
-                        
-                    </form>
+                    
                 </nav>
             
                 <article id="messages">
