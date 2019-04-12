@@ -121,7 +121,7 @@ class Pageperso extends Component {
             <div id="corpus">
     
                 <nav>
-                    <p>Nombre de messages écrit</p>
+                    <p>{this.state.listMessages.length} posts</p>
                     <div>{<Amis userKey={this.props.userKey} changepage={this.props.changepage} setAmi={this.props.setAmi} setKey={this.props.setKey} deconnexion={this.props.deconnexion} list_friend={this.props.list_friend} setListFriend={this.props.setListFriend}/>}</div>
                 </nav>
             

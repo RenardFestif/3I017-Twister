@@ -30,8 +30,12 @@ class Connexion extends Component{
     }
     else{
       if(r.data.message === "Mot de passe oublie ?"){
-        
-      
+        alert("Il semble que tu te sois trompé de mot de passe. Réessaye !");
+      }
+      else{
+        if(r.data.message === "Utilisateur inconnu"){
+          alert("Tu es sur de faire parti de nos twisters ?\n Je ne te trouve pas dans nos bases.")
+        }
       }
     }
     
