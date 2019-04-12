@@ -72,10 +72,10 @@ class Pageperso extends Component {
         formData.append("pseudo",ami);
         formData.append("user_key",this.props.userKey);
         if(this.add_remove_affichage(ami) === "Ajouter"){
-            axios.get("http://localhost:8080/Twister/Profil/ajoutrelation?"+formData).then(r=>{this.traiteAjoutRelation(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});      
+            axios.get("http://localhost:8080/Twister/Profil/ajoutrelation?"+formData).then(r=>{this.traiteAjoutRelation(r); }).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});      
         }
         else{
-            axios.get("http://localhost:8080/Twister/Profil/deleterelation?"+formData).then(r=>{this.traiteSupprRelation(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});      
+            axios.get("http://localhost:8080/Twister/Profil/deleterelation?"+formData).then(r=>{this.traiteSupprRelation(r);}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});      
         }
         
     }
