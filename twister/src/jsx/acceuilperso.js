@@ -187,7 +187,7 @@ class AcceuilPerso extends Component {
                     <input id = "pattern" type="text" name="pattern" placeholder="Recherchez les Twists de vos amis !" onInput={(event) => this.setPattern(event)}/>
                 </div>
                 <div id="hLinks">
-					<button type="button" className="buttontop" onClick={()=> this.deconnexion()}>Déconnexion</button>
+					<button type="button" className="buttontop" onClick={()=> this.props.deconnexion()}>Déconnexion</button>
                 </div>
             </header>
     
@@ -209,6 +209,7 @@ class AcceuilPerso extends Component {
                         <textarea onKeyPress={(event) => this.onKeyPressHandler(event)} className="autoExpand"  name="message" placeholder="Exprimez-vous !"></textarea> 
                     </form>
                     <div onClick={()=> this.handleOnClick("pouce")}> pouce </div>
+                    <div onClick={()=> this.handleOnClick("Momo")}> Momo </div>
                     {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages} /*shouldI={this.shouldI}*//>}
                     
                 </article>
