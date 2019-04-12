@@ -20,15 +20,19 @@ class Connexion extends Component{
   }
 
   traiteReponse(r){
+    console.log(r.data);
     if(r.data.status==="OK"){
     //Si mot de passe faux changement CSS ou bien alert
-      console.log(r.data);
       this.props.setconnected();
       this.props.setKey(r.data.key);
       this.props.setUser(r.data.userID, this.state.login);
       this.props.changepage("acceuilperso");
+    }
+    else{
+      if(r.data.message === "Mot de passe oublie ?"){
         
-    
+      
+      }
     }
     
     

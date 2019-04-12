@@ -8,9 +8,7 @@ class Amis extends Component {
 
     constructor(props){
         super(props);
-        this.state = {
-            listFriend: []
-        };
+        
 
         this.handleOnClick = this.handleOnClick.bind(this);
         this.getAbonnement = this.getAbonnement.bind(this);
@@ -32,7 +30,7 @@ class Amis extends Component {
         if(this._isMounted){
             console.log(r.data);
             if(r.data.status === "OK" && r.data.amis !== undefined){
-                this.setState({listFriend: r.data.amis});
+                this.props.setListFriend(r.data.amis);
                 this.props.setKey(r.data.new_key);
             }
         }
@@ -57,8 +55,8 @@ class Amis extends Component {
 
         return (
             <div className="Amis">
-                <h1>Liste d'Amis : {this.state.listFriend.length} </h1>
-                <div>{this.state.listFriend.map((friend) => 
+                <h1>Liste d'Amis : {this.props.list_friend.length} </h1>
+                <div>{this.props.list_friend.map((friend) => 
                     <p key={friend.login} onClick={()=> this.handleOnClick(friend.login)}>
                         {friend.login}
                     </p>
