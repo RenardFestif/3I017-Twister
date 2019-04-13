@@ -3,10 +3,17 @@ package services;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.bson.Document;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
 import tools.bd.Database;
+import tools.message.MessageBDTools;
 import tools.relation.RelationBDTools;
 import tools.user.UserBDTools;
 
@@ -169,46 +176,51 @@ public class Friend{
 		return retour;
 	}
 	
-	public static JSONObject getListAbonnes(String userKey) throws JSONException {
+	public static JSONObject searchFriend(String pseudo, String user_key) throws JSONException {
 		JSONObject retour = new JSONObject();
 		
-		//Verif des parametres
-		if(userKey == null) {
+		//Test des champs
+		if(pseudo==null || user_key == null) {
 			return ErrorJSON.serviceRefused("Champs manquants", -1);
 		}
 		
 		try {
 			Connection conn = Database.getMySQLConnection();
-			//Verif de la key
-			String key = UserBDTools.checkKeyUpdate(userKey, conn);
+			//Verif existance du futur ami
+			if(!UserBDTools.checkUserExist(pseudo, conn)) {
+				conn.close();
+				return ErrorJSON.serviceRefused("Utilisateur "+pseudo+" inconnu", 1000);
+			}
+			//Verif de la cle
+			String key = UserBDTools.checkKeyUpdate(user_key, conn);
 			if (key == null) {
 				conn.close();
 				return ErrorJSON.serviceRefused("Erreur cle correspondance ou timestamp depasse", 1000);
 			}
+			//Verif que l'ami n'est pas le demandeur
+			if (RelationBDTools.keyPseudoEquals(user_key, pseudo, conn)) {
+				conn.close();
+				return ErrorJSON.serviceRefused("On ne peut pas etre son propre ami ;) ", 1000);
+			}
 			
-			//Recup de l'id 
-			int userID = UserBDTools.getUserIdfromKey(key, conn);
-			
-			//retour <- liste des relations
-			retour = RelationBDTools.getAbonnes(userID,conn);
-			//test si liste null
+			//Recup id de l'ami et Recup id du demandeur
+			int friendID = UserBDTools.getUserId(pseudo, conn);
+			int iD = UserBDTools.getUserIdfromKey(key, conn);
+			retour = RelationBDTools.searchFriend(friendID, iD,conn);
+			//Insetion dans la BD de la relation
 			if(retour == null) {
 				conn.close();
-				return ErrorJSON.serviceRefused("Echec de creation de la liste d'abonnés", 1000);
+				return ErrorJSON.serviceRefused("Je ne trouve pas "+pseudo, 1000);
 			}
-			if (retour.length() == 0 )
-				retour.put("Resultat", "Vous n'avez pas d'abonnes pour l'instant");
-				
-			//Great Succes
+			
+			//Great Succes !
 			retour.put("new_key", key);
 			retour.put("status", "OK");
 			conn.close();
 		}
-
 		catch (SQLException e) {
 			return ErrorJSON.serviceRefused("SQL probleme // "+e.getMessage(), 1000);
 		}
-
 		
 		return retour;
 	}
