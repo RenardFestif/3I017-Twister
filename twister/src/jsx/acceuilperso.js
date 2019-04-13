@@ -199,8 +199,12 @@ class AcceuilPerso extends Component {
     
                 <nav>
                     <p>{this.state.listMessages.length} posts</p>
+
                     <div>{<Amis userKey={this.props.userKey} changepage={this.props.changepage} setAmi={this.props.setAmi} setKey={this.props.setKey} deconnexion={this.props.deconnexion} list_friend={this.props.list_friend} setListFriend={this.props.setListFriend}/>}</div>
-                    
+
+                    <input type="text" placeholder="Cherches tes amis !" name="username" onInput={(evt) => {this.props.setAmi(evt.target.value)}} required/>
+                    <button className="" type="submit" onClick={() => this.props.chercheAmi()}>Go</button>
+
                 </nav>
             
                 <article id="messages">

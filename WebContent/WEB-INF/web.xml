@@ -57,6 +57,10 @@
 		<servlet-class>servlet.relation.ListFriend</servlet-class>
 	</servlet>
 
+	<servlet>
+		<servlet-name>SearchFriend</servlet-name>
+		<servlet-class>servlet.relation.SearchFriend</servlet-class>
+	</servlet>
 
 	<!-- Mapping -->
 	<servlet-mapping>
@@ -105,8 +109,8 @@
 	</servlet-mapping>
 
 	<servlet-mapping>
-		<servlet-name>ListFriend</servlet-name>
-		<url-pattern>/Profil/listAbonnes</url-pattern>
+		<servlet-name>SearchFriend</servlet-name>
+		<url-pattern>/Profil/searchFriend</url-pattern>
 	</servlet-mapping>
 
 

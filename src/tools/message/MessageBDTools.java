@@ -136,18 +136,18 @@ public class MessageBDTools {
 		JSONObject retour = new JSONObject();
 		int userID = UserBDTools.getUserIdfromKey(userKey, conn);
 		JSONObject listFriend = RelationBDTools.getFriends(userID, conn);
-		List<JSONObject> list = (List<JSONObject>) listFriend.get("amis");
+		//listFriend.get("amis");
 		
 		
 		
-		Iterator<JSONObject> friendId = list.keys();
+		//Iterator<JSONObject> friendId = list.keys();
 		ArrayList<Integer> concerned = new ArrayList<>();
 		concerned.add(userID);
-		if(friendId != null) {
+		/*if(friendId != null) {
 			while (friendId.hasNext()) {
 				concerned.add(Integer.parseInt(friendId.next()));
 			}
-		}
+		}*/
 		
 
 		FindIterable<Document> fi = message_collection.find(Filters.in("user_id",concerned)).sort(new Document("date", -1));

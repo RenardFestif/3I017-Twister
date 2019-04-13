@@ -21,6 +21,7 @@ class MainPage extends Component{
         this.setAmi = this.setAmi.bind(this);
         this.setListFriend = this.setListFriend.bind(this);
         this.deconnexion = this.deconnexion.bind(this);
+        this.chercheAmi = this.chercheAmi.bind(this);
     }
 
 
@@ -34,10 +35,10 @@ class MainPage extends Component{
         if (connected === true){
             if(pagecourrante === "acceuilperso")
 
-                page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi={this.setAmi} userId={this.state.id} login={this.state.login} ami={this.state.ami} list_friend={this.state.list_friend} deconnexion={this.deconnexion} setListFriend={this.setListFriend} /> 
+                page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi={this.setAmi} userId={this.state.id} login={this.state.login} ami={this.state.ami} list_friend={this.state.list_friend} deconnexion={this.deconnexion} setListFriend={this.setListFriend} chercheAmi={this.chercheAmi}/> 
 
             else if(pagecourrante==="pageperso")
-                page = <Pageperso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi = {this.setAmi} userId = {this.state.id} login={this.state.login} ami={this.state.ami} list_friend={this.state.list_friend} deconnexion={this.deconnexion} setListFriend={this.setListFriend}/>;
+                page = <Pageperso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi = {this.setAmi} userId = {this.state.id} login={this.state.login} ami={this.state.ami} list_friend={this.state.list_friend} deconnexion={this.deconnexion} setListFriend={this.setListFriend} chercheAmi={this.chercheAmi}/>;
 
         }else{
             if (pagecourrante === "inscription"){
@@ -102,6 +103,22 @@ class MainPage extends Component{
         this.changepage("acceuil");
     }
 
+    chercheAmi(){
+        console.log(this.state.ami);
+        var formData = new URLSearchParams();
+        formData.append("pseudo", this.state.ami);
+        formData.append("user_key", this.state.key);
+        console.log("http://localhost:8080/Twister/Profil/searchFriend?"+formData);
+        axios.get("http://localhost:8080/Twister/Profil/searchFriend?"+formData).then(r=>{this.traiteChercheAmi(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
+    }
+
+    traiteChercheAmi(r){
+        console.log(r.data);
+        if(r.data.status === "OK"){
+            this.setKey(r.data.new_key);
+            this.changepage("pageperso");
+        }
+    }
 
 
 

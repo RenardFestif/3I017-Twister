@@ -55,8 +55,7 @@ class Pageperso extends Component {
         
         var boolean = false;
         this.props.list_friend.map( (friend) =>
-        {
-            if(friend.login === ami){
+        {if(friend.login === ami){
                 boolean = true;
             }
         })
@@ -81,7 +80,6 @@ class Pageperso extends Component {
     }
 
     traiteAjoutRelation(r){
-        console.log(r.data);
         if(r.data.status === "OK"){
             this.props.setKey(r.data.new_key);
             this.props.changepage("pageperso");
@@ -90,7 +88,6 @@ class Pageperso extends Component {
     }
 
     traiteSupprRelation(r){
-        console.log(r.data);
         if(r.data.status === "OK"){
             this.props.setKey(r.data.new_key);
             this.props.changepage("pageperso");
@@ -99,8 +96,6 @@ class Pageperso extends Component {
     
     render(){ 
         if(this.props.ami=== ""){
-            /*affichage de sa page*/
-            console.log(this.props.login);
             return (
                 <div className="AcceuilPerso">
             <header className="sticky">
@@ -123,6 +118,8 @@ class Pageperso extends Component {
                 <nav>
                     <p>{this.state.listMessages.length} posts</p>
                     <div>{<Amis userKey={this.props.userKey} changepage={this.props.changepage} setAmi={this.props.setAmi} setKey={this.props.setKey} deconnexion={this.props.deconnexion} list_friend={this.props.list_friend} setListFriend={this.props.setListFriend}/>}</div>
+                    <input type="text" placeholder="Cherches tes amis !" name="username" onInput={(evt) => {this.props.setAmi(evt.target.value)}} required/>
+                    <button className="" type="submit" onClick={() => this.props.chercheAmi()}>Go</button>
                 </nav>
             
                 <article id="messages">
@@ -162,8 +159,10 @@ class Pageperso extends Component {
 
         <div id="corpus">
             <nav>
-                <p>Nombre de messages écrit</p>
+                <p>{this.state.listMessages.length} posts</p>
                 <div>{<Amis userKey={this.props.userKey} setKey={this.props.setKey} setAmi={this.props.setAmi} changepage={this.props.changepage} deconnexion={this.props.deconnexion} list_friend={this.props.list_friend} setListFriend={this.props.setListFriend} />}</div>
+                <input type="text" placeholder="Cherches tes amis !" name="username" onInput={(evt) => {this.props.setAmi(evt.target.value)}} required/>
+                <button className="" type="submit" onClick={() => this.props.chercheAmi()}>Go</button>
             </nav>
         
             <article id="messages">

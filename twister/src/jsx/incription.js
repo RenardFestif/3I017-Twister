@@ -22,7 +22,6 @@ class Inscription extends Component {
 	send(){
 		
 		//Tester si les parametres sont bien tous remplit !
-
 		var formData = new URLSearchParams();
 		formData.append("login",this.state.login);
 		formData.append("password",this.state.password);
