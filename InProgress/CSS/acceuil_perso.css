@@ -28,7 +28,15 @@
   align-self: center;
   padding-left: 3ex;
   margin: 4ex;  
+  border: solid 1px;
 }
+
+.searchFriend{
+  border: solid 1px;
+  overflow: hidden;
+  resize: none;
+}
+
 
 .corps{
   padding-top: 3em; 
@@ -52,15 +60,21 @@
   padding-right: 2em;
 }
 
-.area:focus{
-  box-shadow: 5px 5px 5px
-}
+
 
 .btn{
   border-radius: 10px;
 }
 .btn:hover{
   background-color: #393939
+}
+
+.btn-friend{
+  max-height: 2em;
+  }
+.searchFriend{
+  max-height:  2em;
+  border-radius: 10px
 }
 
 
