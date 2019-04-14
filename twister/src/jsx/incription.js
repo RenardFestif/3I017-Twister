@@ -22,8 +22,6 @@ class Inscription extends Component {
 	send(){
 		
 		//Tester si les parametres sont bien tous remplit !
-		this.checkArg();
-
 		var formData = new URLSearchParams();
 		formData.append("login",this.state.login);
 		formData.append("password",this.state.password);
@@ -38,23 +36,31 @@ class Inscription extends Component {
 		console.log(r.data);
 		if(r.data.status==="OK")
 			this.props.changepage("connexion");
+		else
+			this.checkArg(r);
 	}
 
-	checkArg(){
+	checkArg(r){
 		if(this.state.login === ''){
-			
+			alert("Quel est ton super nom de twister ?");
 		}
 		if(this.state.password === ''){
-			
+			alert("Ce n'est pas très sécurisant de ne pas mettre de mot de passe 🤨");
 		}
 		if(this.state.mail === ''){
-			
+			alert("Donnes nous ton mail pour que tu sois toujours au courant des dernières nouveautés");
 		}
 		if(this.state.nom === ''){
-			
+			alert("Tu as oublié de remplir un champs");
 		}
 		if(this.state.prenom === ''){
-			
+			alert("Tu as oublié de remplir un champs");
+		}
+		if(r.data.message === "Mauvais format de mot de passe"){
+			alert("Donne nous un mot de passe plus fort. ");
+		}
+		if(r.data.message === "Mauvais format de mail"){
+			alert("Ce n'est pas vraiment comme ça que je définirai un mail");
 		}
 	}
 
@@ -85,6 +91,10 @@ class Inscription extends Component {
 						<div className="clearfix">
 							<button onClick={this.send} className="log"  >Ca part !</button>
 						</div>
+
+						<div className="container" id="mdp">
+				      <span className="psw"><p onClick={()=> this.props.changepage("connexion")}>Dejà inscrit ?</p></span>
+            </div>
 					</div>
 				</div>
 			</div>			

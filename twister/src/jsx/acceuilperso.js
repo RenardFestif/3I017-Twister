@@ -39,6 +39,7 @@ class AcceuilPerso extends Component {
             listMessages:[],
             query:''
         }
+        this.handleOnClick = this.handleOnClick.bind(this);
         
         //this.shouldI = this.shouldI.bind(this);
         
@@ -162,6 +163,12 @@ class AcceuilPerso extends Component {
         this.send();
     }
 
+    handleOnClick(login_ami){
+        this.props.setAmi(login_ami);
+        this.props.changepage("pageperso");
+        
+    }
+
 
     render(){/**/
         
@@ -172,15 +179,15 @@ class AcceuilPerso extends Component {
             <header className="sticky">
                 <img id="logo" src={logo} alt="logo" />
                 <div id="hLinks">
+                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>{this.props.login}</button>
                     <button type="button" className="buttontop" onClick={()=> this.props.changepage("acceuilperso")}>Acceuil</button>
-                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>login</button>
                 </div>
                 
                 <div id="mess">
                     <input id = "pattern" type="text" name="pattern" placeholder="Recherchez les Twists de vos amis !" onInput={(event) => this.setPattern(event)}/>
                 </div>
                 <div id="hLinks">
-					<button type="button" className="buttontop" onClick={()=> this.deconnexion()}>Déconnexion</button>
+					<button type="button" className="buttontop" onClick={()=> this.props.deconnexion()}>Déconnexion</button>
                 </div>
             </header>
     
@@ -191,9 +198,13 @@ class AcceuilPerso extends Component {
             <div id="corpus">
     
                 <nav>
-                    <p>Nombre de messages écrit</p>
-                    <div>{<Amis userKey={this.props.userKey} changepage={this.props.changepage} setAmi={this.props.setAmi} setKey={this.props.setKey} setLogout={this.props.setLogout} deconnexion={this.deconnexion}/>}</div>
-                    
+                    <p>{this.state.listMessages.length} posts</p>
+
+                    <div>{<Amis userKey={this.props.userKey} changepage={this.props.changepage} setAmi={this.props.setAmi} setKey={this.props.setKey} deconnexion={this.props.deconnexion} list_friend={this.props.list_friend} setListFriend={this.props.setListFriend}/>}</div>
+
+                    <input type="text" placeholder="Cherches tes amis !" name="username" onInput={(evt) => {this.props.setAmi(evt.target.value)}} required/>
+                    <button className="" type="submit" onClick={() => this.props.chercheAmi()}>Go</button>
+
                 </nav>
             
                 <article id="messages">
@@ -201,7 +212,8 @@ class AcceuilPerso extends Component {
                     <form id="formMess" method="GET" action =""> 
                         <textarea onKeyPress={(event) => this.onKeyPressHandler(event)} className="autoExpand"  name="message" placeholder="Exprimez-vous !"></textarea> 
                     </form>
-                    
+                    <div onClick={()=> this.handleOnClick("pouce")}> pouce </div>
+                    <div onClick={()=> this.handleOnClick("Momo")}> Momo </div>
                     {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages} /*shouldI={this.shouldI}*//>}
                     
                 </article>

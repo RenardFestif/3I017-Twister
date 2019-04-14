@@ -12,28 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ListAbonnes extends HttpServlet {
+public class SearchFriend extends HttpServlet {
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
 
-
+		String pseudo = req.getParameter("pseudo");
 		String user_key = req.getParameter("user_key");
 
 
 		try {
 			//appel service user_key
-			JSONObject retour = services.Friend.getListAbonnes(user_key);
+			JSONObject retour = services.Friend.searchFriend(pseudo, user_key);
 
 			rep.setContentType("text/json");
 			PrintWriter out = rep.getWriter();
 			out.println(retour.toString());
-			
-			
 		} catch (JSONException e) {
-			
-			/*Service refused ?*/
-			
 			e.printStackTrace();
 		}
 

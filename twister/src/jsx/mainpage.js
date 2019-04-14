@@ -11,14 +11,17 @@ class MainPage extends Component{
     constructor(props){
         super(props);
 
-        this.state = {pagecourrante:"acceuil", connected:false, key:"", id:"", login:"", ami:""};
+        this.state = {pagecourrante:"acceuil", connected:false, key:"", id:"", login:"", ami:"", list_friend:[]};
 
         this.changepage = this.changepage.bind(this);
         this.setConnected = this.setConnected.bind(this);
         this.setKey = this.setKey.bind(this);
         this.setUser = this.setUser.bind(this);
         this.setLogout = this.setLogout.bind(this);
-        this.setAmi = this.setAmi.bind(this)
+        this.setAmi = this.setAmi.bind(this);
+        this.setListFriend = this.setListFriend.bind(this);
+        this.deconnexion = this.deconnexion.bind(this);
+        this.chercheAmi = this.chercheAmi.bind(this);
     }
 
 
@@ -32,10 +35,10 @@ class MainPage extends Component{
         if (connected === true){
             if(pagecourrante === "acceuilperso")
 
-                page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi={this.setAmi} userId={this.state.id} login={this.state.login} ami={this.state.ami} deconnexion={this.deconnexion} /> 
+                page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi={this.setAmi} userId={this.state.id} login={this.state.login} ami={this.state.ami} list_friend={this.state.list_friend} deconnexion={this.deconnexion} setListFriend={this.setListFriend} chercheAmi={this.chercheAmi}/> 
 
             else if(pagecourrante==="pageperso")
-                page = <Pageperso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi = {this.setAmi} userId = {this.state.userId} login={this.state.login} ami={this.state.ami} deconnexion={this.deconnexion}/>;
+                page = <Pageperso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi = {this.setAmi} userId = {this.state.id} login={this.state.login} ami={this.state.ami} list_friend={this.state.list_friend} deconnexion={this.deconnexion} setListFriend={this.setListFriend} chercheAmi={this.chercheAmi}/>;
 
         }else{
             if (pagecourrante === "inscription"){
@@ -76,6 +79,10 @@ class MainPage extends Component{
         this.setState({ami: ami});
     }
 
+    setListFriend(list_ami){
+        this.setState({list_friend:list_ami});
+    }
+
     setLogout(){
         this.setState({login: "",id:"",key:"", ami:""});
         this.setConnected();
@@ -83,7 +90,7 @@ class MainPage extends Component{
 
     deconnexion(){
         var formData = new URLSearchParams();
-        formData.append("userKey",this.props.userKey);
+        formData.append("userKey",this.state.key);
         console.log("http://localhost:8080/Twister/Acceuil/logout?"+formData);
         axios.get("http://localhost:8080/Twister/Acceuil/logout?"+formData).then(r=>{this.traiteDeco(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});      
     }
@@ -91,9 +98,26 @@ class MainPage extends Component{
     traiteDeco(r){
         console.log(r.data);
         if (r.data.status === "OK"){
-            this.props.setLogout();
+            this.setLogout();
         }
-        this.props.changepage("acceuil");
+        this.changepage("acceuil");
+    }
+
+    chercheAmi(){
+        console.log(this.state.ami);
+        var formData = new URLSearchParams();
+        formData.append("pseudo", this.state.ami);
+        formData.append("user_key", this.state.key);
+        console.log("http://localhost:8080/Twister/Profil/searchFriend?"+formData);
+        axios.get("http://localhost:8080/Twister/Profil/searchFriend?"+formData).then(r=>{this.traiteChercheAmi(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
+    }
+
+    traiteChercheAmi(r){
+        console.log(r.data);
+        if(r.data.status === "OK"){
+            this.setKey(r.data.new_key);
+            this.changepage("pageperso");
+        }
     }
 
 

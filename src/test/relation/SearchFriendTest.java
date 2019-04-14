@@ -5,17 +5,18 @@ import org.json.JSONObject;
 
 import services.Friend;
 
-public class ListAbonnesTest {
-
-	public static void main(String[] args) {
+public class SearchFriendTest {
+public static void main (String[] args) {
+		
 		JSONObject newuserser = new JSONObject();
-
+		
 		try {
-			newuserser= Friend.getListAbonnes("tvpTUhohIUoXTcdYzToe7TDhlOtctBAWka2gFwVdqOKETjTTznbUnqJDggudg0pI");
+			newuserser= Friend.searchFriend("Momo", "nlXCQBMuS9ScDNnjHiBmb1oTPgCVtEsFZysZIu9GfKjGAtSJ3YWjMisdVQ4V8FHD");
 			System.out.println(newuserser.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+
 
 	}
 

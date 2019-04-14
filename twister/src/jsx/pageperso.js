@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MessageSet from "./messageSet.js";
 import Amis from "./amis.js";
 import logo from '../images/logo.png';
+import axios from 'axios';
 
 function autoExpand(){
     document.addEventListener('input', function (event){
@@ -44,22 +45,63 @@ class Pageperso extends Component {
         this.props.changepage("acceuilperso");
         this.props.setAmi("");
     }
+
+    retourpageperso(){
+        this.props.changepage("pageperso");
+        this.props.setAmi("");
+    }
+
+    add_remove_affichage(ami){
+        
+        var boolean = false;
+        this.props.list_friend.map( (friend) =>
+        {if(friend.login === ami){
+                boolean = true;
+            }
+        })
+        if(boolean){
+            return "Supprimer";
+        }
+        else
+            return "Ajouter";
+    }
+
+    send_ajout_remove(ami){
+        var formData = new URLSearchParams();
+        formData.append("pseudo",ami);
+        formData.append("user_key",this.props.userKey);
+        if(this.add_remove_affichage(ami) === "Ajouter"){
+            axios.get("http://localhost:8080/Twister/Profil/ajoutrelation?"+formData).then(r=>{this.traiteAjoutRelation(r); }).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});      
+        }
+        else{
+            axios.get("http://localhost:8080/Twister/Profil/deleterelation?"+formData).then(r=>{this.traiteSupprRelation(r);}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});      
+        }
+        
+    }
+
+    traiteAjoutRelation(r){
+        if(r.data.status === "OK"){
+            this.props.setKey(r.data.new_key);
+            this.props.changepage("pageperso");
+            
+        }
+    }
+
+    traiteSupprRelation(r){
+        if(r.data.status === "OK"){
+            this.props.setKey(r.data.new_key);
+            this.props.changepage("pageperso");
+        }
+    }
     
     render(){ 
         if(this.props.ami=== ""){
-            /*affichage de sa page*/
-            console.log(this.props.login);
-        }
-        else{
-            /* affichage de la page de son ami */
-            console.log(this.props.ami);
-        }
-        return(
-        <div className="AcceuilPerso">
+            return (
+                <div className="AcceuilPerso">
             <header className="sticky">
                 <img id="logo" src={logo} alt="logo" />
                 <div id="hLinks">
-                    <button type="button" className="buttontop" onClick={()=> this.props.changepage("pageperso")}>Login</button>
+                    <button type="button" className="buttontop" onClick={()=> this.retourpageperso()}>{this.props.login}</button>
                     <button type="button" className="buttontop" onClick={()=> this.retouracceuil()}>Acceuil</button>
                 </div>
                 
@@ -71,13 +113,13 @@ class Pageperso extends Component {
                 </div>
             </header>
     
-            
-    
             <div id="corpus">
     
                 <nav>
-                    <p>Nombre de messages écrit</p>
-                    <div>{<Amis userKey={this.props.userKey} setKey={this.props.setKey} setAmi={this.props.setAmi} changepage={this.props.changepage}/>}</div>
+                    <p>{this.state.listMessages.length} posts</p>
+                    <div>{<Amis userKey={this.props.userKey} changepage={this.props.changepage} setAmi={this.props.setAmi} setKey={this.props.setKey} deconnexion={this.props.deconnexion} list_friend={this.props.list_friend} setListFriend={this.props.setListFriend}/>}</div>
+                    <input type="text" placeholder="Cherches tes amis !" name="username" onInput={(evt) => {this.props.setAmi(evt.target.value)}} required/>
+                    <button className="" type="submit" onClick={() => this.props.chercheAmi()}>Go</button>
                 </nav>
             
                 <article id="messages">
@@ -92,7 +134,49 @@ class Pageperso extends Component {
     
     
             </div>
+            );
+        }
+        else{
+            /* affichage de la page de son ami */
+        
+        return( <div className="AcceuilPerso">
+        <header className="sticky">
+            <img id="logo" src={logo} alt="logo" />
+            <div id="hLinks">
+                <button type="button" className="buttontop" onClick={()=> this.retourpageperso()}>{this.props.login}</button>
+                <button type="button" className="buttontop" onClick={()=> this.retouracceuil()}>Acceuil</button>
+            </div>
+            
+            <form id="mess" method="GET" action="">
+                <input id = "pattern" type="text" name="pattern"/>
+            </form>
+            <div id="hLinks">
+                <button type="button" className="buttontop" onClick={()=> this.props.deconnexion()}>Déconnexion</button>
+            </div>
+        </header>
+
+        
+
+        <div id="corpus">
+            <nav>
+                <p>{this.state.listMessages.length} posts</p>
+                <div>{<Amis userKey={this.props.userKey} setKey={this.props.setKey} setAmi={this.props.setAmi} changepage={this.props.changepage} deconnexion={this.props.deconnexion} list_friend={this.props.list_friend} setListFriend={this.props.setListFriend} />}</div>
+                <input type="text" placeholder="Cherches tes amis !" name="username" onInput={(evt) => {this.props.setAmi(evt.target.value)}} required/>
+                <button className="" type="submit" onClick={() => this.props.chercheAmi()}>Go</button>
+            </nav>
+        
+            <article id="messages">
+                <h1>{this.props.ami}</h1>
+                <button type="button" onClick={() => this.send_ajout_remove(this.props.ami)} >{this.add_remove_affichage(this.props.ami)}</button>
+                {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages} /*shouldI={this.shouldI}*//>}
+                
+            </article>
+        </div>
+
+
+        </div>
         );
+        }
     }
 }
 

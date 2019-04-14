@@ -59,30 +59,26 @@ public class RelationBDTools {
 		while(rs.next()) { 
 			String name =  UserBDTools.getLogin(rs.getInt("user_id2"), conn);
 			JSONObject ami = new JSONObject();
-			Integer userID_ami = UserBDTools.getUserId(name, conn);
-			listFriend.add(ami.put(userID_ami.toString(), name));
+			listFriend.add(ami.put("login", name));
 		}
 		retour.put("amis", listFriend);
 		rs.close();
 		st.close();
 		return retour;
 	}
-	
-public static JSONObject getAbonnes(int userID, Connection conn)throws SQLException, JSONException {
-		
+
+
+	public static JSONObject searchFriend(int ami,  int login, Connection conn) throws SQLException, JSONException {
 		JSONObject retour = new JSONObject();
 		
-		String query = "SELECT user_id1 FROM follow WHERE user_id2='"+userID+"'";
+		String query = "SELECT * FROM users WHERE user_id='"+ami+"'";
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(query);
-		List<JSONObject> listAbonnes = new ArrayList<>();
 		
-		while(rs.next()) { 
-			String name =  UserBDTools.getLogin(rs.getInt("user_id1"), conn);
-			JSONObject follower = new JSONObject();
-			listAbonnes.add(follower.put("login", name));
+		while(rs.next()) {
+			String name =  UserBDTools.getLogin(rs.getInt("user_id"), conn);
+			retour.put(name, ami);
 		}
-		retour.put("amis", listAbonnes);
 		rs.close();
 		st.close();
 		return retour;
@@ -111,6 +107,7 @@ public static JSONObject getAbonnes(int userID, Connection conn)throws SQLExcept
 				return true;
 		return false;
 	}
+
 
 	
 	
