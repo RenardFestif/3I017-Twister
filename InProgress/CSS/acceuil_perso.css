@@ -85,3 +85,8 @@
 .card-footer{
   justify-content: center;
 }
+
+.logoAcp{
+  max-height: 8em;
+  max-width: 8em;
+}
