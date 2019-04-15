@@ -32,6 +32,7 @@ class Amis extends Component {
             if(r.data.status === "OK" && r.data.amis !== undefined){
                 this.props.setListFriend(r.data.amis);
                 this.props.setKey(r.data.new_key);
+                this.props.send();
             }
         }
     }

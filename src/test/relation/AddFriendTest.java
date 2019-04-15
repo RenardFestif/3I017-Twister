@@ -12,7 +12,7 @@ public class AddFriendTest {
 		JSONObject newuserser = new JSONObject();
 		
 		try {
-			newuserser= Friend.addFriend("Momo", "wye3aW5St8ZABSVihdf29mZ7WqG8hXUA1p5yV81sdjc1QePwlXyAWq981Isov5ZC");
+			newuserser= Friend.addFriend("dfgsdfg", "kRCkYsk6lHyMfcJ9aajRCqUC4HOQFNaCWS7GKNM3A6ar1CNqV4Aw5rhIwvF39OJ2");
 			System.out.println(newuserser.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();

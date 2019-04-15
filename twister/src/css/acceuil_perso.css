@@ -1,0 +1,87 @@
+#header{
+  background-color: #393939;
+
+}
+
+.side{
+  position: fixed;
+}
+
+.button{
+  margin: 1ex;
+  max-width: 10em;
+  border-radius: 7px;
+}
+
+.buttons{
+  align-items: center;
+}
+
+.logo{
+  align-items: center;
+}
+
+.searchMess{
+  overflow:   hidden;
+  resize: none;
+  max-height: 2em;
+  align-self: center;
+  padding-left: 3ex;
+  margin: 4ex;  
+  border: solid 1px;
+}
+
+.searchFriend{
+  border: solid 1px;
+  overflow: hidden;
+  resize: none;
+}
+
+
+.corps{
+  padding-top: 3em; 
+}
+.h4{
+  margin: 1em;
+}
+
+.sider{
+  display: block;
+}
+
+.area{
+  resize: none;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.input-group{
+  padding-left: 2em; 
+  padding-right: 2em;
+}
+
+
+
+.btn{
+  border-radius: 10px;
+}
+.btn:hover{
+  background-color: #393939
+}
+
+.btn-friend{
+  max-height: 2em;
+  }
+.searchFriend{
+  max-height:  2em;
+  border-radius: 10px
+}
+
+
+.card{
+  margin: 2em;
+}
+
+.card-footer{
+  justify-content: center;
+}

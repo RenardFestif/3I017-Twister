@@ -1,5 +1,6 @@
 package tools.message;
 
+import java.nio.file.DirectoryStream.Filter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,13 +9,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Pattern;
 
+import javax.management.InstanceAlreadyExistsException;
+
+import org.bson.BsonDocument;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -102,15 +109,14 @@ public class MessageBDTools {
 		FindIterable<Document> fi = message_collection.find(query);
 		MongoCursor<Document> cur = fi.iterator();
 
-		boolean res = false;
-		while(cur.hasNext()) {
 
-			res = true;
+		while(cur.hasNext()) {
+			return true;
 		}
 
 
-
-		return res;
+		return false;
+		
 
 	}
 
@@ -132,25 +138,32 @@ public class MessageBDTools {
 	}
 
 
-	public static JSONObject getMessages(String userKey,Connection conn, Document query, MongoCollection<Document> message_collection) throws SQLException, JSONException {
+	public static JSONObject getMessages(String userKey,Connection conn,String pattern, Document query, MongoCollection<Document> message_collection) throws SQLException, JSONException {
 		JSONObject retour = new JSONObject();
 		int userID = UserBDTools.getUserIdfromKey(userKey, conn);
 		JSONObject listFriend = RelationBDTools.getFriends(userID, conn);
-		//listFriend.get("amis");
+		List<JSONObject> messages = new ArrayList<JSONObject>();
 		
+		JSONArray friends = (JSONArray) listFriend.get("amis") ;
 		
-		
-		//Iterator<JSONObject> friendId = list.keys();
+	
 		ArrayList<Integer> concerned = new ArrayList<>();
 		concerned.add(userID);
-		/*if(friendId != null) {
-			while (friendId.hasNext()) {
-				concerned.add(Integer.parseInt(friendId.next()));
-			}
-		}*/
+		
+		for(int i = 0; i<friends.length(); i++) {
+			JSONObject x = friends.getJSONObject(0);
+			concerned.add(UserBDTools.getUserId((String) x.get("login"), conn));
+		}
+		BasicDBObject q = new BasicDBObject();
 		
 
-		FindIterable<Document> fi = message_collection.find(Filters.in("user_id",concerned)).sort(new Document("date", -1));
+		FindIterable<Document> fi = null;
+		if(pattern == null) {
+			fi = message_collection.find((Filters.in("user_id",concerned))).sort(new Document("date", -1));
+		}else {
+			fi = message_collection.find(Filters.and(Filters.in("user_id",concerned),Filters.regex("content", pattern))).sort(new Document("date", -1));
+		}
+		
 		MongoCursor<Document> cur = fi.iterator();
 		
 		while(cur.hasNext()) {
@@ -160,8 +173,10 @@ public class MessageBDTools {
 			mess.put("auteur",obj.getString("user_name"));
 			mess.put("date",obj.getDate("date").toString());
 			mess.put("content",obj.getString("content"));
-			retour.put(obj.getObjectId("_id").toString(), mess);
+			mess.put("messID",obj.getObjectId("_id").toString());
+			messages.add(mess);
 		}
+		retour.put("messages", messages);
 		return retour;
 	}
 
@@ -170,25 +185,31 @@ public class MessageBDTools {
 			MongoCollection<Document> message_collection) throws JSONException {
 
 		JSONObject retour = new JSONObject();
-
+		List<JSONObject> messages = new ArrayList<JSONObject>();
+		
 		query.append("user_id",userId);
-		if(pattern != null)
-			query.append("content", "/.*"+pattern+"*./");
-
-
-		FindIterable<Document> fi = message_collection.find(query).sort(new Document("date", -1));
+		FindIterable<Document> fi = null;
+		
+		if(pattern == null) {
+			fi = message_collection.find(query).sort(new Document("date", -1));
+		}else {
+			fi = message_collection.find(Filters.and(query,Filters.regex("content", pattern))).sort(new Document("date", -1));
+		}
 		MongoCursor<Document> cur = fi.iterator();
 
 		while(cur.hasNext()) {
 
 			JSONObject mess = new JSONObject();
 			Document obj = cur.next();
+			System.out.println(obj);
 			mess.put("auteur",obj.getString("user_name"));
 			mess.put("date",obj.getDate("date").toString());
 			mess.put("content",obj.getString("content"));
-			retour.put(obj.getObjectId("_id").toString(), mess);
+			mess.put("messID",obj.getObjectId("_id").toString());
+			
+			messages.add(mess);
 		}
-
+		retour.put("messages", messages);
 		return retour;
 	}
 

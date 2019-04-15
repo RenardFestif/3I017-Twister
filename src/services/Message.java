@@ -78,7 +78,7 @@ public class Message {
 		JSONObject retour = new JSONObject();
 
 		//Faut bien faire commencer l'entr�e id de la table message a 1 sous peine de generer des erreurs
-		if( iDMessage == "undefined" ||userKey == "undefined") 
+		if( iDMessage == null ||userKey == null) 
 			return ErrorJSON.serviceRefused("erreur de parametres", -1);
 
 		try {
@@ -93,18 +93,18 @@ public class Message {
 
 			//Verif de la key
 			String key = UserBDTools.checkKeyUpdate(userKey, conn);
-			if (key == "undefined") {
+			if (key == null) {
 				conn.close();
 				return ErrorJSON.serviceRefused("Erreur de correspondance ou timestamp depasse", 1000);
 			}
 		
 			
 			//Verif de l'auteur du message + Verif que le message existe
-			if(!MessageBDTools.checkAuteur(userKey, iDMessage, conn,query,message_collection)) {
+			if(!MessageBDTools.checkAuteur(key, iDMessage, conn,query,message_collection)) {
 				conn.close();
 				return ErrorJSON.serviceRefused("Utilisateur non auteur du message ou id message non existant", 1000);
 			}
-
+			System.out.println("la");
 
 			//Suppression du message de la BD
 			if(!MessageBDTools.removeMessage(iDMessage, conn, query,message_collection)) {
@@ -155,7 +155,7 @@ public class Message {
 				return retour;
 			}
 			
-			if(pattern == null && userId == 0 && userKey != null) {
+			if(userId == 0 && userKey != null) {
 				//Verif de la key
 				String key = UserBDTools.checkKeyUpdate(userKey, conn);
 				if (key == null) {
@@ -163,7 +163,7 @@ public class Message {
 					return ErrorJSON.serviceRefused("Erreur de correspondance ou timestamp depasse", 1000);
 				}
 
-				retour = MessageBDTools.getMessages(key, conn, query, message_collection);
+				retour = MessageBDTools.getMessages(key, conn, pattern, query, message_collection);
 				retour.put("new_key", key);
 				retour.put("status", "OK");
 				conn.close();
@@ -202,5 +202,8 @@ public class Message {
 		return retour;
 	}
 
+
+
+	
 
 }

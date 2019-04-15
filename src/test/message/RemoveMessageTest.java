@@ -13,7 +13,7 @@ public class RemoveMessageTest {
 		JSONObject newuserser = new JSONObject();
 		
 		try {
-			newuserser= Message.removeMessage("5c6ea3b03499e03435eb5fb6", "g1LsPVd9aKO4lhOdyPPX4b0283J4Z6pJjbHKXSLwaigvVh6CfORA7ZGQLBNmwBDe");
+			newuserser= Message.removeMessage("5cb4ae6be9cbe00b79ec3eaf", "GBKcAW8lF9qymaJzJo3IWgs1YfdULRz2rlBYQIIgjEY6yORu82KAxNz5KPsx6bIO");
 			System.out.println(newuserser.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();

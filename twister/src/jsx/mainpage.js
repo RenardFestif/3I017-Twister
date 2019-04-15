@@ -35,18 +35,44 @@ class MainPage extends Component{
         if (connected === true){
             if(pagecourrante === "acceuilperso")
 
-                page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi={this.setAmi} userId={this.state.id} login={this.state.login} ami={this.state.ami} list_friend={this.state.list_friend} deconnexion={this.deconnexion} setListFriend={this.setListFriend} chercheAmi={this.chercheAmi}/> 
+                page = <AcceuilPerso changepage = {this.changepage} 
+                                    setLogout = {this.setLogout} 
+                                    userKey={this.state.key} 
+                                    setKey = {this.setKey} 
+                                    setAmi={this.setAmi} 
+                                    userId={this.state.id} 
+                                    login={this.state.login} 
+                                    ami={this.state.ami} 
+                                    list_friend={this.state.list_friend} 
+                                    deconnexion={this.deconnexion} 
+                                    setListFriend={this.setListFriend} 
+                                    chercheAmi={this.chercheAmi}/> 
 
             else if(pagecourrante==="pageperso")
-                page = <Pageperso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi = {this.setAmi} userId = {this.state.id} login={this.state.login} ami={this.state.ami} list_friend={this.state.list_friend} deconnexion={this.deconnexion} setListFriend={this.setListFriend} chercheAmi={this.chercheAmi}/>;
+                page = <Pageperso changepage = {this.changepage} 
+                                                setLogout = {this.setLogout} 
+                                                userKey={this.state.key} 
+                                                setKey = {this.setKey} 
+                                                setAmi = {this.setAmi} 
+                                                userId = {this.state.id} 
+                                                login={this.state.login} 
+                                                ami={this.state.ami} 
+                                                list_friend={this.state.list_friend} 
+                                                deconnexion={this.deconnexion} 
+                                                setListFriend={this.setListFriend} 
+                                                chercheAmi={this.chercheAmi}/>;
 
         }else{
             if (pagecourrante === "inscription"){
-                page = <Inscription changepage = {this.changepage} setconnected = {this.setConnected}/>;
+                page = <Inscription changepage = {this.changepage} 
+                                    setconnected = {this.setConnected}/>;
             }
             else if (pagecourrante === "connexion"){
 
-                page = <Connexion changepage = {this.changepage} setconnected = {this.setConnected} setKey = {this.setKey} setUser= {this.setUser}/>;
+                page = <Connexion changepage = {this.changepage} 
+                                    setconnected = {this.setConnected} 
+                                    setKey = {this.setKey} 
+                                    setUser= {this.setUser}/>;
 
             }
             else{
