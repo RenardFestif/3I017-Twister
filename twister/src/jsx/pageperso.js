@@ -36,6 +36,7 @@ class Pageperso extends Component {
         }
         this.handleOnClick = this.handleOnClick.bind(this);
         this.send = this.send.bind(this);
+        this.getAbonnement = this.getAbonnement.bind(this);
     }
 
     handleOnClick(){
@@ -57,7 +58,7 @@ class Pageperso extends Component {
         
         var boolean = false;
         this.props.list_friend.map( (friend) =>
-        {if(friend.login === ami){
+        {if(friend[0].login === ami){
                 boolean = true;
             }
         })
@@ -85,17 +86,38 @@ class Pageperso extends Component {
         if(r.data.status === "OK"){
             this.props.setKey(r.data.new_key);
             this.props.changepage("pageperso");
-            
+            this.getAbonnement();
         }
     }
 
     traiteSupprRelation(r){
+        console.log(r.data);
         if(r.data.status === "OK"){
             this.props.setKey(r.data.new_key);
             this.props.changepage("pageperso");
+            this.getAbonnement();
         }
     }
 
+    getAbonnement(){
+        var formData = new URLSearchParams();
+        formData.append("user_key",this.props.userKey);
+        console.log("http://localhost:8080/Twister/Profil/listFriend?"+formData);
+        axios.get("http://localhost:8080/Twister/Profil/listFriend?"+formData).then(
+            r=>{this.traiteReponseFriend(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
+    }
+
+
+    traiteReponseFriend(r){
+        //ListeFriend est une liste contenant les login d'amis
+        //on vérifie si on a des amis
+            console.log(r.data);
+            if(r.data.status === "OK" && r.data.amis !== undefined){
+                this.props.setListFriend(r.data.amis);
+                this.props.setKey(r.data.new_key);
+                //this.send();
+            }
+    }
 
     send(){
     
@@ -182,6 +204,7 @@ class Pageperso extends Component {
                                         list_friend={this.props.list_friend} 
                                         setListFriend={this.props.setListFriend}
                                         send={this.send}
+                                        getAbonnement={this.getAbonnement}
                                         />}
                             </div>
                             <input type="text" placeholder="Cherches tes amis !" name="username" onInput={(evt) => {this.props.setAmi(evt.target.value)}} required/>
@@ -237,7 +260,8 @@ class Pageperso extends Component {
                                 deconnexion={this.props.deconnexion} 
                                 list_friend={this.props.list_friend} 
                                 setListFriend={this.props.setListFriend}
-                                send={this.send} />}
+                                send={this.send} 
+                                getAbonnement={this.getAbonnement}/>}
                     </div>
                     <input type="text" placeholder="Cherches tes amis !" name="username" onInput={(evt) => {this.props.setAmi(evt.target.value)}} required/>
                     <button className="" type="submit" onClick={() => this.props.chercheAmi()}>Go</button>

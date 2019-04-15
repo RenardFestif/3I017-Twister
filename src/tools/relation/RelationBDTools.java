@@ -51,15 +51,19 @@ public class RelationBDTools {
 		
 		JSONObject retour = new JSONObject();
 		
-		String query = "SELECT user_id2 FROM follow WHERE user_id1='"+userID+"'";
+		String query = "SELECT user_id2 FROM follow WHERE user_id1='"+userID+"' ORDER BY follow_date DESC";
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(query);
-		List<JSONObject> listFriend = new ArrayList<>();
+		List<List<JSONObject>> listFriend = new ArrayList<>();
 		
 		while(rs.next()) { 
 			String name =  UserBDTools.getLogin(rs.getInt("user_id2"), conn);
 			JSONObject ami = new JSONObject();
-			listFriend.add(ami.put("login", name));
+			JSONObject ami_id = new JSONObject();
+			List<JSONObject> list_tmp = new ArrayList<>();
+			list_tmp.add(ami.put("login", name));
+			list_tmp.add(ami_id.put("id", userID));
+			listFriend.add(list_tmp);
 		}
 		retour.put("amis", listFriend);
 		rs.close();

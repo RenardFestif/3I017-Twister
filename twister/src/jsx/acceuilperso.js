@@ -41,9 +41,8 @@ class AcceuilPerso extends Component {
            
         }
         this.handleOnClick = this.handleOnClick.bind(this);
-        
         this.send = this.send.bind(this);
-        
+        this.getAbonnement = this.getAbonnement.bind(this);
      
     }
 
@@ -76,6 +75,29 @@ class AcceuilPerso extends Component {
             this.props.changepage("connexion");      
         }
     }
+
+    getAbonnement(m){
+        var formData = new URLSearchParams();
+        formData.append("user_key",this.props.userKey);
+        console.log("http://localhost:8080/Twister/Profil/listFriend?"+formData);
+        axios.get("http://localhost:8080/Twister/Profil/listFriend?"+formData).then(
+            r=>{this.traiteReponseFriend(r,m)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
+    }
+
+
+    traiteReponseFriend(r,m){
+        //ListeFriend est une liste contenant les login d'amis
+        //on vérifie si on a des amis
+        if(m){
+            console.log(r.data);
+            if(r.data.status === "OK" && r.data.amis !== undefined){
+                this.props.setListFriend(r.data.amis);
+                this.props.setKey(r.data.new_key);
+                //this.send();
+            }
+        }
+    }
+
 
     send(){
     
@@ -211,7 +233,8 @@ class AcceuilPerso extends Component {
                                 deconnexion={this.props.deconnexion} 
                                 list_friend={this.props.list_friend} 
                                 setListFriend={this.props.setListFriend}
-                                send={this.send}/>}</div>
+                                send={this.send}
+                                getAbonnement={this.getAbonnement}/>}</div>
 
                     <input type="text" placeholder="Cherches tes amis !" name="username" onInput={(evt) => {this.props.setAmi(evt.target.value)}} required/>
                     <button className="" type="submit" onClick={() => this.props.chercheAmi()}>Go</button>
