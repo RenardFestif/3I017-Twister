@@ -59,12 +59,14 @@ class Connexion extends Component{
           <div className="login-form">
           
             <div className="form-group">
-              <label htmlFor="username"><b>Login</b></label>
+              <label>Login</label>
+              <br/>
               <input type="text" placeholder="Login" name="username" onInput={(evt) => {this.setState({login: evt.target.value})}} required/>
             </div>
             
             <div className="form-group">
-              <label htmlFor="password"><b>Mot de passe</b></label>
+              <label>Mot de passe</label>
+              <br/>
               <input type="password" placeholder="Password" name="password" onInput={(evt) => {this.setState({password: evt.target.value})}} required/>
             </div>
 

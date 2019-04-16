@@ -33,13 +33,13 @@ class Amis extends Component {
 
         return (
             <div className="Amis">
-                <h1>Liste d'Amis : {this.props.list_friend.length} </h1>
-                <div>{this.props.list_friend.map((friend) => 
-                    <p key={friend[0].login} onClick={()=> this.handleOnClick(friend[0].login)}>
+                <h5 className="display-4">Mes amis</h5>
+                <ul className="list-unstyled" >{this.props.list_friend.map((friend) => 
+                    <li className="h4 text-muted" key={friend[0].login} onClick={()=> this.handleOnClick(friend[0].login)}>
                         {friend[0].login}
-                    </p>
+                    </li>
                 )}
-                </div>
+                </ul>
             </div>
             );
     }

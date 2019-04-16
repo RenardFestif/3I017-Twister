@@ -66,7 +66,6 @@ class Inscription extends Component {
 
 
   render(){
-		console.log("inscription")
 		return (	
 			<div>
 				<div className="sidenav">
@@ -81,33 +80,38 @@ class Inscription extends Component {
 						<div className="login-form">
 
 							<div className="form-group">
-								<label htmlFor="nom"><b>Nom</b></label>
-								<input type="text" placeholder="Quel est ton nom ?" name="nom" onInput={(evt) => {this.setState({nom: evt.target.value})}} required/>
+								<label>Nom</label>
+								<br/>
+								<input type="text" placeholder="Nom" name="nom" onInput={(evt) => {this.setState({nom: evt.target.value})}} required/>
 							</div>
 								
 							<div className="form-group">
-								<label htmlFor="prenom"><b>Prenom</b></label>
-								<input type="text" placeholder="Quel est ton prenom ?" name="prenom" onInput={(evt) => {this.setState({prenom: evt.target.value})}} required/>
+								<label>Prenom</label>
+								<br/>
+								<input type="text" placeholder="Prénom" name="prenom" onInput={(evt) => {this.setState({prenom: evt.target.value})}} required/>
 							</div>
 								
 							<div className="form-group">
-								<label htmlFor="email"><b>Email</b></label>
+								<label>Email</label>
+								<br/>
 								<input type="text" placeholder="Renseigne ton Email !" name="email"	onInput={(evt) => {this.setState({mail: evt.target.value})}} required/>
 							</div>
 
 							<div className="form-group">
-								<label htmlFor="login"><b>Pseudo</b></label>
-								<input type="text" placeholder="Comment la communauté te surnomme ?" name="login" onInput={(evt) => {this.setState({login: evt.target.value})}} required/>
+								<label>Pseudo</label>
+								<br/>
+								<input type="text" placeholder="Login" name="login" onInput={(evt) => {this.setState({login: evt.target.value})}} required/>
 							</div>
 
 							<div className="form-group">
-								<label htmlFor="password"><b>Password</b></label>
-								<input type="password" placeholder="Et enfin un mot de passe super sécurisé !" name="password" onInput={(evt) => {this.setState({password: evt.target.value})}} required/>
+								<label>Password</label>
+								<br/>
+								<input type="password" placeholder="Password" name="password" onInput={(evt) => {this.setState({password: evt.target.value})}} required/>
 							</div>
 
 					
-							<button type="submit" onClick={this.send} className="btn btn-success btn-sm button">Ca part !</button>
-							<button type="submit" onClick={this.props.changepage("connexion")} className="btn btn-success btn-sm button">Déjà inscrit ?</button>
+							<button type="submit" className="btn btn-success btn-sm button" onClick={this.send} >Ca part !</button>
+							<button type="submit" className="btn btn-success btn-sm button" onClick={() => this.props.changepage("connexion")} >Déjà inscrit ?</button>
 						
 						</div>
 					</div>

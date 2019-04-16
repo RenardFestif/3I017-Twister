@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import trash from '../images/trash.png';
 
 class Message extends Component {
     
@@ -28,21 +29,26 @@ class Message extends Component {
     render(){
         if(this.props.delMess !== undefined){
             return (
-                <li className="Message">
-                    <pre>@{this.props.auteur} </pre>
-                    <pre>{this.props.content} </pre>
-                    <pre>{this.props.date}</pre>
-                    <button onClick={()=> this.deleteMessage(this.props.idMess)}>delete</button>
-                </li>
+                <div className="card">
+                <div className="card-header">@{this.props.auteur}</div>
+                <div className="card-body">
+                    <blockquote className="blockquote">{this.props.content}</blockquote>
+                    <footer className="bloquote-footer">{this.props.date}</footer>
+                </div>
+                <div className="card-footer">
+                    <img className="trash" src={trash} alt="logotrash" onClick={()=> this.deleteMessage(this.props.idMess)}/>
+                </div>
+            </div>
                 ); 
         }else{
             return (
-                <li className="Message">
-                    <pre>@{this.props.auteur} </pre>
-                    <pre>{this.props.content} </pre>
-                    <pre>{this.props.date}</pre>
-    
-                </li>
+                <div className="card">
+                    <div className="card-header">@{this.props.auteur}</div>
+                    <div className="card-body">
+                        <blockquote className="blockquote">{this.props.content}</blockquote>
+                        <footer className="bloquote-footer">{this.props.date}</footer>
+                    </div>
+                </div>
                 );
         }
         

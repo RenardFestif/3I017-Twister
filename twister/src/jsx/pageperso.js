@@ -179,12 +179,12 @@ class Pageperso extends Component {
             return (
                 <div>
                 <div id="header"className="container-fluid sticky-top ">
-                    <div className="containver">
-                        <div className="row navbar">
+                    <div className="container">
+                        <div className="row navbar ">
                             <img className="col logoAcp" src={logo} alt="logo" />
                             <textarea className="col rounded-pill searchMess"></textarea>
                             <div className="col btn-group-vertical buttons">
-                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.changepage("acceuilperso")}>Acceuil</button>
+                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.retouracceuil()}>Acceuil</button>
                                 <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.deconnexion}>Deconnexion</button>
                             </div>
                         </div>
@@ -193,19 +193,14 @@ class Pageperso extends Component {
 
                 <div className="container corps">
                     <div className="row">
-                        <div className="col-3">
-                        
-                        </div>
                         <div className="col-3 side">
                             <div>
-                                <div className="input-group friend-group">
-                                    <textarea className="col form-control searchFriend"></textarea>
+                            <div className="input-group friend-group">
+                                    <textarea className="col form-control searchFriend" onInput={(evt) => {this.props.setAmi(evt.target.value)}}></textarea>
                                     <div className="input-group-append">
-                                        <button className="btn btn-outline-secondary btn-friend">+</button>
-                                        <button className="btn btn-outline-secondary btn-friend">@</button> 
+                                        <button className="btn btn-outline-secondary btn-friend" onClick={() => this.props.chercheAmi()}>Go</button>
                                     </div>
                                 </div>
-                                <h5 className="display-4">Mes Amis</h5>
 					            <div>{<Amis userKey={this.props.userKey} 
                                                     changepage={this.props.changepage} 
                                                     setAmi={this.props.setAmi} 
@@ -219,17 +214,16 @@ class Pageperso extends Component {
                         </div>
 
                         <div className="col">
-                            <div class="input-group">
-					            <textarea class="form-control area" placeholder="Exprimez vous"></textarea>
-					            <div class="input-group-append">
-						            <button class="btn btn-outline-secondary">Go</button>
+                            <div className="input-group">
+					            <textarea className="form-control area" placeholder="Exprimez vous"></textarea>
+					            <div className="input-group-append">
+						            <button className="btn btn-outline-secondary">Go</button>
 					            </div>
 				            </div>
                         </div>
 
-                        <div className="card">
                         {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages}/>}
-                        </div>
+
                     </div>
                 </div>
 
@@ -241,12 +235,12 @@ class Pageperso extends Component {
         return(
             <div>
                 <div id="header"className="container-fluid sticky-top ">
-                    <div className="containver">
-                        <div className="row navbar">
+                    <div className="container">
+                        <div className="row navbar ">
                             <img className="col logoAcp" src={logo} alt="logo" />
                             <textarea className="col rounded-pill searchMess"></textarea>
                             <div className="col btn-group-vertical buttons">
-                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.changepage("acceuilperso")}>Acceuil</button>
+                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.retouracceuil()}>Acceuil</button>
                                 <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.deconnexion}>Deconnexion</button>
                             </div>
                         </div>
@@ -255,19 +249,14 @@ class Pageperso extends Component {
 
                 <div className="container corps">
                     <div className="row">
-                        <div className="col-3">
-                        
-                        </div>
                         <div className="col-3 side">
                             <div>
                                 <div className="input-group friend-group">
-                                    <textarea className="col form-control searchFriend"></textarea>
+                                    <textarea className="col form-control searchFriend" onInput={(evt) => {this.props.setAmi(evt.target.value)}}></textarea>
                                     <div className="input-group-append">
-                                        <button className="btn btn-outline-secondary btn-friend">+</button>
-                                        <button className="btn btn-outline-secondary btn-friend">@</button> 
+                                        <button className="btn btn-outline-secondary btn-friend" onClick={() => this.props.chercheAmi()}>Go</button>
                                     </div>
                                 </div>
-                                <h5 className="display-4">Mes Amis</h5>
 					            <div>{<Amis userKey={this.props.userKey} 
                                                     changepage={this.props.changepage} 
                                                     setAmi={this.props.setAmi} 
@@ -279,19 +268,12 @@ class Pageperso extends Component {
                                                     getAbonnement={this.getAbonnement}/>}</div>
                             </div>
                         </div>
+                        <h2>
+                            {this.props.ami} <br/> 
+                            <button className="btn btn-outline-secondary btn-friend" onClick={() => this.send_ajout_remove(this.props.ami)} >{this.add_remove_affichage(this.props.ami)}</button>
+                        </h2>
 
-                        <div className="col">
-                            <div class="input-group">
-					            <textarea class="form-control area" placeholder="Exprimez vous"></textarea>
-					            <div class="input-group-append">
-						            <button class="btn btn-outline-secondary">Go</button>
-					            </div>
-				            </div>
-                        </div>
-
-                        <div className="card">
                         {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages}/>}
-                        </div>
                     </div>
                 </div>
 
