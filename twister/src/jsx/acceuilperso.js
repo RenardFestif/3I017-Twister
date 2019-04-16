@@ -93,7 +93,7 @@ class AcceuilPerso extends Component {
             if(r.data.status === "OK" && r.data.amis !== undefined){
                 this.props.setListFriend(r.data.amis);
                 this.props.setKey(r.data.new_key);
-                //this.send();
+                this.send();
             }
         }
     }

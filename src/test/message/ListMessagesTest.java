@@ -18,12 +18,12 @@ public static void main (String[] args) {
 			
 			System.out.println("///////////////////////////////");
 			System.out.println(" Key n'est pas null ");
-			//newuserser= Message.searchMessage(null, "WDrKIoxnRkJSjnyGBnCby1f03ezlTVl7ohpaXOX7QO23yEdWaWCD6EPFox22hONK" , 0);
+			newuserser= Message.searchMessage(null, "Cs16ek8KZsYnfJw1LgRlKuvOdVX4TB5wda9UoEBLeY77pahBq1yy9IRIEv9E0LPR" , 0);
 			System.out.println(newuserser.toString());
 			
 			System.out.println("///////////////////////////////");
 			System.out.println("user id n'est pas null");
-			newuserser= Message.searchMessage("18", "3AjE8p5ua8jaJiLFqENUH5jHxI2wSHfQs0Z2Of0LqJ6cSkoQmTFIBmk9hCO43JxP", 6);
+			//newuserser= Message.searchMessage("18", "3AjE8p5ua8jaJiLFqENUH5jHxI2wSHfQs0Z2Of0LqJ6cSkoQmTFIBmk9hCO43JxP", 6);
 			System.out.println(newuserser.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();

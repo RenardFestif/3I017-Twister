@@ -115,7 +115,7 @@ class Pageperso extends Component {
             if(r.data.status === "OK" && r.data.amis !== undefined){
                 this.props.setListFriend(r.data.amis);
                 this.props.setKey(r.data.new_key);
-                //this.send();
+                this.send();
             }
     }
 
@@ -185,7 +185,7 @@ class Pageperso extends Component {
                             <textarea className="col rounded-pill searchMess"></textarea>
                             <div className="col btn-group-vertical buttons">
                                 <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.retouracceuil()}>Acceuil</button>
-                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.deconnexion}>Deconnexion</button>
+                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.deconnexion()}>Deconnexion</button>
                             </div>
                         </div>
                     </div>

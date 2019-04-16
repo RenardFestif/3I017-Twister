@@ -12,7 +12,7 @@ public class AddMessageTest {
 		JSONObject newuserser = new JSONObject();
 		
 		try {
-			newuserser= Message.addMessage("test ajout message ", "wg7RAzEXjZ7qw106mQqnNGx8r7BjTMTFEaMQfsourP8Qz1Jd34Pb9OxTSv1e6QJk");												
+			newuserser= Message.addMessage("test ajout message ", "Q587Ftdqa4YnbT0Pyli1VKpFCXvWaSrtN93zsy1iBI8yJSRa2kaLmFdXuaGNY5L3");												
 			System.out.println(newuserser.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
