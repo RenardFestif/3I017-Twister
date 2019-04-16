@@ -115,7 +115,7 @@ class Pageperso extends Component {
             if(r.data.status === "OK" && r.data.amis !== undefined){
                 this.props.setListFriend(r.data.amis);
                 this.props.setKey(r.data.new_key);
-                //this.send();
+                this.send();
             }
     }
 
@@ -193,12 +193,13 @@ class Pageperso extends Component {
 
                 <div className="container corps">
                     <div className="row">
+                        <div class="col-3"></div>
                         <div className="col-3 side">
                             <div>
                             <div className="input-group friend-group">
                                     <textarea className="col form-control searchFriend" onInput={(evt) => {this.props.setAmi(evt.target.value)}}></textarea>
                                     <div className="input-group-append">
-                                        <button className="btn btn-outline-secondary btn-friend" onClick={() => this.props.chercheAmi()}>Go</button>
+                                        <button className="btn btn-outline-secondary btn-friend" onClick={() => this.props.chercheAmi()}>@</button>
                                     </div>
                                 </div>
 					            <div>{<Amis userKey={this.props.userKey} 
@@ -220,10 +221,10 @@ class Pageperso extends Component {
 						            <button className="btn btn-outline-secondary">Go</button>
 					            </div>
 				            </div>
-                        </div>
+                        
 
                         {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages}/>}
-
+                        </div>
                     </div>
                 </div>
 
@@ -249,12 +250,13 @@ class Pageperso extends Component {
 
                 <div className="container corps">
                     <div className="row">
+                        <div class="col-3"></div>
                         <div className="col-3 side">
                             <div>
                                 <div className="input-group friend-group">
                                     <textarea className="col form-control searchFriend" onInput={(evt) => {this.props.setAmi(evt.target.value)}}></textarea>
                                     <div className="input-group-append">
-                                        <button className="btn btn-outline-secondary btn-friend" onClick={() => this.props.chercheAmi()}>Go</button>
+                                        <button className="btn btn-outline-secondary btn-friend" onClick={() => this.props.chercheAmi()}>@</button>
                                     </div>
                                 </div>
 					            <div>{<Amis userKey={this.props.userKey} 
@@ -267,13 +269,14 @@ class Pageperso extends Component {
                                                     send={this.send}
                                                     getAbonnement={this.getAbonnement}/>}</div>
                             </div>
-                        </div>
+                        
                         <h2>
                             {this.props.ami} <br/> 
                             <button className="btn btn-outline-secondary btn-friend" onClick={() => this.send_ajout_remove(this.props.ami)} >{this.add_remove_affichage(this.props.ami)}</button>
                         </h2>
 
                         {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages}/>}
+                        </div>
                     </div>
                 </div>
 
