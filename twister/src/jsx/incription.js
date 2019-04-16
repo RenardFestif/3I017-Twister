@@ -67,38 +67,52 @@ class Inscription extends Component {
 
   render(){
 		return (	
-			<div className="Signin">
-				<div className="modal-content animate" >
-					<div className="container">
-						<h1>Inscription</h1>
-						<p>Remplis ce formulaire et rejoint le mouv' !</p>
+			<div className="Inscription">
+			<div className="sidenav">
+				<div className="login-main-text">
+					<h2 className="login-title">Twister <br/> Signin Page</h2>
+					<p>Inscrivez-vous pour rejoindre le mouv'</p>
+				</div>
+			</div>
 
-						<label htmlFor="nom"><b>Nom</b></label>
-						<input type="text" placeholder="Quel est ton nom ?" name="nom" onInput={(evt) => {this.setState({nom: evt.target.value})}} required/>
+			<div className="main">
+				<div className="col-md-6 col-sm-12">
+					<div className="login-form">
 
-						<label htmlFor="prenom"><b>Prenom</b></label>
-						<input type="text" placeholder="Quel est ton prenom ?" name="prenom" onInput={(evt) => {this.setState({prenom: evt.target.value})}} required/>
-
-						<label htmlFor="email"><b>Email</b></label>
-						<input type="text" placeholder="Renseigne ton Email !" name="email"	onInput={(evt) => {this.setState({mail: evt.target.value})}} required/>
-
-						<label htmlFor="login"><b>Pseudo</b></label>
-						<input type="text" placeholder="Renseigne ton Pseudo" name="login" onInput={(evt) => {this.setState({login: evt.target.value})}} required/>
-
-						<label htmlFor="password"><b>Password</b></label>
-						<input type="password" placeholder="Et enfin un mot de passe super sécurisé !" name="password" onInput={(evt) => {this.setState({password: evt.target.value})}} required/>
-
-						<div className="clearfix">
-							<button onClick={this.send} className="log"  >Ca part !</button>
+						<div className="form-group">
+							<label htmlFor="nom"><b>Nom</b></label>
+							<input type="text" placeholder="Quel est ton nom ?" name="nom" onInput={(evt) => {this.setState({nom: evt.target.value})}} required/>
+						</div>
+							
+						<div className="form-group">
+							<label htmlFor="prenom"><b>Prenom</b></label>
+							<input type="text" placeholder="Quel est ton prenom ?" name="prenom" onInput={(evt) => {this.setState({prenom: evt.target.value})}} required/>
+						</div>
+							
+						<div className="form-group">
+							<label htmlFor="email"><b>Email</b></label>
+							<input type="text" placeholder="Renseigne ton Email !" name="email"	onInput={(evt) => {this.setState({mail: evt.target.value})}} required/>
 						</div>
 
-						<div className="container" id="mdp">
-				      <span className="psw"><p onClick={()=> this.props.changepage("connexion")}>Dejà inscrit ?</p></span>
-            </div>
-					</div>
+						<div className="form-group">
+							<label htmlFor="login"><b>Pseudo</b></label>
+							<input type="text" placeholder="Comment la communauté te surnomme ?" name="login" onInput={(evt) => {this.setState({login: evt.target.value})}} required/>
+						</div>
+
+						<div className="form-group">
+							<label htmlFor="password"><b>Password</b></label>
+							<input type="password" placeholder="Et enfin un mot de passe super sécurisé !" name="password" onInput={(evt) => {this.setState({password: evt.target.value})}} required/>
+						</div>
+
+				
+						<button type="submit" onClick={this.send} className="btn btn-success btn-sm button">Ca part !</button>
+						<button type="submit" onClick={this.props.changepage("connexion")} className="btn btn-success btn-sm button">Déjà inscrit ?</button>
+					
 				</div>
-			</div>			
-        );
+			</div>
+		</div>
+		</div>			
+      );
     }
 }
 
