@@ -47,11 +47,34 @@ class Pageperso extends Component {
     retouracceuil(){
         this.props.changepage("acceuilperso");
         this.props.setAmi("");
+        this.props.setContent("");
+    }
+
+    addMessage(mess){
+        var formData = new URLSearchParams();
+        formData.append("user_key",this.props.userKey);
+        formData.append("message",mess);
+        axios.get("http://localhost:8080/Twister/Profil/ajoutmessage?"+formData).then(r=>{this.traiteAddMess(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});           
+    }
+
+    traiteAddMess(r){
+        console.log(r.data);
+        if(r.data.status === "OK"){
+            this.props.setKey(r.data.new_key);
+            this.props.setContent("");
+            this.send();
+            
+        }else{
+            alert("Vous avez été deconnecté")
+            this.props.setLogout();
+            this.props.changepage("connexion");      
+        }
     }
 
     retourpageperso(){
         this.props.changepage("pageperso");
         this.props.setAmi("");
+        this.props.setContent("");
     }
 
     add_remove_affichage(ami){
@@ -215,15 +238,15 @@ class Pageperso extends Component {
                         </div>
 
                         <div className="col">
-                            <div className="input-group">
-					            <textarea className="form-control area" placeholder="Exprimez vous"></textarea>
-					            <div className="input-group-append">
-						            <button className="btn btn-outline-secondary">Go</button>
-					            </div>
-				            </div>
+                        <div className="input-group">
+                                <textarea className="form-control area" placeholder="Exprimez vous" onInput={(evt) => {this.props.setContent(evt.target.value)}}></textarea>
+                                <div className="input-group-append">
+                                    <button className="btn btn-outline-secondary" onClick={() => this.addMessage(this.props.content)}>Go</button>
+                                </div>
+                            </div>
                         
 
-                        {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages}/>}
+                        {<MessageSet userKey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages} login={this.props.login} send={this.send}/>}
                         </div>
                     </div>
                 </div>
@@ -242,7 +265,7 @@ class Pageperso extends Component {
                             <textarea className="col rounded-pill searchMess"></textarea>
                             <div className="col btn-group-vertical buttons">
                                 <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.retouracceuil()}>Acceuil</button>
-                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.deconnexion}>Deconnexion</button>
+                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.deconnexion()}>Deconnexion</button>
                             </div>
                         </div>
                     </div>
@@ -275,7 +298,7 @@ class Pageperso extends Component {
                             <button className="btn btn-outline-secondary btn-friend" onClick={() => this.send_ajout_remove(this.props.ami)} >{this.add_remove_affichage(this.props.ami)}</button>
                         </h2>
 
-                        {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages}/>}
+                        {<MessageSet userKey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages} login={this.props.login} send={this.send}/>}
                         </div>
                     </div>
                 </div>

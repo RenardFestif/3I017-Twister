@@ -11,7 +11,7 @@ class MainPage extends Component{
     constructor(props){
         super(props);
 
-        this.state = {pagecourrante:"acceuil", connected:false, key:"", id:"", login:"", ami:"", list_friend:[]};
+        this.state = {pagecourrante:"acceuil", connected:false, key:"", id:"", login:"", ami:"", list_friend:[], content:""};
 
         this.changepage = this.changepage.bind(this);
         this.setConnected = this.setConnected.bind(this);
@@ -22,6 +22,7 @@ class MainPage extends Component{
         this.setListFriend = this.setListFriend.bind(this);
         this.deconnexion = this.deconnexion.bind(this);
         this.chercheAmi = this.chercheAmi.bind(this);
+        this.setContent = this.setContent.bind(this);
     }
 
 
@@ -35,10 +36,10 @@ class MainPage extends Component{
         if (connected === true){
             if(pagecourrante === "acceuilperso")
 
-                page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi={this.setAmi} userId={this.state.id} login={this.state.login} ami={this.state.ami} list_friend={this.state.list_friend} deconnexion={this.deconnexion} setListFriend={this.setListFriend} chercheAmi={this.chercheAmi}/> 
+                page = <AcceuilPerso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi={this.setAmi} userId={this.state.id} login={this.state.login} ami={this.state.ami} list_friend={this.state.list_friend} deconnexion={this.deconnexion} setListFriend={this.setListFriend} chercheAmi={this.chercheAmi} content={this.state.content} setContent={this.setContent}/> 
 
             else if(pagecourrante==="pageperso")
-                page = <Pageperso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi = {this.setAmi} userId = {this.state.id} login={this.state.login} ami={this.state.ami} list_friend={this.state.list_friend} deconnexion={this.deconnexion} setListFriend={this.setListFriend} chercheAmi={this.chercheAmi}/>;
+                page = <Pageperso changepage = {this.changepage} setLogout = {this.setLogout} userKey={this.state.key} setKey = {this.setKey} setAmi = {this.setAmi} userId = {this.state.id} login={this.state.login} ami={this.state.ami} list_friend={this.state.list_friend} deconnexion={this.deconnexion} setListFriend={this.setListFriend} chercheAmi={this.chercheAmi} content={this.state.content} setContent={this.setContent}/>;
 
         }else{
             if (pagecourrante === "inscription"){
@@ -84,8 +85,12 @@ class MainPage extends Component{
     }
 
     setLogout(){
-        this.setState({login: "",id:"",key:"", ami:""});
+        this.setState({login: "",id:"",key:"", ami:"", content:""});
         this.setConnected();
+    }
+
+    setContent(contenu){
+        this.setState({content: contenu});
     }
 
     deconnexion(){

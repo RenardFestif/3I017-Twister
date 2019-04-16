@@ -67,6 +67,7 @@ class AcceuilPerso extends Component {
         console.log(r.data);
         if(r.data.status === "OK"){
             this.props.setKey(r.data.new_key);
+            this.props.setContent("");
             this.send();
             
         }else{
@@ -202,7 +203,7 @@ class AcceuilPerso extends Component {
                             <textarea className="col rounded-pill searchMess"></textarea>
                             <div className="col btn-group-vertical buttons">
                                 <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.changepage("pageperso")}>Mon Profil</button>
-                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.deconnexion}>Deconnexion</button>
+                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.deconnexion()}>Deconnexion</button>
                             </div>
                         </div>
                     </div>
@@ -210,7 +211,7 @@ class AcceuilPerso extends Component {
 
                 <div className="container corps">
                     <div className="row">
-                        <div class="col-3 sticky"></div>
+                        <div className="col-3 sticky"></div>
                         <div className="col-3 side">
                             <div>
                                 <div className="input-group friend-group">
@@ -233,14 +234,14 @@ class AcceuilPerso extends Component {
 
                         <div className="col">
                             <div className="input-group">
-                                <textarea className="form-control area" placeholder="Exprimez vous"></textarea>
+                                <textarea className="form-control area" placeholder="Exprimez vous" onInput={(evt) => {this.props.setContent(evt.target.value)}}></textarea>
                                 <div className="input-group-append">
-                                    <button className="btn btn-outline-secondary">Go</button>
+                                    <button className="btn btn-outline-secondary" onClick={() => this.addMessage(this.props.content)} >Go</button>
                                 </div>
                             </div>
                         
 
-                        {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages}/>}
+                        {<MessageSet userKey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages} login={this.props.login} send={this.send}/>}
                         </div>
                     </div>
                 </div>
