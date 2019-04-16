@@ -11,7 +11,7 @@ class MainPage extends Component{
     constructor(props){
         super(props);
 
-        this.state = {pagecourrante:"acceuil", connected:false, key:"", id:"", login:"", ami:"", list_friend:[]};
+        this.state = {pagecourrante:"acceuil", connected:false, key:"", id:"", login:"", ami:"", list_friend:[], content:""};
 
         this.changepage = this.changepage.bind(this);
         this.setConnected = this.setConnected.bind(this);
@@ -22,6 +22,7 @@ class MainPage extends Component{
         this.setListFriend = this.setListFriend.bind(this);
         this.deconnexion = this.deconnexion.bind(this);
         this.chercheAmi = this.chercheAmi.bind(this);
+        this.setContent = this.setContent.bind(this);
     }
 
 
@@ -46,7 +47,9 @@ class MainPage extends Component{
                                     list_friend={this.state.list_friend} 
                                     deconnexion={this.deconnexion} 
                                     setListFriend={this.setListFriend} 
-                                    chercheAmi={this.chercheAmi}/> 
+                                    chercheAmi={this.chercheAmi}
+                                    setContent={this.setContent}
+                                    content={this.state.content} /> 
 
             else if(pagecourrante==="pageperso")
                 page = <Pageperso changepage = {this.changepage}
@@ -60,7 +63,9 @@ class MainPage extends Component{
                                 list_friend={this.state.list_friend} 
                                 deconnexion={this.deconnexion} 
                                 setListFriend={this.setListFriend} 
-                                chercheAmi={this.chercheAmi}/>;
+                                chercheAmi={this.chercheAmi}
+                                setContent={this.setContent}
+                                content={this.state.content}/>;
 
         }else{
             if (pagecourrante === "inscription"){
@@ -106,8 +111,12 @@ class MainPage extends Component{
     }
 
     setLogout(){
-        this.setState({login: "",id:"",key:"", ami:""});
+        this.setState({login: "",id:"",key:"", ami:"", content:""});
         this.setConnected();
+    }
+
+    setContent(contenu){
+        this.setState({content: contenu});
     }
 
     deconnexion(){

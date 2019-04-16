@@ -11,8 +11,6 @@ class Message extends Component {
         
         formData.append("userKey",this.props.userKey);
         formData.append("idMessage",this.props.idMess);
-        
-		
         console.log("http://localhost:8080/Twister/Profil/deletemessage?"+formData)
 		axios.get("http://localhost:8080/Twister/Profil/deletemessage?"+formData).then(r=>{this.traiteDelete(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
     }
@@ -20,14 +18,14 @@ class Message extends Component {
         console.log(r.data);
         if(r.data.status ==="OK"){
             this.props.setKey(r.data.new_key);
-            this.props.refresh();
+            this.props.send();
         }else{
             this.props.logout();
             this.props.changepage("connexion");
         }
     }
     render(){
-        if(this.props.delMess !== undefined){
+        if(this.props.auteur !== undefined){
             return (
                 <div className="card">
                 <div className="card-header">@{this.props.auteur}</div>
