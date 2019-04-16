@@ -62,7 +62,7 @@ public class RelationBDTools {
 			JSONObject ami_id = new JSONObject();
 			List<JSONObject> list_tmp = new ArrayList<>();
 			list_tmp.add(ami.put("login", name));
-			list_tmp.add(ami_id.put("id", userID));
+			list_tmp.add(ami_id.put("id", rs.getInt("user_id2")));
 			listFriend.add(list_tmp);
 		}
 		retour.put("amis", listFriend);

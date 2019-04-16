@@ -145,16 +145,18 @@ public class MessageBDTools {
 		List<JSONObject> messages = new ArrayList<JSONObject>();
 		
 		JSONArray friends = (JSONArray) listFriend.get("amis") ;
-		
+		System.out.println(friends.get(0).getClass());
 	
 		ArrayList<Integer> concerned = new ArrayList<>();
 		concerned.add(userID);
 		
 		for(int i = 0; i<friends.length(); i++) {
-			JSONObject x = friends.getJSONObject(0);
-			concerned.add(UserBDTools.getUserId((String) x.get("login"), conn));
+			@SuppressWarnings("unchecked")
+			ArrayList<JSONObject> x = (ArrayList<JSONObject>) friends.get(0);
+			
+			concerned.add(UserBDTools.getUserId((String) x.get(0).getString("login"), conn));
 		}
-		BasicDBObject q = new BasicDBObject();
+		
 		
 
 		FindIterable<Document> fi = null;
