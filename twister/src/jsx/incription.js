@@ -75,7 +75,7 @@ class Inscription extends Component {
 						<p>Inscrivez-vous pour rejoindre le mouv'</p>
 					</div>
 				</div>
-
+				
 				<div className="main">
 					<div className="col-md-6 col-sm-12">
 						<div className="login-form">
