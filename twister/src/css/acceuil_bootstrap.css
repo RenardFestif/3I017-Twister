@@ -1,0 +1,40 @@
+.haut{
+  background-color: #393939; 
+  flex-direction: column;
+  align-content: center;
+} 
+
+.titre{
+  color: white;
+  margin-bottom: 1em;
+}
+
+.logoAc{
+  align-self: center;
+  max-height: 15em;
+  max-width: 15em;
+}
+
+.btn{
+  border-radius: 10px;
+}
+.btn:hover{
+  background-color: #393939
+}
+
+.button{
+  margin: 1ex;
+  max-width: 10em;
+  border-radius: 7px;
+}
+
+.bas{
+  justify-content: center;
+  margin-top: 4em; 
+}
+
+.btnAc{
+  margin: 3em;
+  height: 3em;
+  width: 15em;
+}
