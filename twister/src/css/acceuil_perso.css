@@ -35,7 +35,6 @@
 }
 
 .searchFriend{
-  max-width: 10em;
   border: solid 1px;
   overflow: hidden;
   resize: none;
@@ -87,11 +86,15 @@
 }
 
 .card-footer{
-  -webkit-justify-content: center;
-          justify-content: center;
+  text-align: right;
 }
 
 .logoAcp{
   max-height: 8em;
   max-width: 8em;
+}
+
+
+.trash{
+  max-height: 2em;
 }

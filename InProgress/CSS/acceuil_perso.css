@@ -84,10 +84,14 @@
 }
 
 .card-footer{
-  justify-content: center;
+  text-align: right;
 }
 
 .logoAcp{
   max-height: 8em;
   max-width: 8em;
+}
+
+.trash{
+  max-height: 2em;
 }

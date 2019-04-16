@@ -18,7 +18,7 @@ public static void main (String[] args) {
 			
 			System.out.println("///////////////////////////////");
 			System.out.println(" Key n'est pas null ");
-			newuserser= Message.searchMessage(null, "Cs16ek8KZsYnfJw1LgRlKuvOdVX4TB5wda9UoEBLeY77pahBq1yy9IRIEv9E0LPR" , 0);
+			newuserser= Message.searchMessage(null, "zsu1dzF6KXoYbdOT5KHXzmdfHD7GwbOhSvpg1iSsZVHXhdFpEbI6R2fKTD8GhT35" , 0);
 			System.out.println(newuserser.toString());
 			
 			System.out.println("///////////////////////////////");

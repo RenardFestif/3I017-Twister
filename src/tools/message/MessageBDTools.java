@@ -145,7 +145,7 @@ public class MessageBDTools {
 		List<JSONObject> messages = new ArrayList<JSONObject>();
 		
 		JSONArray friends = (JSONArray) listFriend.get("amis") ;
-		System.out.println(friends.get(0).getClass());
+		
 	
 		ArrayList<Integer> concerned = new ArrayList<>();
 		concerned.add(userID);
