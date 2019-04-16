@@ -32,6 +32,7 @@
 }
 
 .searchFriend{
+  max-width: 10em;
   border: solid 1px;
   overflow: hidden;
   resize: none;

@@ -199,9 +199,9 @@ class AcceuilPerso extends Component {
                     <div className="container">
                         <div className="row navbar ">
                             <img className="col logoAcp" src={logo} alt="logo"/>
-                            <textarea className="col rounded-pill searchMess"></textarea>
+                            <input className="col rounded-pill searchMess" placeholder="Recherchez des twistoss ;)" onKeyPress={(event) => {this.setPattern(event)}}/>
                             <div className="col btn-group-vertical buttons">
-                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.changepage("pageperso")}>Mon Profil</button>
+                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.changepage("pageperso")}>{this.props.login}</button>
                                 <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.deconnexion}>Deconnexion</button>
                             </div>
                         </div>

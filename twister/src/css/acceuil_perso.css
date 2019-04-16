@@ -14,24 +14,28 @@
 }
 
 .buttons{
-  align-items: center;
+  -webkit-align-items: center;
+          align-items: center;
 }
 
 .logo{
-  align-items: center;
+  -webkit-align-items: center;
+          align-items: center;
 }
 
 .searchMess{
   overflow:   hidden;
   resize: none;
   max-height: 2em;
-  align-self: center;
+  -webkit-align-self: center;
+          align-self: center;
   padding-left: 3ex;
   margin: 4ex;  
   border: solid 1px;
 }
 
 .searchFriend{
+  max-width: 10em;
   border: solid 1px;
   overflow: hidden;
   resize: none;
@@ -83,9 +87,11 @@
 }
 
 .card-footer{
-  justify-content: center;
+  -webkit-justify-content: center;
+          justify-content: center;
 }
 
-.sticky{
-  position: fixed;
+.logoAcp{
+  max-height: 8em;
+  max-width: 8em;
 }

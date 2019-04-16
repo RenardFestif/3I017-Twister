@@ -17,7 +17,7 @@ class Amis extends Component {
     handleOnClick(login_ami){
         this.props.setAmi(login_ami);
         this.props.changepage("pageperso");
-        
+        this.props.send();
     }
     
     componentDidMount(){

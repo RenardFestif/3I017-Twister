@@ -125,10 +125,19 @@ class Pageperso extends Component {
         console.log(this.props.userId); 
         if(this.props.userKey!==undefined)
             formData.append("userKey",this.props.userKey);
-        if(this.props.userId!==undefined && this.props.ami=== "")
+        if(this.props.ami=== "")
             formData.append("userId",this.props.userId);
-        else
-            formData.append("userId",this.props.ami);
+        else{
+            var id;
+            this.props.list_friend.map((friend) => {
+                
+                if(friend[0].login === this.props.ami){
+                    id = friend[1].id;
+            }});
+
+            console.log(id);
+            formData.append("userId",id);
+        }
         
         if(this.state.query!=='')
             formData.append("query",this.state.query);
@@ -173,6 +182,21 @@ class Pageperso extends Component {
             });             
         }   
     }
+
+    setPattern(event){
+        this.setState({
+            query:event.target.value+String.fromCharCode(event.which),
+        });
+        
+        if(event.which === 13) {  
+            this.send();
+            event.target.value='';
+            this.setState({
+                query:'',
+            })
+            event.preventDefault();
+        }
+    }
     
     render(){ 
         if(this.props.ami=== ""){
@@ -182,7 +206,7 @@ class Pageperso extends Component {
                     <div className="container">
                         <div className="row navbar ">
                             <img className="col logoAcp" src={logo} alt="logo" />
-                            <textarea className="col rounded-pill searchMess"></textarea>
+                            <input className="col rounded-pill searchMess" placeholder="Recherchez vos twistoss ;)" onKeyPress={(event) => {this.setPattern(event)}}/>
                             <div className="col btn-group-vertical buttons">
                                 <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.retouracceuil()}>Acceuil</button>
                                 <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.deconnexion}>Deconnexion</button>
@@ -223,7 +247,7 @@ class Pageperso extends Component {
 				            </div>
                         
 
-                        {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages}/>}
+                            {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages}/>}
                         </div>
                     </div>
                 </div>
@@ -239,7 +263,7 @@ class Pageperso extends Component {
                     <div className="container">
                         <div className="row navbar ">
                             <img className="col logoAcp" src={logo} alt="logo" />
-                            <textarea className="col rounded-pill searchMess"></textarea>
+                            <input className="col rounded-pill searchMess" placeholder="Recherchez les twistoss de votre ami ;)" onKeyPress={(event) => {this.setPattern(event)}}/>
                             <div className="col btn-group-vertical buttons">
                                 <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.retouracceuil()}>Acceuil</button>
                                 <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.deconnexion}>Deconnexion</button>
@@ -274,9 +298,11 @@ class Pageperso extends Component {
                             {this.props.ami} <br/> 
                             <button className="btn btn-outline-secondary btn-friend" onClick={() => this.send_ajout_remove(this.props.ami)} >{this.add_remove_affichage(this.props.ami)}</button>
                         </h2>
-
-                        {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages}/>}
                         </div>
+                        <div className="col">
+                            {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages}/>}
+                        </div>
+                        
                     </div>
                 </div>
 
