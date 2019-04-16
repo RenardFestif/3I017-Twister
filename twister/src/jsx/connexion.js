@@ -46,25 +46,36 @@ class Connexion extends Component{
 
 	render(){
 	  return (
-	  <div className="Login">
-	  		 
-	  			<div className="modal-content animate">
-                    <div className="container">
-                      <label htmlFor="username"><b>Login</b></label>
-                      <input type="text" placeholder="Login" name="username" onInput={(evt) => {this.setState({login: evt.target.value})}} required/>
+    <div>
+      <div className="sidenav">
+        <div className="login-main-text">
+          <h2 className="login-title">Twister<br/> Login Page</h2>
+          <p>Connectez-vous et twistez avec vos amis !</p>
+        </div>
+      </div>
 
-                      <label htmlFor="password"><b>Mot de passe</b></label>
-                      <input type="password" placeholder="Password" name="password" onInput={(evt) => {this.setState({password: evt.target.value})}} required/>
-                        
-                      <button className="log" type="submit" onClick={() => this.send()}>Login</button>
-                    </div>
+      <div className="main">
+        <div className="col-md-6 col-sm-12">
+          <div className="login-form">
+          
+            <div className="form-group">
+              <label htmlFor="username"><b>Login</b></label>
+              <input type="text" placeholder="Login" name="username" onInput={(evt) => {this.setState({login: evt.target.value})}} required/>
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="password"><b>Mot de passe</b></label>
+              <input type="password" placeholder="Password" name="password" onInput={(evt) => {this.setState({password: evt.target.value})}} required/>
+            </div>
 
-					          <div className="container" id="mdp">
-				            	<span className="psw"><p onClick={()=> this.props.changepage("inscription")}>Pas encore inscrit ?</p></span>
-                    </div>
-					
-                </div>
-		</div>);
+          <button className="btn btn-success btn-sm button" type="submit" onClick={() => this.send()}>Login</button>
+          
+          <button className="btn btn-success btn-sm button" type="submit" onClick={() => this.props.changepage("inscription")}>Pas encore inscrit ?</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  );
 	}
 }
 

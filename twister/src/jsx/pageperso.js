@@ -177,106 +177,125 @@ class Pageperso extends Component {
     render(){ 
         if(this.props.ami=== ""){
             return (
-                <div className="AcceuilPerso">
-                    <header className="sticky">
-                        <img id="logo" src={logo} alt="logo" />
-                        <div id="hLinks">
-                            
+                <div>
+                <div id="header"className="container-fluid sticky-top ">
+                    <div className="containver">
+                        <div className="row navbar">
+                            <img className="col logoAcp" src={logo} alt="logo" />
+                            <textarea className="col rounded-pill searchMess"></textarea>
+                            <div className="col btn-group-vertical buttons">
+                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.changepage("acceuilperso")}>Acceuil</button>
+                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.deconnexion}>Deconnexion</button>
+                            </div>
                         </div>
-                
-                            <div id="mess">
-                                <input id = "pattern" type="text" name="pattern"/>
-                            </div>
-                        <div id="hLinks">
-					        <button type="button" className="buttontop" onClick={()=> this.props.deconnexion()}>Déconnexion</button>
-                            <button type="button" className="buttontop" onClick={()=> this.retouracceuil()}>Acceuil</button>
-                        </div>
-                    </header>
-    
-                    <div id="corpus">
-                        <nav>
-                            <p>{this.state.listMessages.length} posts</p>
-                            <div>{<Amis userKey={this.props.userKey} 
-                                        changepage={this.props.changepage} 
-                                        setAmi={this.props.setAmi} 
-                                        setKey={this.props.setKey} 
-                                        deconnexion={this.props.deconnexion} 
-                                        list_friend={this.props.list_friend} 
-                                        setListFriend={this.props.setListFriend}
-                                        send={this.send}
-                                        getAbonnement={this.getAbonnement}
-                                        />}
-                            </div>
-                            <input type="text" placeholder="Cherches tes amis !" name="username" onInput={(evt) => {this.props.setAmi(evt.target.value)}} required/>
-                            <button className="" type="submit" onClick={() => this.props.chercheAmi()}>Go</button>
-                        </nav>
-
-                        <article id="messages">
-                            <div id="formMess" method="GET" action =""> 
-                                <textarea onKeyPress={autoExpand()} className="autoExpand" rows='3' data-min-rows='3' name="message" placeholder="Exprimez-vous !"></textarea> 
-                            </div>
-                            {<MessageSet userkey={this.props.userKey} 
-                                        setKey={this.props.setKey} 
-                                        listMessages={this.state.listMessages}
-                                        delMess={this.state.delMess}
-                                        setKey={this.props.setKey}
-                                        userKey={this.props.userKey}
-                                        refresh={this.send}
-                                        changepage={this.props.changepage}
-                                        logout={this.props.logout} />}
-                        </article>
                     </div>
                 </div>
+
+                <div className="container corps">
+                    <div className="row">
+                        <div className="col-3">
+                        
+                        </div>
+                        <div className="col-3 side">
+                            <div>
+                                <div className="input-group friend-group">
+                                    <textarea className="col form-control searchFriend"></textarea>
+                                    <div className="input-group-append">
+                                        <button className="btn btn-outline-secondary btn-friend">+</button>
+                                        <button className="btn btn-outline-secondary btn-friend">@</button> 
+                                    </div>
+                                </div>
+                                <h5 className="display-4">Mes Amis</h5>
+					            <div>{<Amis userKey={this.props.userKey} 
+                                                    changepage={this.props.changepage} 
+                                                    setAmi={this.props.setAmi} 
+                                                    setKey={this.props.setKey} 
+                                                    deconnexion={this.props.deconnexion} 
+                                                    list_friend={this.props.list_friend} 
+                                                    setListFriend={this.props.setListFriend}
+                                                    send={this.send}
+                                                    getAbonnement={this.getAbonnement}/>}</div>
+                            </div>
+                        </div>
+
+                        <div className="col">
+                            <div class="input-group">
+					            <textarea class="form-control area" placeholder="Exprimez vous"></textarea>
+					            <div class="input-group-append">
+						            <button class="btn btn-outline-secondary">Go</button>
+					            </div>
+				            </div>
+                        </div>
+
+                        <div className="card">
+                        {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages}/>}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             );
         }
         else{
             /* affichage de la page de son ami */
-        return( 
-        <div className="AcceuilPerso">
-            <header className="sticky">
-                <img id="logo" src={logo} alt="logo" />
-                <div id="hLinks">
-                    <button type="button" className="buttontop" onClick={()=> this.retourpageperso()}>{this.props.login}</button>
-                    <button type="button" className="buttontop" onClick={()=> this.retouracceuil()}>Acceuil</button>
-                </div>
-            
-                <div id="mess" method="GET" action="">
-                    <input id = "pattern" type="text" name="pattern"/>
-                </div>
-                <div id="hLinks">
-                    <button type="button" className="buttontop" onClick={()=> this.props.deconnexion()}>Déconnexion</button>
-                </div>
-            </header>
-
-        
-
-            <div id="corpus">
-                <nav>
-                    <p>{this.state.listMessages.length} posts</p>
-                    <div>{<Amis userKey={this.props.userKey} 
-                                setKey={this.props.setKey} 
-                                setAmi={this.props.setAmi} 
-                                changepage={this.props.changepage} 
-                                deconnexion={this.props.deconnexion} 
-                                list_friend={this.props.list_friend} 
-                                setListFriend={this.props.setListFriend}
-                                send={this.send} 
-                                getAbonnement={this.getAbonnement}/>}
+        return(
+            <div>
+                <div id="header"className="container-fluid sticky-top ">
+                    <div className="containver">
+                        <div className="row navbar">
+                            <img className="col logoAcp" src={logo} alt="logo" />
+                            <textarea className="col rounded-pill searchMess"></textarea>
+                            <div className="col btn-group-vertical buttons">
+                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.changepage("acceuilperso")}>Acceuil</button>
+                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.deconnexion}>Deconnexion</button>
+                            </div>
+                        </div>
                     </div>
-                    <input type="text" placeholder="Cherches tes amis !" name="username" onInput={(evt) => {this.props.setAmi(evt.target.value)}} required/>
-                    <button className="" type="submit" onClick={() => this.props.chercheAmi()}>Go</button>
-                </nav>
-        
-                <article id="messages">
-                    <h1>{this.props.ami}</h1>
-                    <button type="button" onClick={() => this.send_ajout_remove(this.props.ami)} >{this.add_remove_affichage(this.props.ami)}</button>
-                    {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages}/>}
-                
-                </article>
+                </div>
+
+                <div className="container corps">
+                    <div className="row">
+                        <div className="col-3">
+                        
+                        </div>
+                        <div className="col-3 side">
+                            <div>
+                                <div className="input-group friend-group">
+                                    <textarea className="col form-control searchFriend"></textarea>
+                                    <div className="input-group-append">
+                                        <button className="btn btn-outline-secondary btn-friend">+</button>
+                                        <button className="btn btn-outline-secondary btn-friend">@</button> 
+                                    </div>
+                                </div>
+                                <h5 className="display-4">Mes Amis</h5>
+					            <div>{<Amis userKey={this.props.userKey} 
+                                                    changepage={this.props.changepage} 
+                                                    setAmi={this.props.setAmi} 
+                                                    setKey={this.props.setKey} 
+                                                    deconnexion={this.props.deconnexion} 
+                                                    list_friend={this.props.list_friend} 
+                                                    setListFriend={this.props.setListFriend}
+                                                    send={this.send}
+                                                    getAbonnement={this.getAbonnement}/>}</div>
+                            </div>
+                        </div>
+
+                        <div className="col">
+                            <div class="input-group">
+					            <textarea class="form-control area" placeholder="Exprimez vous"></textarea>
+					            <div class="input-group-append">
+						            <button class="btn btn-outline-secondary">Go</button>
+					            </div>
+				            </div>
+                        </div>
+
+                        <div className="card">
+                        {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages}/>}
+                        </div>
+                    </div>
+                </div>
+
             </div>
-
-
-        </div>
         );
         }
     }
