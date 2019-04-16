@@ -85,3 +85,7 @@
 .card-footer{
   justify-content: center;
 }
+
+.sticky{
+  position: fixed;
+}

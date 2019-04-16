@@ -146,17 +146,10 @@ class AcceuilPerso extends Component {
                 messagesList.push(messageTmp);
                 messageTmp = [];
             });
-           
 
             this.setState({
                 listMessages:messagesList,
             });
-
-
-
-            
-            
-            
         }/*else{
             this.props.setLogout();
             this.props.changepage("connexion");
@@ -217,15 +210,16 @@ class AcceuilPerso extends Component {
 
                 <div className="container corps">
                     <div className="row">
+                        <div class="col-3 sticky"></div>
                         <div className="col-3 side">
                             <div>
                                 <div className="input-group friend-group">
                                     <textarea className="col form-control searchFriend" onInput={(evt) => {this.props.setAmi(evt.target.value)}}></textarea>
                                     <div className="input-group-append">
-                                        <button className="btn btn-outline-secondary btn-friend" onClick={() => this.props.chercheAmi()}>Go</button>
+                                        <button className="btn btn-outline-secondary btn-friend" onClick={() => this.props.chercheAmi()}>@</button>
                                     </div>
                                 </div>
-					            <div>{<Amis userKey={this.props.userKey} 
+					            {<Amis userKey={this.props.userKey} 
                                                     changepage={this.props.changepage} 
                                                     setAmi={this.props.setAmi} 
                                                     setKey={this.props.setKey} 
@@ -233,24 +227,24 @@ class AcceuilPerso extends Component {
                                                     list_friend={this.props.list_friend} 
                                                     setListFriend={this.props.setListFriend}
                                                     send={this.send}
-                                                    getAbonnement={this.getAbonnement}/>}</div>
+                                                    getAbonnement={this.getAbonnement}/>}
                             </div>
                         </div>
 
-                    <div className="col">
-                        <div className="input-group">
-                            <textarea className="form-control area" placeholder="Exprimez vous"></textarea>
-                            <div className="input-group-append">
-                                <button className="btn btn-outline-secondary">Go</button>
+                        <div className="col">
+                            <div className="input-group">
+                                <textarea className="form-control area" placeholder="Exprimez vous"></textarea>
+                                <div className="input-group-append">
+                                    <button className="btn btn-outline-secondary">Go</button>
+                                </div>
                             </div>
+                        
+
+                        {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages}/>}
                         </div>
                     </div>
-
-                    {<MessageSet userkey={this.props.userKey} setKey={this.props.setKey} listMessages={this.state.listMessages}/>}
-                    
                 </div>
             </div>
-        </div>
         );
     }
 }
