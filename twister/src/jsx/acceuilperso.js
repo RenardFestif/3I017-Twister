@@ -32,6 +32,9 @@ function autoExpand(){
 
 
 class AcceuilPerso extends Component {
+
+    _isMounted=false; 
+
     constructor(props){
         super(props)
         this.state = {
@@ -47,13 +50,9 @@ class AcceuilPerso extends Component {
     }
 
     onKeyPressHandler(e){
-        autoExpand();
-        if(e.which === 13 && e.shiftKey) {  
             this.addMessage(e.target.value);
             e.target.value='';
             e.preventDefault();
-        }
-
     }
 
     addMessage(mess){
@@ -189,6 +188,35 @@ class AcceuilPerso extends Component {
         this.props.changepage("pageperso");
     }
 
+    componentDidMount(){
+        this._isMounted = true;
+        
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
+    }
+
+    chercheAmi(){
+        console.log(this.props.ami);
+        var formData = new URLSearchParams();
+        formData.append("pseudo", this.props.ami);
+        formData.append("user_key", this.props.userKey);
+        console.log("http://localhost:8080/Twister/Profil/searchFriend?"+formData);
+        axios.get("http://localhost:8080/Twister/Profil/searchFriend?"+formData).then(r=>{this.traiteChercheAmi(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
+    }
+
+    traiteChercheAmi(r){
+        console.log(r.data);
+        if(r.data.status === "OK"){
+            this.props.setKey(r.data.new_key);
+            this.props.changepage("pageperso");
+            this.send();
+        }
+        else {
+            alert("Je ne connais pas "+ this.props.ami);
+        }
+    }
 
     render(){
         
@@ -203,7 +231,7 @@ class AcceuilPerso extends Component {
                             <input className="col rounded-pill searchMess" placeholder="Recherchez des twistoss ;)" onKeyPress={(event) => {this.setPattern(event)}}/>
                             <div className="col btn-group-vertical buttons">
                                 <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.changepage("pageperso")}>{this.props.login}</button>
-                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.deconnexion}>Deconnexion</button>
+                                <button type="button" className="btn btn-success btn-sm button" onClick={()=> this.props.deconnexion()}>Deconnexion</button>
                             </div>
                         </div>
                     </div>
@@ -217,7 +245,7 @@ class AcceuilPerso extends Component {
                                 <div className="input-group friend-group">
                                     <textarea className="col form-control searchFriend" onInput={(evt) => {this.props.setAmi(evt.target.value)}}></textarea>
                                     <div className="input-group-append">
-                                        <button className="btn btn-outline-secondary btn-friend" onClick={() => this.props.chercheAmi()}>@</button>
+                                        <button className="btn btn-outline-secondary btn-friend" onClick={() => this.chercheAmi()}>@</button>
                                     </div>
                                 </div>
 					            {<Amis userKey={this.props.userKey} 
@@ -236,7 +264,7 @@ class AcceuilPerso extends Component {
                             <div className="input-group">
                                 <textarea className="form-control area" placeholder="Exprimez vous" onInput={(evt) => {this.props.setContent(evt.target.value)}}></textarea>
                                 <div className="input-group-append">
-                                    <button className="btn btn-outline-secondary" onClick={() => this.addMessage(this.props.content)} >Go</button>
+                                    <button className="btn btn-outline-secondary" onClick={(e) => this.addMessage(this.props.content)} >Go</button>
                                 </div>
                             </div>
                         

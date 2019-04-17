@@ -111,6 +111,9 @@ class Pageperso extends Component {
             this.props.changepage("pageperso");
             this.getAbonnement();
         }
+        else{
+            alert("Je ne connais pas "+this.props.ami);
+        }
     }
 
     traiteSupprRelation(r){
@@ -145,13 +148,12 @@ class Pageperso extends Component {
     send(){
     
         var formData = new URLSearchParams();
-        console.log(this.props.userId); 
         if(this.props.userKey!==undefined)
             formData.append("userKey",this.props.userKey);
         if(this.props.ami=== "")
             formData.append("userId",this.props.userId);
         else{
-            var id;
+            var id=0;
             this.props.list_friend.map((friend) => {
                 
                 if(friend[0].login === this.props.ami){
@@ -160,6 +162,7 @@ class Pageperso extends Component {
 
             console.log(id);
             formData.append("userId",id);
+            
         }
         
         if(this.state.query!=='')
@@ -220,6 +223,27 @@ class Pageperso extends Component {
             event.preventDefault();
         }
     }
+
+    chercheAmi(){
+        console.log(this.props.ami);
+        var formData = new URLSearchParams();
+        formData.append("pseudo", this.props.ami);
+        formData.append("user_key", this.props.userKey);
+        console.log("http://localhost:8080/Twister/Profil/searchFriend?"+formData);
+        axios.get("http://localhost:8080/Twister/Profil/searchFriend?"+formData).then(r=>{this.traiteChercheAmi(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
+    }
+
+    traiteChercheAmi(r){
+        console.log(r.data);
+        if(r.data.status === "OK"){
+            this.props.setKey(r.data.new_key);
+            this.props.changepage("pageperso");
+            this.send();
+        }
+        else {
+            alert("Je ne connais pas "+ this.props.ami);
+        }
+    }
     
     render(){ 
         if(this.props.ami=== ""){
@@ -246,7 +270,7 @@ class Pageperso extends Component {
                             <div className="input-group friend-group">
                                     <textarea className="col form-control searchFriend" onInput={(evt) => {this.props.setAmi(evt.target.value)}}></textarea>
                                     <div className="input-group-append">
-                                        <button className="btn btn-outline-secondary btn-friend" onClick={() => this.props.chercheAmi()}>@</button>
+                                        <button className="btn btn-outline-secondary btn-friend" onClick={() => this.chercheAmi()}>@</button>
                                     </div>
                                 </div>
 					            <div>{<Amis userKey={this.props.userKey} 
@@ -257,7 +281,8 @@ class Pageperso extends Component {
                                                     list_friend={this.props.list_friend} 
                                                     setListFriend={this.props.setListFriend}
                                                     send={this.send}
-                                                    getAbonnement={this.getAbonnement}/>}</div>
+                                                    getAbonnement={this.getAbonnement}
+                                                    ami = {this.props.ami}/>}</div>
                             </div>
                         </div>
 
@@ -297,13 +322,13 @@ class Pageperso extends Component {
 
                 <div className="container corps">
                     <div className="row">
-                        <div class="col-3"></div>
+                        <div className="col-3"></div>
                         <div className="col-3 side">
                             <div>
                                 <div className="input-group friend-group">
                                     <textarea className="col form-control searchFriend" onInput={(evt) => {this.props.setAmi(evt.target.value)}}></textarea>
                                     <div className="input-group-append">
-                                        <button className="btn btn-outline-secondary btn-friend" onClick={() => this.props.chercheAmi()}>@</button>
+                                        <button className="btn btn-outline-secondary btn-friend" onClick={() => this.chercheAmi()}>@</button>
                                     </div>
                                 </div>
 					            <div>{<Amis userKey={this.props.userKey} 

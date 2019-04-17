@@ -25,7 +25,7 @@ class Message extends Component {
         }
     }
     render(){
-        if(this.props.auteur !== undefined){
+        if(this.props.auteur === this.props.login){
             return (
                 <div className="card">
                 <div className="card-header">@{this.props.auteur}</div>

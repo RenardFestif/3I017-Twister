@@ -21,7 +21,6 @@ class MainPage extends Component{
         this.setAmi = this.setAmi.bind(this);
         this.setListFriend = this.setListFriend.bind(this);
         this.deconnexion = this.deconnexion.bind(this);
-        this.chercheAmi = this.chercheAmi.bind(this);
         this.setContent = this.setContent.bind(this);
     }
 
@@ -47,7 +46,6 @@ class MainPage extends Component{
                                     list_friend={this.state.list_friend} 
                                     deconnexion={this.deconnexion} 
                                     setListFriend={this.setListFriend} 
-                                    chercheAmi={this.chercheAmi}
                                     setContent={this.setContent}
                                     content={this.state.content} /> 
 
@@ -63,7 +61,6 @@ class MainPage extends Component{
                                 list_friend={this.state.list_friend} 
                                 deconnexion={this.deconnexion} 
                                 setListFriend={this.setListFriend} 
-                                chercheAmi={this.chercheAmi}
                                 setContent={this.setContent}
                                 content={this.state.content}/>;
 
@@ -117,6 +114,7 @@ class MainPage extends Component{
 
     setContent(contenu){
         this.setState({content: contenu});
+        
     }
 
     deconnexion(){
@@ -132,23 +130,6 @@ class MainPage extends Component{
             this.setLogout();
         }
         this.changepage("acceuil");
-    }
-
-    chercheAmi(){
-        console.log(this.state.ami);
-        var formData = new URLSearchParams();
-        formData.append("pseudo", this.state.ami);
-        formData.append("user_key", this.state.key);
-        console.log("http://localhost:8080/Twister/Profil/searchFriend?"+formData);
-        axios.get("http://localhost:8080/Twister/Profil/searchFriend?"+formData).then(r=>{this.traiteChercheAmi(r)}).catch(errorRep => {alert("Erreur : connexion avec le serveur : "+errorRep)});
-    }
-
-    traiteChercheAmi(r){
-        console.log(r.data);
-        if(r.data.status === "OK"){
-            this.setKey(r.data.new_key);
-            this.changepage("pageperso");
-        }
     }
 
 
